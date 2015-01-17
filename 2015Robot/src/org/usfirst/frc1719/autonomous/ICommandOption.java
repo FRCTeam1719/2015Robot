@@ -1,4 +1,4 @@
-package org.usfirst.frc1719.TEST.autonomous;
+package org.usfirst.frc1719.autonomous;
 
 public interface ICommandOption {
 	/**
