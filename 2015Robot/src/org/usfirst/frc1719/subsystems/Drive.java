@@ -12,9 +12,10 @@
 package org.usfirst.frc1719.subsystems;
 
 import org.usfirst.frc1719.RobotMap;
-import org.usfirst.frc1719.commands.*;
+import org.usfirst.frc1719.commands.UseDrive;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 

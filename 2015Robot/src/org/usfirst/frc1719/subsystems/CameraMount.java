@@ -23,12 +23,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 
 public class CameraMount extends Subsystem {
+	
 	//Gives this command access to the camera servos
 	Servo yServo = RobotMap.cameraMountYServo;
     Servo xServo = RobotMap.cameraMountXServo;
+    
     //stores data when called
     double panPositionX = 0.0D;
     double panPositionY = 0.0D;
+    
     //Magic numbers
     //min and max servo positions, useful max for y servo (cannot look straight up), how fast servo pans
     private static final double SERVO_MIN = 0.0D;
@@ -55,22 +58,12 @@ public class CameraMount extends Subsystem {
     	setDefaultCommand(new DriveServos());
     }
     
-  //sets the x servo to given position
+  //sets the x servo to given position, between 0 and 1
     public void setXServoRaw(double position) {
     	panPositionX = position;
     	xServo.set(position);
     }
-    
-    //position should be between -1 and 1
-    public void setXServo(double position) {
-    	
-    	// Map the joystick; position to the servo position
-    	//Magic numbers: decreases sensitivity at the cost of range
-    	position += 2;
-    	position /= 4;
-    	panPositionX = position;
-    	xServo.set(position);
-    }
+
     
     //slowly pans in the direction of the joystick
     public void setXServoPan(double joystickPosition) {
@@ -96,17 +89,6 @@ public class CameraMount extends Subsystem {
     	if (panPositionY < SERVO_MIN) panPositionY = SERVO_MIN;
     	if (panPositionY > SERVOY_MAX) panPositionY = SERVOY_MAX;
     	yServo.set(panPositionY);
-    }
-    
-    //Same as setXServo, but for the y servo
-    public void setYServo(double position) {
-    	// Map  the joystick position to the servo position
-    	//decreases sensitivity at the cost of range
-    	position -= 2;
-    	position /= -4;
-    	
-    	panPositionY = position;
-    	yServo.set(position);
     }
     
     //sets the servo to .5,.5 the center

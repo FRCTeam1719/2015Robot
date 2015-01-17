@@ -18,7 +18,7 @@ public class TurnToCamera extends Command {
 	//Degree tolerance for target
 	private static final double TOLERANCE = 15.0D;
 	//how fast the robot turns
-	private static final double SPD = 0.5D;
+	private static final double SPEED = 0.5D;
 	private static final double NIL = 0.0D;
 	
     public TurnToCamera() {
@@ -55,7 +55,7 @@ public class TurnToCamera extends Command {
     	}
     	
     	System.out.println("Current Error: " + (target - curr));
-    	double dir = (target < curr) ? -SPD : SPD;
+    	double dir = (target < curr) ? -SPEED : SPEED;
     	Robot.drive.moveMechanum(NIL, NIL, dir);
     }
     

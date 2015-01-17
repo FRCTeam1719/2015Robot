@@ -66,10 +66,6 @@ public class  UseDrive extends Command {
     	//Drives (mechanum) given the values from the joystick
     	Robot.drive.moveCartesian(lx, ly, rx);
     	
-    	//Print statements to determine/test sensor output
-        //System.out.println("Infrared Value: " + Robot.sensors.getIRSensorValue()); 
-    	System.out.println("Encoder1 RPM: " + Robot.sensors.getEncoderRPM(1) + "  Infrared Value: " + Robot.sensors.getIRSensorValue());
-    	System.out.println("Encoder1 Count: " + Robot.sensors.getEncoderCount(1));
     }
     
     
