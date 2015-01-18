@@ -10,6 +10,8 @@ public class Elevator extends Subsystem{
 	
 	boolean LIMIT_SWITCH_ACTIVATED = false;
 	
+	boolean testHasStarted = false;
+	
 	int TOLERANCE_DEGREES = 1;
 	int ELEVATOR_POSITION = 0;
 	
@@ -49,12 +51,13 @@ public class Elevator extends Subsystem{
 		}
 		
 		elevatorMotor.set(MOTOR_STATUS_MOVING_UP);
-		ELEVATOR_POSITION++;
+		
 	}
 	
 	void moveDown() {
 		//If the limit switch cuts out
 		if (limitSwitchBottom.get() == LIMIT_SWITCH_ACTIVATED) {
+			ELEVATOR_POSITION++;
 			return;
 		}
 		
@@ -62,11 +65,40 @@ public class Elevator extends Subsystem{
 		//if the position is divisible by 360, the potentiometer is at a full turn,
 		//at which point we want to stop the elevator
 		if ( ((int) Math.floor(potentiometerPos)) % 360 == 0 ) {
+			ELEVATOR_POSITION--;
 			return;
 		}
 		
 		elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
-		ELEVATOR_POSITION--;
+		
+	}
+	
+	void test() {
+		boolean movingUp;
+		if (ELEVATOR_POSITION != 0 && !testHasStarted) {
+			moveDown();
+			return;
+		}
+		else {
+			testHasStarted = true;
+			movingUp = true;
+		}
+		
+		//If the elevator is supposed to move up
+		if (movingUp && ELEVATOR_POSITION < 5) {
+			moveUp();			
+		}
+		
+		//If the elevator is at the top
+		else if (ELEVATOR_POSITION >= 5) {
+			movingUp = false;
+		}
+		
+		//If the elevator is moving down
+		else if (!(movingUp) && ELEVATOR_POSITION > 0) {
+			moveDown();
+		}		
+		
 	}
 	
 }
