@@ -14,13 +14,14 @@ package org.usfirst.frc1719;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
+import org.usfirst.frc1719.commands.MoveElevatorDown;
+import org.usfirst.frc1719.commands.MoveElevatorUp;
 import org.usfirst.frc1719.commands.Solenoid1Off;
 import org.usfirst.frc1719.commands.Solenoid1On;
 import org.usfirst.frc1719.commands.SpinMotor;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
-import org.usfirst.frc1719.commands.MoveElevatorUp;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -83,11 +84,14 @@ public class OI {
         aButtonReleased = new JoystickButton(joystick1, 1);
         aButton = new JoystickButton(joystick1, 1);
         aButton.whileHeld(new SpinMotor());
-        yButton = new JoystickButton(joystick1, 4);
-        yButton.whenPressed(new Solenoid1On());
-        yButton.whenReleased(new Solenoid1Off());
+        //yButton = new JoystickButton(joystick1, 4);
+        //yButton.whenPressed(new Solenoid1On());
+        //yButton.whenReleased(new Solenoid1Off());
         bButton = new JoystickButton(joystick1, 2);
-        bButton.whenPressed(new MoveElevatorUp());
+        bButton.whenPressed(new MoveElevatorUp(Robot.elevator1));
+        yButton = new JoystickButton(joystick1, 4);
+        yButton.whenPressed(new MoveElevatorDown(Robot.elevator1));
+        
         
         rightBumper = new JoystickButton(joystick1, 6);
         rightBumper.whenPressed(new ToggleCamera());
