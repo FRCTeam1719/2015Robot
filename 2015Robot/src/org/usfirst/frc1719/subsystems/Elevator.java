@@ -15,18 +15,18 @@ public class Elevator extends Subsystem{
 	int TOLERANCE_DEGREES = 1;
 	int ELEVATOR_POSITION = 0;
 	
-	Relay.Value MOTOR_STATUS_MOVING_UP = Relay.Value.kForward;
-	Relay.Value MOTOR_STATUS_MOVING_DOWN = Relay.Value.kReverse;
-	Relay.Value MOTOR_STATUS_STILL = Relay.Value.kOff;
+	public static Relay.Value MOTOR_STATUS_MOVING_UP = Relay.Value.kForward;
+	public static Relay.Value MOTOR_STATUS_MOVING_DOWN = Relay.Value.kReverse;
+	public static Relay.Value MOTOR_STATUS_STILL = Relay.Value.kOff;
 	
 	//Limit switches
 	DigitalInput limitSwitchTop = new DigitalInput(0);
 	DigitalInput limitSwitchBottom = new DigitalInput(0);
 	
 	//Potentiometer
-	//if the 72 were 360, one turn of the potentiometer would give the full range of voltages,
-	//72 will make it 1/5 of that, so 5 turns will give us the full scale of voltages
-	Potentiometer pot = new AnalogPotentiometer(0, 72, 0);
+	//if the 1800 were 360, one turn of the potentiometer would give the full range of voltages,
+	//1800 will make it need 5 rotations to go across the full range of voltages.
+	Potentiometer pot = new AnalogPotentiometer(0, 1800, 0);
 	
 	//Motor
 	Relay elevatorMotor = new Relay(0);
@@ -37,7 +37,7 @@ public class Elevator extends Subsystem{
 		
 	}
 	
-	void moveUp() {
+	public void moveUp() {
 		//If the limit switch cuts out
 		if (limitSwitchTop.get() == LIMIT_SWITCH_ACTIVATED) {
 			return;
@@ -54,18 +54,10 @@ public class Elevator extends Subsystem{
 		
 	}
 	
-	void moveDown() {
+	public void moveDown() {
 		//If the limit switch cuts out
 		if (limitSwitchBottom.get() == LIMIT_SWITCH_ACTIVATED) {
 			ELEVATOR_POSITION++;
-			return;
-		}
-		
-		double potentiometerPos = pot.get();
-		//if the position is divisible by 360, the potentiometer is at a full turn,
-		//at which point we want to stop the elevator
-		if ( ((int) Math.floor(potentiometerPos)) % 360 == 0 ) {
-			ELEVATOR_POSITION--;
 			return;
 		}
 		
@@ -73,32 +65,14 @@ public class Elevator extends Subsystem{
 		
 	}
 	
-	void test() {
-		boolean movingUp;
-		if (ELEVATOR_POSITION != 0 && !testHasStarted) {
-			moveDown();
-			return;
-		}
-		else {
-			testHasStarted = true;
-			movingUp = true;
-		}
+	public void setStill() {
 		
-		//If the elevator is supposed to move up
-		if (movingUp && ELEVATOR_POSITION < 5) {
-			moveUp();			
-		}
-		
-		//If the elevator is at the top
-		else if (ELEVATOR_POSITION >= 5) {
-			movingUp = false;
-		}
-		
-		//If the elevator is moving down
-		else if (!(movingUp) && ELEVATOR_POSITION > 0) {
-			moveDown();
-		}		
-		
+		//We don't have to worry about tripping a limit switch because we won't be moving
+		elevatorMotor.set(MOTOR_STATUS_STILL);
+	}
+	
+	public int getPosition() {
+		return ELEVATOR_POSITION;
 	}
 	
 }
