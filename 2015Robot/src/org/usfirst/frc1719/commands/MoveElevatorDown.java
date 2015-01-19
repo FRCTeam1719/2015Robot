@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveElevatorUp extends Command {
+public class MoveElevatorDown extends Command {
 	
 	Elevator elevator;
 	private boolean commandIsFinished   = false;
@@ -22,7 +22,7 @@ public class MoveElevatorUp extends Command {
 	//The command starts out within the tolerance of it quitting
 	private boolean hasMovedPastTolerance = false;
 
-    public MoveElevatorUp(Elevator elevator) {
+    public MoveElevatorDown(Elevator elevator) {
     	
     	this.elevator = elevator;
         // Use requires() here to declare subsystem dependencies
@@ -42,14 +42,14 @@ public class MoveElevatorUp extends Command {
     protected void execute() {
     	
     	if (!hasMovedPastTolerance) {
-    		elevator.moveUp();
+    		elevator.moveDown();
     	}
     	
     	double elevatorPos = elevator.getPosition();
-    	elevatorPos = Math.abs(elevatorPos);
+    	elevatorPos = Math.floor(elevatorPos);
     	
     	//If the wheel is not within the tolerance
-    	if ( (Math.abs(elevatorPos) % DEGREES_PER_STEP) > TOLERANCE ) {
+    	if ( ( Math.abs(elevatorPos) % DEGREES_PER_STEP) > TOLERANCE ) {
     		
     		//if hasMovedPastTolerance is false, but the pot is past the tolerance,
     		//Update the variable
