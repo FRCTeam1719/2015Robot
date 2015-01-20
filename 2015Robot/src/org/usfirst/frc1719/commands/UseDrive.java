@@ -69,7 +69,7 @@ public class  UseDrive extends Command {
     	
     	// Try to go straight if desired using PID
     	if(flag) {
-    		if((rx > 0.0D) || ((ly == 0.0D) && (lx == 0.0D))) flag = false;
+    		if((rx != 0.0D) || ((ly == 0.0D) && (lx == 0.0D))) flag = false;
     		else {
     			double err = Robot.sensors.getGyro().getAngle();
     			double ierr = 0.0D;
