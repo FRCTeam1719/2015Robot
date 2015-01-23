@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 	private static int loopIterationNumber = 0;
 
 	public static enum EnumAutoCMD {
-		AUTO("Do NOT USE", null);
+		GCBD("Get containers using distance sensor", new GetCtrByDistance());
 		
 		final String name;
 		public final ICommandOption cmd;
