@@ -41,6 +41,14 @@ public class Sensors extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+    /**
+     * 
+     * @return the distance sensed in meters
+     */
+    public double getDistance() {
+    	return 2.0D; /* TODO replace with sensor values */
+    }
+    
     public double getEncoderRate(int index){
     	//returns an impossibly consistent, recognizable value if not working
     	double encoderValue = (-1337.0D);
