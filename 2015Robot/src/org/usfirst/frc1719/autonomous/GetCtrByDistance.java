@@ -15,10 +15,10 @@ public class GetCtrByDistance implements ICommandOption {
 	public void doCMD() {
 		switch(stage) {
 			case 0:
-				ctr_rng = ((double) Robot.sensors.getDistance()) * 0.01D;
+				ctr_rng = Robot.sensors.getDistanceM();
 				stage++;
 			case 1:
-				if(Math.abs(ctr_rng - Robot.sensors.getDistance()) > TOLERANCE_1) stage++;
+				if(Math.abs(ctr_rng - Robot.sensors.getDistanceM()) > TOLERANCE_1) stage++;
 				else {
 					Robot.drive.moveMechanum(FULL_SPEED, Math.PI / 2, NIL);
 					break;
@@ -30,7 +30,7 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 3:
-				if(Math.abs(ctr_rng - Robot.sensors.getDistance()) < TOLERANCE_2) stage++;
+				if(Math.abs(ctr_rng - Robot.sensors.getDistanceM()) < TOLERANCE_2) stage++;
 				else {
 					Robot.drive.moveMechanum(FULL_SPEED, -Math.PI / 2, NIL);
 					break;
@@ -42,7 +42,7 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 5:
-				if(Math.abs(ctr_rng - Robot.sensors.getDistance()) < TOLERANCE_2) stage--;
+				if(Math.abs(ctr_rng - Robot.sensors.getDistanceM()) < TOLERANCE_2) stage--;
 				else {
 					if(!fisherExtended()) extendFisher();
 					Robot.drive.moveMechanum(FULL_SPEED, Math.PI / 2, NIL);

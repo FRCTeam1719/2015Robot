@@ -47,8 +47,12 @@ public class Sensors extends Subsystem {
      * 
      * @return the distance sensed in centimeters
      */
-    public int getDistance() {
+    public int getDistanceCM() {
     	return lidar.getDistance();
+    }
+    
+    public double getDistanceM() {
+    	return ((double) getDistanceCM()) * 0.01D;
     }
     
     public double getEncoderRate(int index){
