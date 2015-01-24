@@ -60,7 +60,9 @@ public class  UseDrive extends Command {
     	//gets values from the joystick
     	double ly = Robot.oi.getJoystick1().getRawAxis(LEFT_Y);
     	double lx = Robot.oi.getJoystick1().getRawAxis(LEFT_X);
-    	double rx = Robot.oi.getJoystick1().getRawAxis(RIGHT_X);
+    	double rx = (!TransferCameraControl.getController()
+    			&& Robot.oi.getJoystick1().getRawButton(DriveServos.JOYSTICK_RIGHT_BUTTON)) ? 
+    			0.0D : Robot.oi.getJoystick1().getRawAxis(RIGHT_X);
     	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
     	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
@@ -69,7 +71,7 @@ public class  UseDrive extends Command {
     	
     	// Try to go straight if desired using PID
     	if(flag) {
-    		if((rx > 0.0D) || ((ly == 0.0D) && (lx == 0.0D))) flag = false;
+    		if((rx != 0.0D) || ((ly == 0.0D) && (lx == 0.0D))) flag = false;
     		else {
     			double err = Robot.sensors.getGyro().getAngle();
     			double ierr = 0.0D;
