@@ -15,7 +15,7 @@ public class GetCtrByDistance implements ICommandOption {
 	public void doCMD() {
 		switch(stage) {
 			case 0:
-				ctr_rng = Robot.sensors.getDistance();
+				ctr_rng = ((double) Robot.sensors.getDistance()) * 0.01D;
 				stage++;
 			case 1:
 				if(Math.abs(ctr_rng - Robot.sensors.getDistance()) > TOLERANCE_1) stage++;
