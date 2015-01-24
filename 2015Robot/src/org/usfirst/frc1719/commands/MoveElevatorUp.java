@@ -57,6 +57,7 @@ public class MoveElevatorUp extends Command {
     			hasMovedPastTolerance = true;
     		}
     		
+    		System.out.println("Moving up!");
     		elevator.moveUp();
     	}
     	//If the robot is within the tolerance, and it moved past the initial tolerance rance,
