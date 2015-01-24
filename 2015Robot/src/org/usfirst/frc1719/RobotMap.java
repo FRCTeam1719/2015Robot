@@ -90,7 +90,8 @@ public class RobotMap {
         //LiveWindow.addSensor("Sensors", "LimitSwitch", sensorsLimitSwitch);
         elevatorS1 = new DigitalInput(0);
         elevatorS2 = new DigitalInput(1);
-        
+  
+        /*
         sensorsQuadratureEncoder1 = new Encoder(1, 2, false, EncodingType.k4X);
         LiveWindow.addSensor("Sensors", "Quadrature Encoder 1", sensorsQuadratureEncoder1);
         sensorsQuadratureEncoder1.setDistancePerPulse(1.0);
@@ -99,6 +100,7 @@ public class RobotMap {
         LiveWindow.addSensor("Sensors", "Quadrature Encoder 2", sensorsQuadratureEncoder2);
         sensorsQuadratureEncoder2.setDistancePerPulse(1.0);
         sensorsQuadratureEncoder2.setPIDSourceParameter(PIDSourceParameter.kRate);
+        */
         
         sensorsIRSensor = new AnalogInput(3);
         LiveWindow.addSensor("Sensors", "IRSensor", sensorsIRSensor);

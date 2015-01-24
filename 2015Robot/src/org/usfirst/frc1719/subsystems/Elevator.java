@@ -28,10 +28,10 @@ public class Elevator extends Subsystem implements Testable{
 	//Potentiometer
 	//if the 1800 were 360, one turn of the potentiometer would give the full range of voltages,
 	//1800 will make it need 5 rotations to go across the full range of voltages.
-	Potentiometer pot = new AnalogPotentiometer(0, 1800, 0);
+	// Potentiometer pot = new AnalogPotentiometer(0, 1800, 0);
 	
 	//Motor
-	Relay elevatorMotor = new Relay(0);
+	// Relay elevatorMotor = new Relay(0);
 
 	@Override
 	protected void initDefaultCommand() {
@@ -40,6 +40,7 @@ public class Elevator extends Subsystem implements Testable{
 	}
 	
 	public void moveUp() {
+		/*
 		//If the limit switch cuts out
 		if (limitSwitchTop.get() == LIMIT_SWITCH_ACTIVATED) {
 			return;
@@ -53,7 +54,7 @@ public class Elevator extends Subsystem implements Testable{
 		}
 		
 		elevatorMotor.set(MOTOR_STATUS_MOVING_UP);
-		
+		*/
 	}
 	
 	public void moveDown() {
@@ -63,14 +64,14 @@ public class Elevator extends Subsystem implements Testable{
 			return;
 		}
 		
-		elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
+		// elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
 		
 	}
 	
 	public void setStill() {
 		
 		//We don't have to worry about tripping a limit switch because we won't be moving
-		elevatorMotor.set(MOTOR_STATUS_STILL);
+		// elevatorMotor.set(MOTOR_STATUS_STILL);
 	}
 	
 	public int getPosition() {
