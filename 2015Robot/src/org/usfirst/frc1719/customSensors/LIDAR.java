@@ -28,7 +28,12 @@ public class LIDAR {
 	
 	// Distance in cm
 	public int getDistance() {
-		return (((int) distance[0]) << 8) + (int) distance[1];
+		int var1 = distance[0];
+		if(var1 < 0) var1 += 256;
+		int var2 = distance[1];
+		if(var2 < 0) var2 += 256;
+		
+		return (var1 << 8) + var2;
 	}
 
 	// Start 10Hz polling

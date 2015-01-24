@@ -16,12 +16,10 @@ import org.usfirst.frc1719.customSensors.LIDAR;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
@@ -122,7 +120,7 @@ public class RobotMap {
         sensorsGyro.initGyro();
         sensorsGyro.reset();
         
-        sensorsLIDAR = new LIDAR(Port.kOnboard);
+        sensorsLIDAR = new LIDAR(Port.kMXP);
         sensorsLIDAR.start();
     }
 }
