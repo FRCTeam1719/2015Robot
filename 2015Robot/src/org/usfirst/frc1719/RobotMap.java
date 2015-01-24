@@ -128,5 +128,10 @@ public class RobotMap {
         
         sensorsLIDAR = new LIDAR(Port.kMXP);
         sensorsLIDAR.start();
+        
+        fisherSpike = new Relay(2);
+        fisherExtent = new DigitalInput(8);
+        fisherRetraction = new DigitalInput(9);
+        fisherSolenoid = new Solenoid(2);
     }
 }
