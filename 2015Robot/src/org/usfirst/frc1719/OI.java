@@ -14,10 +14,6 @@ package org.usfirst.frc1719;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
-import org.usfirst.frc1719.commands.MoveElevatorDown;
-import org.usfirst.frc1719.commands.MoveElevatorUp;
-import org.usfirst.frc1719.commands.Solenoid1Off;
-import org.usfirst.frc1719.commands.Solenoid1On;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
@@ -62,38 +58,34 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     
-    public Joystick driverJoystick;
-    public Joystick operatorJoystick;
-    public JoystickButton aButton;
-    public JoystickButton aButtonReleased;
-    public JoystickButton bButton;
-    public JoystickButton xButtonPressed;
-    public JoystickButton yButton;
-    public JoystickButton rightBumper;
-    public JoystickButton leftBumper;
+    private Joystick driverJoystick;
+    private Joystick operatorJoystick;
+    private JoystickButton bButton;
+    private JoystickButton xButtonPressed;
+    private JoystickButton yButton;
+    private JoystickButton rightBumper;
+    private JoystickButton leftBumper;
 
-    public static final int A_BUTTON = 1;
-    public static final int B_BUTTON = 2;
-    public static final int X_BUTTON = 3;
-    public static final int Y_BUTTON = 4;
-    public static final int LEFT_BUMPER = 5;
-    public static final int RIGHT_BUMPER = 6;
+    private static final int A_BUTTON = 1;
+    private static final int B_BUTTON = 2;
+    private static final int X_BUTTON = 3;
+    private static final int Y_BUTTON = 4;
+    private static final int LEFT_BUMPER = 5;
+    private static final int RIGHT_BUMPER = 6;
 
-    
+
+    // Common button between joysticks
     public static final int TRANSFER_CAMERA_CONTROL_BUTTON = 1;
+    
+    // Driver Joystick
+    
+    // Operator Joystick
     
 
     public OI() {
 
         driverJoystick = new Joystick(0);
-        
-        aButtonReleased = new JoystickButton(driverJoystick, A_BUTTON);
-        aButton = new JoystickButton(driverJoystick, A_BUTTON);
-        bButton = new JoystickButton(driverJoystick, B_BUTTON);
-        bButton.whenPressed(new MoveElevatorUp(Robot.elevator1));
-        yButton = new JoystickButton(driverJoystick, Y_BUTTON);
-        yButton.whenPressed(new MoveElevatorDown(Robot.elevator1));
-        
+        operatorJoystick = new Joystick(1);
         
         rightBumper = new JoystickButton(driverJoystick, RIGHT_BUMPER);
         rightBumper.whenPressed(new ToggleCamera());
@@ -101,7 +93,6 @@ public class OI {
         leftBumper = new JoystickButton(driverJoystick, LEFT_BUMPER);
         leftBumper.whenPressed(new TurnToCamera());
         
-        operatorJoystick = new Joystick(1);
 	    
         // Enabling one button as a time is dealt with in TransferCameraControl.execute().
         (new JoystickButton(driverJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
@@ -119,17 +110,7 @@ public class OI {
 
         xButtonPressed = new JoystickButton(operatorJoystick, 3);
         xButtonPressed.whenPressed(new CentreCamera());
-        aButtonReleased = new JoystickButton(operatorJoystick, 1);
-        aButton = new JoystickButton(operatorJoystick, 1);
-        yButton = new JoystickButton(operatorJoystick, 4);
-        yButton.whenPressed(new Solenoid1On());
-        yButton.whenReleased(new Solenoid1Off());
         
-        rightBumper = new JoystickButton(operatorJoystick, 6);
-        rightBumper.whenPressed(new ToggleCamera());
-        
-        leftBumper = new JoystickButton(operatorJoystick, 5);
-        leftBumper.whenPressed(new TurnToCamera());
     }
     
     public Joystick getDriverJoystick() {
