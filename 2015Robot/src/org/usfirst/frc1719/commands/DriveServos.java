@@ -51,11 +51,11 @@ public class  DriveServos extends Command {
     	double joystickXPosition;
     	double joystickYPosition;
     	if(ctr) {
-    		joystickXPosition = Robot.oi.joystick2.getRawAxis(JOYSTICK_RIGHT_X);
-        	joystickYPosition = Robot.oi.joystick2.getRawAxis(JOYSTICK_RIGHT_Y);
+    		joystickXPosition = Robot.oi.operatorJoystick.getRawAxis(JOYSTICK_RIGHT_X);
+        	joystickYPosition = Robot.oi.operatorJoystick.getRawAxis(JOYSTICK_RIGHT_Y);
     	} else {
-    		joystickXPosition = Robot.oi.joystick1.getRawAxis(JOYSTICK_RIGHT_X);
-        	joystickYPosition = Robot.oi.joystick1.getRawAxis(JOYSTICK_RIGHT_Y);
+    		joystickXPosition = Robot.oi.driverJoystick.getRawAxis(JOYSTICK_RIGHT_X);
+        	joystickYPosition = Robot.oi.driverJoystick.getRawAxis(JOYSTICK_RIGHT_Y);
     	}
     	
     	//pans using the values gotten from the joystick
