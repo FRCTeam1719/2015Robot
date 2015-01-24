@@ -30,6 +30,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	
+	//Magic number declarations for buttons
+	public final static int A_BUTTON = 1;
+	public final static int B_BUTTON = 2;
+	public final static int X_BUTTON = 3;
+	public final static int Y_BUTTON = 4;
+	public final static int LEFT_BUMPER  = 5;
+	public final static int RIGHT_BUMPER = 6;
+	public final static int BACK_BUTTON  = 7;
+	public final static int START_BUTTON = 8;
+	
+	public final static int LEFT_JOYSTICK_X_AXIS = 0;
+	public final static int LEFT_JOYSTICK_Y_AXIS = 1;
+	public final static int RIGHT_JOYSTICK_X_AXIS = 4;
+	public final static int RIGHT_JOYSTICK_Y_AXIS = 5;
+	public final static int LEFT_TRIGGER  = 2;
+	public final static int RIGHT_TRIGGER = 3;
+	
+	//POV is the big plus thingy
+	public final static int POV_NUMBER = 0;
+	
+    public static final int TRANSFER_CAMERA_CONTROL_BUTTON = 1;
+    
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -66,21 +89,8 @@ public class OI {
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
 
-    private static final int A_BUTTON = 1;
-    private static final int B_BUTTON = 2;
-    private static final int X_BUTTON = 3;
-    private static final int Y_BUTTON = 4;
-    private static final int LEFT_BUMPER = 5;
-    private static final int RIGHT_BUMPER = 6;
 
 
-    // Common button between joysticks
-    public static final int TRANSFER_CAMERA_CONTROL_BUTTON = 1;
-    
-    // Driver Joystick
-    
-    // Operator Joystick
-    
 
     public OI() {
 
