@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
-public class Elevator extends Subsystem{
+public class Elevator extends Subsystem implements Testable{
 	
 	boolean LIMIT_SWITCH_ACTIVATED = false;
 	
@@ -73,6 +73,12 @@ public class Elevator extends Subsystem{
 	
 	public int getPosition() {
 		return ELEVATOR_POSITION;
+	}
+
+	@Override
+	public void test() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
