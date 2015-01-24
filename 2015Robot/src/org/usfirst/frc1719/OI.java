@@ -132,11 +132,11 @@ public class OI {
         leftBumper.whenPressed(new TurnToCamera());
     }
     
-    public Joystick getJoystick1() {
+    public Joystick getDriverJoystick() {
         return driverJoystick;
     }
     
-    public Joystick getJoystick2() {
+    public Joystick getOperatorJoystick() {
     	return operatorJoystick;
     }
 

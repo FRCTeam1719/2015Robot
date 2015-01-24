@@ -43,8 +43,8 @@ public class  DriveServos extends Command {
     protected void execute() {
     	boolean ctr = TransferCameraControl.getController();
     	//The camera can only be moved if the right joystick is pushed in
-    	if((ctr && !(Robot.oi.getJoystick2().getRawButton(JOYSTICK_RIGHT_BUTTON)) )
-    			|| (!ctr && !(Robot.oi.getJoystick1().getRawButton(JOYSTICK_RIGHT_BUTTON)))) {
+    	if((ctr && !(Robot.oi.getOperatorJoystick().getRawButton(JOYSTICK_RIGHT_BUTTON)) )
+    			|| (!ctr && !(Robot.oi.getDriverJoystick().getRawButton(JOYSTICK_RIGHT_BUTTON)))) {
     		return;
     	}
     	//gets joystick values
