@@ -18,7 +18,6 @@ import org.usfirst.frc1719.commands.MoveElevatorDown;
 import org.usfirst.frc1719.commands.MoveElevatorUp;
 import org.usfirst.frc1719.commands.Solenoid1Off;
 import org.usfirst.frc1719.commands.Solenoid1On;
-import org.usfirst.frc1719.commands.SpinMotor;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
@@ -83,7 +82,6 @@ public class OI {
         
         aButtonReleased = new JoystickButton(joystick1, 1);
         aButton = new JoystickButton(joystick1, 1);
-        aButton.whileHeld(new SpinMotor());
         //yButton = new JoystickButton(joystick1, 4);
         //yButton.whenPressed(new Solenoid1On());
         //yButton.whenReleased(new Solenoid1Off());
@@ -107,7 +105,6 @@ public class OI {
 
         SmartDashboard.putData("UseDrive", new UseDrive());
 
-        SmartDashboard.putData("SpinMotor", new SpinMotor());
 
         SmartDashboard.putData("DriveServos", new DriveServos());
 
@@ -122,7 +119,6 @@ public class OI {
         xButtonPressed.whenPressed(new CentreCamera());
         aButtonReleased = new JoystickButton(joystick2, 1);
         aButton = new JoystickButton(joystick2, 1);
-        aButton.whileHeld(new SpinMotor());
         yButton = new JoystickButton(joystick2, 4);
         yButton.whenPressed(new Solenoid1On());
         yButton.whenReleased(new Solenoid1Off());

@@ -54,6 +54,7 @@ public class MoveElevatorUp extends Command {
     		//if hasMovedPastTolerance is false, but the pot is past the tolerance,
     		//Update the variable
     		if (!hasMovedPastTolerance) {
+    			System.out.println("hasMovedPastTolerance changed!");
     			hasMovedPastTolerance = true;
     		}
     		
@@ -62,7 +63,8 @@ public class MoveElevatorUp extends Command {
     	}
     	//If the robot is within the tolerance, and it moved past the initial tolerance rance,
     	//Then we are done
-    	if ( !((Math.abs(elevatorPos) % DEGREES_PER_STEP) > TOLERANCE) && hasMovedPastTolerance) {
+    	if ( !((Math.abs(elevatorPos) % DEGREES_PER_STEP) < TOLERANCE) && hasMovedPastTolerance) {
+    		System.out.println("Elevator finished!");
     		elevator.setStill();
     		commandIsFinished = true;
     	}
