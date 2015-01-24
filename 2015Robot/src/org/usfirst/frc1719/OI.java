@@ -14,8 +14,10 @@ package org.usfirst.frc1719;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
+import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveElevatorDown;
 import org.usfirst.frc1719.commands.MoveElevatorUp;
+import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.Solenoid1Off;
 import org.usfirst.frc1719.commands.Solenoid1On;
 import org.usfirst.frc1719.commands.ToggleCamera;
@@ -130,6 +132,9 @@ public class OI {
         
         leftBumper = new JoystickButton(operatorJoystick, 5);
         leftBumper.whenPressed(new TurnToCamera());
+        
+        (new JoystickButton(operatorJoystick, X_BUTTON)).whenPressed(new ExtendFisher());
+        (new JoystickButton(operatorJoystick, Y_BUTTON)).whenPressed(new RetractFisher());
     }
     
     public Joystick getJoystick1() {
