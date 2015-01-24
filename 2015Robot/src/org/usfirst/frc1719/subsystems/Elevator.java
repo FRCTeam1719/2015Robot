@@ -1,5 +1,7 @@
 package org.usfirst.frc1719.subsystems;
 
+import org.usfirst.frc1719.RobotMap;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
@@ -20,8 +22,8 @@ public class Elevator extends Subsystem{
 	public static Relay.Value MOTOR_STATUS_STILL = Relay.Value.kOff;
 	
 	//Limit switches
-	DigitalInput limitSwitchTop = new DigitalInput(0);
-	DigitalInput limitSwitchBottom = new DigitalInput(0);
+	DigitalInput limitSwitchTop = RobotMap.elevatorS1;
+	DigitalInput limitSwitchBottom = RobotMap.elevatorS2;
 	
 	//Potentiometer
 	//if the 1800 were 360, one turn of the potentiometer would give the full range of voltages,
