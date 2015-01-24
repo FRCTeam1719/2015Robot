@@ -108,4 +108,3 @@ public class Sensors extends Subsystem {
 		return value * ENCODER_CORRECTION_VALUE;
 	}
 }
-
