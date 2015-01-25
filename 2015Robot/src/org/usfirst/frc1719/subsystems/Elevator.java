@@ -1,16 +1,13 @@
 package org.usfirst.frc1719.subsystems;
 
-import org.usfirst.frc1719.RobotMap;
 import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem implements Testable {
+public class Elevator extends DualimitedSpike implements Testable {
 	
-	public static boolean LIMIT_SWITCH_ACTIVATED = true;
 	public static int POTENTIOMETER_SCALE_FACTOR = 3600;
 	public static int POTENTIOMETER_DEGREES_PER_TURN = 360;
 	public static int POTENTIOMETER_TOLERANCE = 3;
@@ -24,36 +21,22 @@ public class Elevator extends Subsystem implements Testable {
 	private double potPos = 0;
 	
 	private int elevatorNum;
-	public static Relay.Value MOTOR_STATUS_MOVING_UP = Relay.Value.kForward;
-	public static Relay.Value MOTOR_STATUS_MOVING_DOWN = Relay.Value.kReverse;
-	public static Relay.Value MOTOR_STATUS_STILL = Relay.Value.kOff;
-
 	DigitalInput limitSwitchTop;;
 	DigitalInput limitSwitchBottom;
 	AnalogPotentiometer elevatorPot;
-	Relay elevatorMotor;
+	DualimitedSpike elevatorMotor;
 	
-	public Elevator(int elevatorNum) {
-		this.elevatorNum = elevatorNum;
+	public Elevator(AnalogPotentiometer elevatorPot, 
+					Relay elevatorSpike,
+					DigitalInput limitSwitchTop,
+					DigitalInput limitSwitchBottom) {
+		super(elevatorSpike, limitSwitchTop, limitSwitchBottom);
 		
-		if (elevatorNum == ELEVATOR_BACK) {
-			limitSwitchTop = RobotMap.backElevatorSwitchTop;
-			limitSwitchBottom = RobotMap.backElevatorSwitchBottom;
-			elevatorPot = RobotMap.backElevatorPot;
-			elevatorMotor = RobotMap.backElevatorMotor;
-		}
-		
-		else if (elevatorNum == ELEVATOR_FRONT) {
-			limitSwitchTop = RobotMap.frontElevatorSwitchTop;
-			limitSwitchBottom = RobotMap.frontElevatorSwitchBottom;
-			elevatorPot = RobotMap.frontElevatorPot;
-			elevatorMotor = RobotMap.frontElevatorMotor;
-		}
-		
+		this.elevatorPot = elevatorPot;
 	}
 
 	@Override
-	protected void initDefaultCommand() {
+	public void initDefaultCommand() {
 		if (elevatorNum == ELEVATOR_FRONT) {
 			setDefaultCommand(new UseElevator(ELEVATOR_FRONT));
 		}
@@ -62,15 +45,8 @@ public class Elevator extends Subsystem implements Testable {
 		}
 	}
 	
+	//Moves elevator up
 	public boolean moveUp() {
-		
-		//If the limit switch cuts out
-		if (atTop() ) {
-			setStill();
-			return false;
-		}
-		
-		potPos = elevatorPot.get();
 		
 		//If the potentiometer position is within the desired range
 		if (atPotPos()) {
@@ -78,43 +54,31 @@ public class Elevator extends Subsystem implements Testable {
 			return false;
 		}
 		
-		elevatorMotor.set(MOTOR_STATUS_MOVING_UP);
+		
+		//Extend moves it up
+		elevatorMotor.extend();
 		return true;
 		
 	}
 	
+	//Moves elevator down
 	public boolean moveDown() {
-		
-		//If the limit switch's limit is reached
-		if (atBottom()) {
-			setStill();
-			return false;
-		}				
-		
-		potPos = elevatorPot.get();
-		
+				
 		//If the potentiometer is within the correct range
 		if (atPotPos()) {
 			setStill();
 			return false;
 		}
 		
-		elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
+		//Retract moves it down
+		elevatorMotor.retract();
 		
 		return true;
 	}
 	
-	private boolean atTop() {
-		return limitSwitchTop.get() == LIMIT_SWITCH_ACTIVATED;
-	}
-
-	public boolean atBottom() {
-		return limitSwitchBottom.get() == LIMIT_SWITCH_ACTIVATED;
-	}
-	
 	public void setStill() {
 		//We don't have to worry about tripping a limit switch because we won't be moving
-		elevatorMotor.set(MOTOR_STATUS_STILL);
+		elevatorMotor.off();
 	}
 
 	@Override

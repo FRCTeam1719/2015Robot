@@ -47,16 +47,14 @@ public class UseElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//System.out.println("UseElevator");
+
     	joystickY = Robot.oi.getOperatorJoystick().getRawAxis(joystickNum);
     	
     	//If the joystick is up
     	if (joystickY < JOYSTICK_FLICK_TOLERANCE_UP) {
-    		System.out.println("REGISTERED UP!");
     		
     		//If moveUp failed
     		if (elevator.moveUp() == false) {
-    			System.out.println("BAD UP");
     			elevator.setStill();
     			done = true;
     		}
