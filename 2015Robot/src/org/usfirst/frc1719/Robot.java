@@ -19,6 +19,7 @@ import org.usfirst.frc1719.commands.TestDrive;
 import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
+import org.usfirst.frc1719.subsystems.Fisher;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
 import org.usfirst.frc1719.subsystems.Testable;
@@ -62,6 +63,7 @@ public class Robot extends IterativeRobot {
     public static Pneumatics pneumatics;
     public static Sensors sensors;
     public static CameraMount cameraMount;
+    public static Fisher fisher;
     public static Elevator frontElevator;
     public static Elevator backElevator;
     public ArrayList<Testable> devices = new ArrayList<Testable>();
@@ -80,6 +82,8 @@ public class Robot extends IterativeRobot {
         pneumatics = new Pneumatics();
         sensors = new Sensors();
         cameraMount = new CameraMount();
+        fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherExtent,
+        		RobotMap.fisherRetraction, RobotMap.fisherSolenoid);
         frontElevator = new Elevator(Elevator.ELEVATOR_FRONT);
         backElevator = new Elevator(Elevator.ELEVATOR_BACK);
         devices.add(drive);
