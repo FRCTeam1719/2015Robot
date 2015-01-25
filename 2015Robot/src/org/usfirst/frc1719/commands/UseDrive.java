@@ -12,11 +12,12 @@
 package org.usfirst.frc1719.commands;
 
 //import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.RobotMap;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-
-import org.usfirst.frc1719.Robot;
 
 /**
  *
@@ -33,6 +34,7 @@ public class  UseDrive extends Command {
 	//is used to slow down the print return of the gyro when testing
 	//Currently Unused
 	//private int i = 0;
+	
 	
 	
     public UseDrive() {
@@ -53,11 +55,11 @@ public class  UseDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//gets values from the joystick
-    	double ly = Robot.oi.getJoystick1().getRawAxis(LEFT_Y);
-    	double lx = Robot.oi.getJoystick1().getRawAxis(LEFT_X);
+    	double ly = Robot.oi.getDriverJoystick().getRawAxis(LEFT_Y);
+    	double lx = Robot.oi.getDriverJoystick().getRawAxis(LEFT_X);
     	double rx = (!TransferCameraControl.getController()
-    			&& Robot.oi.getJoystick1().getRawButton(DriveServos.JOYSTICK_RIGHT_BUTTON)) ? 
-    			0.0D : Robot.oi.getJoystick1().getRawAxis(RIGHT_X);
+    			&& Robot.oi.getDriverJoystick().getRawButton(DriveServos.JOYSTICK_RIGHT_BUTTON)) ? 
+    			0.0D : Robot.oi.getDriverJoystick().getRawAxis(RIGHT_X);
     	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
     	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
@@ -72,6 +74,8 @@ public class  UseDrive extends Command {
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
     	}
+    	
+    	System.out.println(Robot.sensors.getEncoderRate(1));
     }
     
     
