@@ -110,6 +110,9 @@ public class Robot extends IterativeRobot {
         }
         SmartDashboard.putData("Autonomous Style", autoCMDChooser);
         
+        SmartDashboard.putNumber("KP", 0.03D);
+        SmartDashboard.putNumber("KI", 0.001D);
+        SmartDashboard.putNumber("KD", 0.0001D);
     }
 
     /**
