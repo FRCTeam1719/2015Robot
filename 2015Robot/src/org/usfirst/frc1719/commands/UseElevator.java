@@ -65,6 +65,8 @@ public class UseElevator extends Command {
     	else {
     		elevator.setStill();
     	}
+    	
+    	//System.out.println(elevator.getPotPos());
     }
 
     // Make this return true when this Command no longer needs to run execute()

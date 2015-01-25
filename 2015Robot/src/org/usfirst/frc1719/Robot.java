@@ -22,7 +22,6 @@ import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
 import org.usfirst.frc1719.subsystems.Testable;
-import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;

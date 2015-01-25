@@ -14,20 +14,21 @@ public class Elevator extends Subsystem implements Testable {
 	public static int POTENTIOMETER_SCALE_FACTOR = 3600;
 	public static int POTENTIOMETER_DEGREES_PER_TURN = 360;
 	public static int POTENTIOMETER_TOLERANCE = 20;
-	public static double DESIRED_POT_POS = 1000;
+	public static double DESIRED_POT_POS = 500;
 	public static int ELEVATOR_BACK  = 0;
 	public static int ELEVATOR_FRONT = 1;
 	
-	boolean done = false;
-	boolean hasMovedPastTolerance = false;
-	public boolean stepHasFinished = true;
+	public static double POTENTIOMETER_MIN = 0.0D;
+	public static double POTENTIOMETER_MAX = 3610D;
 	
-	int elevatorNum;
+	private double potPos = 0;
+	
+	private int elevatorNum;
 	public static Relay.Value MOTOR_STATUS_MOVING_UP = Relay.Value.kForward;
 	public static Relay.Value MOTOR_STATUS_MOVING_DOWN = Relay.Value.kReverse;
 	public static Relay.Value MOTOR_STATUS_STILL = Relay.Value.kOff;
 
-	DigitalInput limitSwitchTop;
+	DigitalInput limitSwitchTop;;
 	DigitalInput limitSwitchBottom;
 	AnalogPotentiometer elevatorPot;
 	Relay elevatorMotor;
@@ -62,57 +63,49 @@ public class Elevator extends Subsystem implements Testable {
 	}
 	
 	public boolean moveUp() {
+		
 		//If the limit switch cuts out
 		if (atTop() ) {
-			System.out.println("LIMIT SWITCH ACTIVATED");
 			setStill();
 			return false;
 		}
 		
-		double potPos = elevatorPot.get();
+		potPos = elevatorPot.get();
 		
-		if (atPotPos(potPos) ) {
-			System.out.println("POT POS REACHED");
+		//If the potentiometer position is within the desired range
+		if (potPos < DESIRED_POT_POS + 50 && potPos >  (DESIRED_POT_POS)) {
 			setStill();
 			return false;
 		}
 		
-		System.out.println("MOVING UP");
 		elevatorMotor.set(MOTOR_STATUS_MOVING_UP);
 		return true;
 		
-	}
-
-	private boolean atTop() {
-		return limitSwitchTop.get() == LIMIT_SWITCH_ACTIVATED;
 	}
 	
 	public boolean moveDown() {
 		
 		//If the limit switch's limit is reached
 		if (atBottom()) {
-			System.out.println("LIMIT SWITCH ACTIVATED");
 			setStill();
 			return false;
 		}				
 		
-		//If the potentiometer is at the correct position
-		double potPos = elevatorPot.get();
+		potPos = elevatorPot.get();
 		
-		if (atPotPos(potPos)) {
-			System.out.println("AT POT POS");
+		//If the potentiometer is within the correct range
+		if (potPos > DESIRED_POT_POS && potPos < (DESIRED_POT_POS + 50)) {
 			setStill();
 			return false;
 		}
-		
-		System.out.println("Moving Down!");
+
 		elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
 		
 		return true;
 	}
-
-	private boolean atPotPos(double potPos) {
-		return potPos < DESIRED_POT_POS;
+	
+	private boolean atTop() {
+		return limitSwitchTop.get() == LIMIT_SWITCH_ACTIVATED;
 	}
 
 	public boolean atBottom() {
@@ -128,6 +121,19 @@ public class Elevator extends Subsystem implements Testable {
 	public void test() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public double getPotPos() {
+		potPos = elevatorPot.get();
+		return potPos;
+	}
+	
+	public double getPotPerc() {
+		potPos = elevatorPot.get();
+		
+		double percent = (POTENTIOMETER_MAX / potPos) * 100;
+		
+		return percent;
 	}
 
 }
