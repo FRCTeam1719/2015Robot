@@ -28,7 +28,7 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 2:
-				if(extendFisher()) stage++;
+				if(Robot.fisher.extend()) stage++;
 				else break;
 			case 3:
 				if(Math.abs(ctr_rng - Robot.sensors.getDistanceM()) < TOLERANCE_2) {
@@ -45,14 +45,14 @@ public class GetCtrByDistance implements ICommandOption {
 					time = new Date();
 				}
 				else {
-					retractFisher();
+					Robot.fisher.retract();
 					Robot.drive.moveCartesian(NIL, SPD, NIL);
 					break;
 				}
 			case 5:
 				if(((new Date()).getTime() - time.getTime()) > RETREAT_TIME) stage++;
 				else {
-					extendFisher();
+					Robot.fisher.extend();
 					Robot.drive.moveCartesian(NIL, -SPD, NIL);
 				}
 			case 6:
@@ -67,16 +67,5 @@ public class GetCtrByDistance implements ICommandOption {
 	@Override
 	public boolean done() {
 		return false;
-	}
-
-	// Template methods for use until we get the fisher API integrated.
-	private boolean extendFisher() {
-		System.out.println("Extending Fisher");
-		return true;
-	}
-	
-	private boolean retractFisher() {
-		System.out.println("Retracting Fisher");
-		return true;
 	}
 }

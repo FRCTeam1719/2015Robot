@@ -46,7 +46,8 @@ public class Robot extends IterativeRobot {
 
 	public static enum EnumAutoCMD {
 		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
-		TEST("Go right", new DriveRight());
+		TEST("Go right", new DriveRight()),
+		NONE("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
 		
 		final String name;
 		public final ICommandOption cmd;
