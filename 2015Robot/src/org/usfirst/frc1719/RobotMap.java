@@ -99,7 +99,7 @@ public class RobotMap {
         frontElevatorSwitchTop = new DigitalInput(0);
         frontElevatorSwitchBottom = new DigitalInput(1);
         frontElevatorMotor = new Relay(0);
-        frontElevatorPot = new AnalogPotentiometer(1, Elevator.POTENTIOMETER_SCALE_FACTOR, -3.652);
+        frontElevatorPot = new AnalogPotentiometer(1, Elevator.POTENTIOMETER_SCALE_FACTOR, -3.6595);
   
        
         sensorsQuadratureEncoder1 = new Encoder(2, 3, false, EncodingType.k4X);

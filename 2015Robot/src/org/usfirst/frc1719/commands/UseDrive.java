@@ -13,9 +13,7 @@ package org.usfirst.frc1719.commands;
 
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
-import org.usfirst.frc1719.RobotMap;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -99,8 +97,7 @@ public class  UseDrive extends Command {
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
     	}
-    	
-    	System.out.println(Robot.sensors.getEncoderRate(1));
+ 
     }
     
     

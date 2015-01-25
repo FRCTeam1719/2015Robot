@@ -13,7 +13,7 @@ public class Elevator extends Subsystem implements Testable {
 	public static boolean LIMIT_SWITCH_ACTIVATED = true;
 	public static int POTENTIOMETER_SCALE_FACTOR = 3600;
 	public static int POTENTIOMETER_DEGREES_PER_TURN = 360;
-	public static int POTENTIOMETER_TOLERANCE = 20;
+	public static int POTENTIOMETER_TOLERANCE = 3;
 	public static double DESIRED_POT_POS = 500;
 	public static int ELEVATOR_BACK  = 0;
 	public static int ELEVATOR_FRONT = 1;
@@ -73,7 +73,7 @@ public class Elevator extends Subsystem implements Testable {
 		potPos = elevatorPot.get();
 		
 		//If the potentiometer position is within the desired range
-		if (potPos < DESIRED_POT_POS + 50 && potPos >  (DESIRED_POT_POS)) {
+		if (atPotPos()) {
 			setStill();
 			return false;
 		}
@@ -94,11 +94,11 @@ public class Elevator extends Subsystem implements Testable {
 		potPos = elevatorPot.get();
 		
 		//If the potentiometer is within the correct range
-		if (potPos > DESIRED_POT_POS && potPos < (DESIRED_POT_POS + 50)) {
+		if (atPotPos()) {
 			setStill();
 			return false;
 		}
-
+		
 		elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
 		
 		return true;
@@ -123,6 +123,7 @@ public class Elevator extends Subsystem implements Testable {
 		
 	}
 	
+	
 	public double getPotPos() {
 		potPos = elevatorPot.get();
 		return potPos;
@@ -131,9 +132,20 @@ public class Elevator extends Subsystem implements Testable {
 	public double getPotPerc() {
 		potPos = elevatorPot.get();
 		
-		double percent = (POTENTIOMETER_MAX / potPos) * 100;
+		double percent = (potPos / POTENTIOMETER_MAX) * 100;
 		
 		return percent;
 	}
 
+	public boolean atPotPos() {
+	
+		int perc = (int) (getPotPerc());
+		
+		if ((perc % 10) < 2) {
+			return true;
+		}
+		
+		//If it isn't
+		return false;
+	}
 }
