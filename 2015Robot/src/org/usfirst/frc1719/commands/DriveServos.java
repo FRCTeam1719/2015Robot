@@ -21,9 +21,9 @@ import org.usfirst.frc1719.Robot;
 public class  DriveServos extends Command {
 	//Magic numbers
 	//finds the input from the numbers
-	final int JOYSTICK_RIGHT_X = 4;
-	final int JOYSTICK_RIGHT_Y = 5;
-	final int JOYSTICK_RIGHT_BUTTON = 10;
+	static final int JOYSTICK_RIGHT_X = 4;
+	static final int JOYSTICK_RIGHT_Y = 5;
+	public static final int JOYSTICK_RIGHT_BUTTON = 10;
 
     public DriveServos() {
         // Use requires() here to declare subsystem dependencies
@@ -41,13 +41,22 @@ public class  DriveServos extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	boolean ctr = TransferCameraControl.getController();
     	//The camera can only be moved if the right joystick is pushed in
-    	if( !(Robot.oi.getJoystick2().getRawButton(JOYSTICK_RIGHT_BUTTON)) ) {
+    	if((ctr && !(Robot.oi.getOperatorJoystick().getRawButton(JOYSTICK_RIGHT_BUTTON)) )
+    			|| (!ctr && !(Robot.oi.getDriverJoystick().getRawButton(JOYSTICK_RIGHT_BUTTON)))) {
     		return;
     	}
     	//gets joystick values
-    	double joystickXPosition = Robot.oi.joystick2.getRawAxis(JOYSTICK_RIGHT_X);
-    	double joystickYPosition = Robot.oi.joystick2.getRawAxis(JOYSTICK_RIGHT_Y);
+    	double joystickXPosition;
+    	double joystickYPosition;
+    	if(ctr) {
+    		joystickXPosition = Robot.oi.getOperatorJoystick().getRawAxis(JOYSTICK_RIGHT_X);
+        	joystickYPosition = Robot.oi.getOperatorJoystick().getRawAxis(JOYSTICK_RIGHT_Y);
+    	} else {
+    		joystickXPosition = Robot.oi.getDriverJoystick().getRawAxis(JOYSTICK_RIGHT_X);
+        	joystickYPosition = Robot.oi.getDriverJoystick().getRawAxis(JOYSTICK_RIGHT_Y);
+    	}
     	
     	//pans using the values gotten from the joystick
     	Robot.cameraMount.setXServoPan(joystickXPosition);

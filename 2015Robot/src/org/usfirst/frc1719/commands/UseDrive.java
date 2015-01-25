@@ -58,9 +58,11 @@ public class  UseDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//gets values from the joystick
-    	double ly = Robot.oi.getJoystick1().getRawAxis(LEFT_Y);
-    	double lx = Robot.oi.getJoystick1().getRawAxis(LEFT_X);
-    	double rx = Robot.oi.getJoystick1().getRawAxis(RIGHT_X);
+    	double ly = Robot.oi.getDriverJoystick().getRawAxis(LEFT_Y);
+    	double lx = Robot.oi.getDriverJoystick().getRawAxis(LEFT_X);
+    	double rx = (!TransferCameraControl.getController()
+    			&& Robot.oi.getDriverJoystick().getRawButton(DriveServos.JOYSTICK_RIGHT_BUTTON)) ? 
+    			0.0D : Robot.oi.getDriverJoystick().getRawAxis(RIGHT_X);
     	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
     	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
@@ -69,7 +71,7 @@ public class  UseDrive extends Command {
     	
     	// Try to go straight if desired using PID
     	if(flag) {
-    		if((rx > 0.0D) || ((ly == 0.0D) && (lx == 0.0D))) flag = false;
+    		if((rx != 0.0D) || ((ly == 0.0D) && (lx == 0.0D))) flag = false;
     		else {
     			double err = Robot.sensors.getGyro().getAngle();
     			double ierr = 0.0D;
@@ -91,6 +93,10 @@ public class  UseDrive extends Command {
     	
     	//Drives (mechanum) given the values from the joystick
     	Robot.drive.moveCartesian(lx, ly, rx);
+    	
+    	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
+    		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
+    	}
     }
     
     
