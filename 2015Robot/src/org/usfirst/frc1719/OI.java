@@ -103,6 +103,7 @@ public class OI {
         leftBumper = new JoystickButton(driverJoystick, LEFT_BUMPER);
         leftBumper.whenPressed(new TurnToCamera());
         
+        
 	    
         // Enabling one button as a time is dealt with in TransferCameraControl.execute().
         (new JoystickButton(driverJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
@@ -120,6 +121,7 @@ public class OI {
 
         xButtonPressed = new JoystickButton(operatorJoystick, 3);
         xButtonPressed.whenPressed(new CentreCamera());
+        
         
         (new JoystickButton(operatorJoystick, X_BUTTON)).whenPressed(new ExtendFisher());
         (new JoystickButton(operatorJoystick, Y_BUTTON)).whenPressed(new RetractFisher());
