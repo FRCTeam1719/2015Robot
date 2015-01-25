@@ -1,81 +1,120 @@
 package org.usfirst.frc1719.subsystems;
 
 import org.usfirst.frc1719.RobotMap;
+import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
-public class Elevator extends Subsystem implements Testable{
+public class Elevator extends Subsystem implements Testable {
 	
-	boolean LIMIT_SWITCH_ACTIVATED = false;
+	public static boolean LIMIT_SWITCH_ACTIVATED = true;
+	public static int POTENTIOMETER_SCALE_FACTOR = 3600;
+	public static int POTENTIOMETER_DEGREES_PER_TURN = 360;
+	public static int POTENTIOMETER_TOLERANCE = 20;
+	public static double DESIRED_POT_POS = 500;
+	public static int ELEVATOR_BACK  = 0;
+	public static int ELEVATOR_FRONT = 1;
 	
-	boolean testHasStarted = false;
+	public static double POTENTIOMETER_MIN = 0.0D;
+	public static double POTENTIOMETER_MAX = 3610D;
 	
-	int TOLERANCE_DEGREES = 1;
-	int ELEVATOR_POSITION = 0;
+	private double potPos = 0;
 	
+	private int elevatorNum;
 	public static Relay.Value MOTOR_STATUS_MOVING_UP = Relay.Value.kForward;
 	public static Relay.Value MOTOR_STATUS_MOVING_DOWN = Relay.Value.kReverse;
 	public static Relay.Value MOTOR_STATUS_STILL = Relay.Value.kOff;
+
+	DigitalInput limitSwitchTop;;
+	DigitalInput limitSwitchBottom;
+	AnalogPotentiometer elevatorPot;
+	Relay elevatorMotor;
 	
-	//Limit switches
-	DigitalInput limitSwitchTop = RobotMap.elevatorS1;
-	DigitalInput limitSwitchBottom = RobotMap.elevatorS2;
-	
-	//Potentiometer
-	//if the 1800 were 360, one turn of the potentiometer would give the full range of voltages,
-	//1800 will make it need 5 rotations to go across the full range of voltages.
-	// Potentiometer pot = new AnalogPotentiometer(0, 1800, 0);
-	
-	//Motor
-	// Relay elevatorMotor = new Relay(0);
+	public Elevator(int elevatorNum) {
+		this.elevatorNum = elevatorNum;
+		
+		if (elevatorNum == ELEVATOR_BACK) {
+			limitSwitchTop = RobotMap.backElevatorSwitchTop;
+			limitSwitchBottom = RobotMap.backElevatorSwitchBottom;
+			elevatorPot = RobotMap.backElevatorPot;
+			elevatorMotor = RobotMap.backElevatorMotor;
+		}
+		
+		else if (elevatorNum == ELEVATOR_FRONT) {
+			limitSwitchTop = RobotMap.frontElevatorSwitchTop;
+			limitSwitchBottom = RobotMap.frontElevatorSwitchBottom;
+			elevatorPot = RobotMap.frontElevatorPot;
+			elevatorMotor = RobotMap.frontElevatorMotor;
+		}
+		
+	}
 
 	@Override
 	protected void initDefaultCommand() {
-		
-		
+		if (elevatorNum == ELEVATOR_FRONT) {
+			setDefaultCommand(new UseElevator(ELEVATOR_FRONT));
+		}
+		if (elevatorNum == ELEVATOR_BACK) {
+			setDefaultCommand(new UseElevator(ELEVATOR_BACK));
+		}
 	}
 	
-	public void moveUp() {
-		/*
+	public boolean moveUp() {
+		
 		//If the limit switch cuts out
-		if (limitSwitchTop.get() == LIMIT_SWITCH_ACTIVATED) {
-			return;
+		if (atTop() ) {
+			setStill();
+			return false;
 		}
 		
-		double potentiometerPos = pot.get();
-		//if the position is divisible by 360, the potentiometer is at a full turn,
-		//at which point we want to stop the elevator
-		if ( ((int) Math.floor(potentiometerPos)) % 360 == 0 ) {
-			return;
+		potPos = elevatorPot.get();
+		
+		//If the potentiometer position is within the desired range
+		if (potPos < DESIRED_POT_POS + 50 && potPos >  (DESIRED_POT_POS)) {
+			setStill();
+			return false;
 		}
 		
 		elevatorMotor.set(MOTOR_STATUS_MOVING_UP);
-		*/
+		return true;
+		
 	}
 	
-	public void moveDown() {
-		//If the limit switch cuts out
-		if (limitSwitchBottom.get() == LIMIT_SWITCH_ACTIVATED) {
-			ELEVATOR_POSITION++;
-			return;
+	public boolean moveDown() {
+		
+		//If the limit switch's limit is reached
+		if (atBottom()) {
+			setStill();
+			return false;
+		}				
+		
+		potPos = elevatorPot.get();
+		
+		//If the potentiometer is within the correct range
+		if (potPos > DESIRED_POT_POS && potPos < (DESIRED_POT_POS + 50)) {
+			setStill();
+			return false;
 		}
+
+		elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
 		
-		// elevatorMotor.set(MOTOR_STATUS_MOVING_DOWN);
-		
+		return true;
+	}
+	
+	private boolean atTop() {
+		return limitSwitchTop.get() == LIMIT_SWITCH_ACTIVATED;
+	}
+
+	public boolean atBottom() {
+		return limitSwitchBottom.get() == LIMIT_SWITCH_ACTIVATED;
 	}
 	
 	public void setStill() {
-		
 		//We don't have to worry about tripping a limit switch because we won't be moving
-		// elevatorMotor.set(MOTOR_STATUS_STILL);
-	}
-	
-	public int getPosition() {
-		return ELEVATOR_POSITION;
+		elevatorMotor.set(MOTOR_STATUS_STILL);
 	}
 
 	@Override
@@ -84,4 +123,17 @@ public class Elevator extends Subsystem implements Testable{
 		
 	}
 	
+	public double getPotPos() {
+		potPos = elevatorPot.get();
+		return potPos;
+	}
+	
+	public double getPotPerc() {
+		potPos = elevatorPot.get();
+		
+		double percent = (POTENTIOMETER_MAX / potPos) * 100;
+		
+		return percent;
+	}
+
 }
