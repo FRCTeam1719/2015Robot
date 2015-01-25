@@ -12,11 +12,10 @@
 package org.usfirst.frc1719.commands;
 
 //import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc1719.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-
-
 
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
@@ -52,6 +51,7 @@ public class  UseDrive extends Command {
 	private boolean directionPrevent = false;
 	//Creating the lidar and infrared sensors
 	Sensors sensor = new Sensors();
+	
 	
 	
     public UseDrive() {
@@ -139,6 +139,7 @@ public class  UseDrive extends Command {
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
     	}
+ 
     }
     
     // Make this return true when this Command no longer needs to run execute()

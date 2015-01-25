@@ -14,6 +14,8 @@ package org.usfirst.frc1719;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
+import org.usfirst.frc1719.commands.ExtendFisher;
+import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
@@ -83,9 +85,7 @@ public class OI {
     
     private Joystick driverJoystick;
     private Joystick operatorJoystick;
-    private JoystickButton bButton;
     private JoystickButton xButtonPressed;
-    private JoystickButton yButton;
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
 
@@ -121,6 +121,8 @@ public class OI {
         xButtonPressed = new JoystickButton(operatorJoystick, 3);
         xButtonPressed.whenPressed(new CentreCamera());
         
+        (new JoystickButton(operatorJoystick, X_BUTTON)).whenPressed(new ExtendFisher());
+        (new JoystickButton(operatorJoystick, Y_BUTTON)).whenPressed(new RetractFisher());
     }
     
     public Joystick getDriverJoystick() {
