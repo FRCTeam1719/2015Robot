@@ -58,9 +58,9 @@ public class Drive extends Subsystem implements Testable {
 
 	public void moveCartesian(double x, double y, double rot) {
 		// get PID constants
-		double KP = SmartDashboard.getNumber("KP");
-		double KI = SmartDashboard.getNumber("KI");
-		double KD = SmartDashboard.getNumber("KD");
+		double KP = SmartDashboard.getNumber("KP") * 0.001D;
+		double KI = SmartDashboard.getNumber("KI") * 0.001D;
+		double KD = SmartDashboard.getNumber("KD") * 0.001D;
 		// Try to go straight if desired using PID
     	if(flag) {
     		if((rot != 0.0D) || ((y == 0.0D) && (x == 0.0D))) flag = false;
