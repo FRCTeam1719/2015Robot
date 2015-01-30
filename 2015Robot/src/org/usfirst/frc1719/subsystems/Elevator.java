@@ -8,15 +8,13 @@ import edu.wpi.first.wpilibj.Relay;
 
 public class Elevator extends DualimitedSpike implements Testable {
 	
-	public static int POTENTIOMETER_SCALE_FACTOR = 3600;
-	public static int POTENTIOMETER_DEGREES_PER_TURN = 360;
+	public static int POTENTIOMETER_SCALE_FACTOR = 100;
 	public static int POTENTIOMETER_TOLERANCE = 3;
-	public static double DESIRED_POT_POS = 500;
 	public static int ELEVATOR_BACK  = 0;
 	public static int ELEVATOR_FRONT = 1;
 	
 	public static double POTENTIOMETER_MIN = 0.0D;
-	public static double POTENTIOMETER_MAX = 3610D;
+	public static double POTENTIOMETER_MAX = 100D;
 	
 	private double potPos = 0;
 	

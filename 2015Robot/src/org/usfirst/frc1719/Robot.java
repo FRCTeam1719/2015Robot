@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
-import org.usfirst.frc1719.commands.PreventMovement;
 import org.usfirst.frc1719.commands.TestDrive;
 import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Drive;

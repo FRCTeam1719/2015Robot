@@ -13,12 +13,10 @@ package org.usfirst.frc1719.commands;
 
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc1719.Robot;
-import org.usfirst.frc1719.subsystems.Sensors;
 
 /**
  *
