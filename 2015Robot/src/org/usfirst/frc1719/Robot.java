@@ -86,9 +86,15 @@ public class Robot extends IterativeRobot {
         cameraMount = new CameraMount();
         fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherExtent,
         		RobotMap.fisherRetraction, RobotMap.fisherSolenoid);
-        frontElevator = new Elevator(Elevator.ELEVATOR_FRONT);
-        backElevator = new Elevator(Elevator.ELEVATOR_BACK);
+
         claws = new Claws();
+
+        frontElevator = new Elevator(RobotMap.frontElevatorPot,
+        							 RobotMap.frontElevatorMotor,
+        							 RobotMap.frontElevatorSwitchTop,
+        							 RobotMap.frontElevatorSwitchBottom);
+        
+       // backElevator = new Elevator(Elevator.ELEVATOR_BACK);
         devices.add(drive);
         devices.add(frontElevator);
         devices.add(backElevator);
@@ -113,6 +119,9 @@ public class Robot extends IterativeRobot {
         }
         SmartDashboard.putData("Autonomous Style", autoCMDChooser);
         
+        SmartDashboard.putNumber("KP", 45.0D);
+        SmartDashboard.putNumber("KI", 0.001D);
+        SmartDashboard.putNumber("KD", 5.0D);
     }
 
     /**
@@ -154,6 +163,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	loopIterationNumber++;
         Scheduler.getInstance().run();
+        
     }
 
     /**

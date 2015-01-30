@@ -13,6 +13,7 @@ package org.usfirst.frc1719.commands;
 
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,9 +26,10 @@ public class  UseDrive extends Command {
 	private static final int LEFT_X = 0;
 	private static final int LEFT_Y = 1;
 	private static final int RIGHT_X = 4;
-	private static final double KP = 0.03D;
-	private static final double KI = 0.001D;
-	private static final double KD = 0.0001D;
+	//magic numbers: directions to prevent
+	private static final boolean FRONT = true;
+	private static final boolean BACK = false;
+	
 	//Currently unused
 	//private static final int RIGHT_Y = 5;
 	//Tolerance for dead zone to make it possible to completely stop the robot
@@ -35,8 +37,13 @@ public class  UseDrive extends Command {
 	//is used to slow down the print return of the gyro when testing
 	//Currently Unused
 	//private int i = 0;
-	private boolean flag = true;
-	private double[] pastErr = new double[0];
+
+	//Should a direction be prevented for robot movement?
+	private boolean preventMovement = false;
+	//which direction to prevent movement?
+	private boolean directionPrevent = false;
+	//Creating the lidar and infrared sensors
+	Sensors sensor = new Sensors();
 	
 	
 	
@@ -57,6 +64,18 @@ public class  UseDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	//Is it nec
+    	preventMovement = false;
+		System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
+		if(sensor.getDistance()<70){
+			preventMovement = true;
+			directionPrevent = BACK;
+		}
+		else if(sensor.getIRSensorValue()>200000){
+			preventMovement = true;
+			directionPrevent = FRONT;
+		}
+		
     	//gets values from the joystick
     	double ly = Robot.oi.getDriverJoystick().getRawAxis(LEFT_Y);
     	double lx = Robot.oi.getDriverJoystick().getRawAxis(LEFT_X);
@@ -69,38 +88,30 @@ public class  UseDrive extends Command {
     	if (Math.abs(lx) < TOLERANCE) lx = 0.0D;
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
     	
-    	// Try to go straight if desired using PID
-    	if(flag) {
-    		if((rx != 0.0D) || ((ly == 0.0D) && (lx == 0.0D))) flag = false;
-    		else {
-    			double err = Robot.sensors.getGyro().getAngle();
-    			double ierr = 0.0D;
-    			for(int i = 0; i < pastErr.length; i++) {
-    				ierr += pastErr[i];
+    	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
+    	if(preventMovement == true){
+    		if(directionPrevent==FRONT){
+    			if(ly>0){
+    				ly = -0.1D;
+    				if(sensor.getDistance()<50) ly = -0.3D;
     			}
-    			double derr = (pastErr.length == 0) ? 0.0D : err - pastErr[pastErr.length - 1];
-    			rx = -(KP * err + KI * ierr + KD * derr);
-    			double[] nperr = new double[pastErr.length + 1];
-    			System.arraycopy(pastErr, 0, nperr, 0, pastErr.length);
-    			nperr[pastErr.length] = err;
-    			pastErr = nperr;
     		}
-    	} else if((rx == 0.0D) && ((ly != 0.0D) || (lx != 0.0D))) {
-    		Robot.sensors.getGyro().reset();
-    		pastErr = new double[0];
-    		flag = true;
+    		else if(directionPrevent==BACK){
+    			if(ly<0){
+    				ly = 0.1D;
+    				if(sensor.getIRSensorValue()>2.6) ly = 0.3D;
+    			}
+    		}
     	}
-    	
+
     	//Drives (mechanum) given the values from the joystick
     	Robot.drive.moveCartesian(lx, ly, rx);
     	
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
     	}
-    	
-    	System.out.println(Robot.sensors.getEncoderRate(1));
+ 
     }
-    
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
