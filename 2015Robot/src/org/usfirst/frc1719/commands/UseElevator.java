@@ -50,30 +50,9 @@ public class UseElevator extends Command {
 
     	joystickY = Robot.oi.getOperatorJoystick().getRawAxis(joystickNum);
     	
-    	//If the joystick is up
-    	if (joystickY < JOYSTICK_FLICK_TOLERANCE_UP) {
+    	if (elevator.isMoving()) {
     		
-    		//If moveUp failed
-    		if (elevator.moveUp() == false) {
-    			elevator.setStill();
-    			done = true;
-    		}
     	}
-    	
-    	//If the joystick is down
-    	else if (joystickY > JOYSTICK_FLICK_TOLERANCE_DOWN) {
-    		
-    		//If moveDown failed
-    		if (elevator.moveDown() == false) {
-    			elevator.setStill();
-    			done = true;
-    		}
-    	}
-    	else {
-    		elevator.setStill();
-    	}
-    	
-    	elevator.atPotPos();
     }
 
     // Make this return true when this Command no longer needs to run execute()
