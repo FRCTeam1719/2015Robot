@@ -58,8 +58,15 @@ public abstract class DualimitedSpike extends Subsystem {
     		spike.set(Relay.Value.kOff);
     		return true;
     	}
+    	
     	spike.set(Relay.Value.kReverse);
     	return false;
+    }
+    
+    //PlzDunkan,
+    public void off() {
+    	//We don't need to worry about limit switches because the motor won't be moving
+    	spike.set(Relay.Value.kOff);
     }
 }
 
