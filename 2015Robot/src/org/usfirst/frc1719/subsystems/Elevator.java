@@ -56,10 +56,10 @@ public class Elevator extends DualimitedSpike implements Testable {
 	 */
 	boolean testCompletedInit = false;
 	boolean movingUp = true;
-	
 	//Used for timing
 	int startingIterationNumber; //The robot's loopIteration number when the test starts
 	int loopIterationNumber; //Our program will loop 100 times per second
+	boolean startPausing = true;
 	
 	public Elevator(int elevatorNum,
 					AnalogPotentiometer elevatorPot, 
@@ -163,7 +163,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 		int perc = (int) (getPotPerc());
 		
-		if ((perc % 10) < POTENTIOMETER_TOLERANCE) {
+		if ((perc % 20) < POTENTIOMETER_TOLERANCE) {
 			return true;
 		}
 		
@@ -201,6 +201,8 @@ public class Elevator extends DualimitedSpike implements Testable {
 			return; //Don't do anything until the elevator is at the bottom
 		}
 		
+		loopIterationNumber = Robot.getLoopIterationNumber();
+		
 		if (isMoving()) {
 			
 			//If we are moving without paying attention to the potentiometer
@@ -209,15 +211,40 @@ public class Elevator extends DualimitedSpike implements Testable {
 				//If we are past the pot pos
 				if (!atPotPos()) {
 					
-					if (getDirection() == MOVE_DIRECTION_UP) {
-						//Start paying attention to the potentiometer again
+					if (movingUp) {
 						moveUp();
 					}
-					if (getDirection() == MOVE_DIRECTION_DOWN) {
+					else {
 						//Start paying attention to the potentiometer again
 						moveDown();
 					}
 				}
+				//If we are at the pot pos
+				else {
+					if (startPausing) {
+						startingIterationNumber = Robot.getLoopIterationNumber();
+						
+						startPausing = false;
+					}
+				}
+			}
+		}
+		//If the elevator is still
+		else {
+			if (getLimitSwitchExtVal()) {
+				movingUp = false;
+			}
+			//If more than half a second has passed since we started pausing
+			if (loopIterationNumber - startingIterationNumber > 50) {
+				if (movingUp) {
+					moveFreeUp();
+				}
+				else {
+					moveFreeDown();
+				}
+			}
+			else {
+				setStill();
 			}
 		}
 		
