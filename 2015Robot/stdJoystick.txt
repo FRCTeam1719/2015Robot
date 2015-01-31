@@ -1,0 +1,10 @@
+Axes
+=======
+0 - X
+1 - Y
+2 - speed control knob
+
+Buttons
+=======
+1 - Trigger
+[2-11] - As labeled
