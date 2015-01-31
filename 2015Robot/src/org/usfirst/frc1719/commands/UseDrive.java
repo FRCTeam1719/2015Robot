@@ -110,7 +110,11 @@ public class  UseDrive extends Command {
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
     	}
- 
+    	
+    	if(Robot.auto && Robot.drive.flag) {
+    		double x = Robot.sensors.getGyro().getAngle() / 180.0D;
+    		if(Math.abs(x) > 1.0D) Robot.cameraMount.setXServoRaw(x);
+    	}
     }
     
     // Make this return true when this Command no longer needs to run execute()
