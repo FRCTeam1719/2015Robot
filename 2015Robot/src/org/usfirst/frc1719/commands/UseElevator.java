@@ -36,8 +36,7 @@ public class UseElevator extends Command {
     		joystickNum = OI.LEFT_JOYSTICK_Y_AXIS;
     	}
     	
-    	requires(Robot.frontElevator);
-    	requires(Robot.backElevator);
+    	requires(elevator);
     	
     }
 
