@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 
+//TODO (CH0NC0) IMPLEMENT TESTABLE
+
 public class Fisher extends DualimitedSpike {
 
 	private Solenoid fisherSolenoid;
