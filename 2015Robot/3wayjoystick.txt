@@ -1,0 +1,11 @@
+Axes
+========
+0 - X
+1 - Y
+2 - Rotation
+3 - Side slider
+
+Buttons
+========
+1 - Trigger
+[2,7] - labeled on joystick
