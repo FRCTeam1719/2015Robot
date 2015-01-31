@@ -108,6 +108,7 @@ public class GetCtrByDistance implements ICommandOption {
 				}
 				if(Math.abs(ctr_rng - Robot.sensors.getDistanceM()) < TOLERANCE_2) {
 					stage = 4;
+					time = new Date();
 					System.out.println("Completed stage 7 (final); returning to stage 4");
 					printlns = true;
 				}
