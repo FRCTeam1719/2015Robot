@@ -14,7 +14,7 @@ package org.usfirst.frc1719.commands;
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
-
+import org.usfirst.frc1719.subsystems.Elevator;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -44,6 +44,7 @@ public class  UseDrive extends Command {
 	private boolean directionPrevent = false;
 	//Creating the lidar and infrared sensors
 	Sensors sensor = new Sensors();
+	//Accessing the elevators (front and back)
 	
 	
 	

@@ -107,13 +107,24 @@ public class Sensors extends Subsystem implements Testable {
 	public double correctEncoderValue(double value) {
 		return value * ENCODER_CORRECTION_VALUE;
 	}
+	
+	public double getPotentiometerValue(int index){
+		if(index == 1){
+			return RobotMap.frontElevatorPot.get();
+		}
+		if(index == 2){
+			return RobotMap.backElevatorPot.get();
+		}
+		return -1;
+	}
 
 	@Override
 	public void test() {
 		try {
 			System.out.println("LIDAR Distance (cm): " + getDistance());
 			System.out.println("Encoder speeds (RPM): " + getEncoderRPM(1) + " | " + getEncoderRPM(2));
-			System.out.println("IR value (mV): " + getIRSensorValue());
+			//System.out.println("IR value (mV): " + getIRSensorValue());
+			System.out.println("Potentiometer Values (0 bottome to 100 top): " + getPotentiometerValue(1) + " | " + getPotentiometerValue(2));
 			System.out.println("");
 		} catch(final Throwable t) {
 			System.err.println("SENSOR TEST FAILURE\n" + t.getClass().toString() + ": " + t.getMessage() + "thrown.");

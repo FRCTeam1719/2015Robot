@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Relay;
 public class Elevator extends DualimitedSpike implements Testable {
 	
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
+	public static int PERCENT_PER_LEVEL = 10;
 	public static int POTENTIOMETER_TOLERANCE = 3;
 	public static int ELEVATOR_BACK  = 0;
 	public static int ELEVATOR_FRONT = 1;
@@ -88,6 +89,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	public double getPotPos() {
 		potPos = elevatorPot.get();
+		
 		return potPos;
 	}
 	
@@ -97,6 +99,12 @@ public class Elevator extends DualimitedSpike implements Testable {
 		double percent = (potPos / POTENTIOMETER_MAX) * 100;
 		
 		return percent;
+	}
+	
+	public double getPotLevel(){
+		double level = getPotPerc() / PERCENT_PER_LEVEL;
+		
+		return level;
 	}
 
 	public boolean atPotPos() {
