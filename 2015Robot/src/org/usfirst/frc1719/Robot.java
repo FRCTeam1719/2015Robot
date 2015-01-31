@@ -83,13 +83,18 @@ public class Robot extends IterativeRobot {
         cameraMount = new CameraMount();
         fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherExtent,
         		RobotMap.fisherRetraction, RobotMap.fisherSolenoid);
+        
         frontElevator = new Elevator(Elevator.ELEVATOR_FRONT,
         							 RobotMap.frontElevatorPot,
         							 RobotMap.frontElevatorMotor,
         							 RobotMap.frontElevatorSwitchTop,
         							 RobotMap.frontElevatorSwitchBottom);
         
-       // backElevator = new Elevator(Elevator.ELEVATOR_BACK);
+        backElevator = new Elevator(Elevator.ELEVATOR_BACK,
+        							RobotMap.backElevatorPot,
+        							RobotMap.backElevatorMotor,
+        							RobotMap.backElevatorSwitchTop,
+        							RobotMap.backElevatorSwitchBottom);
         devices.add(drive);
         /*devices.add(frontElevator);
         devices.add(backElevator);*/
@@ -158,7 +163,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	loopIterationNumber++;
+    	//System.out.println("Ultrasonic: " + Robot.sensors.getUltraSonicValueInches());
+    	loopIterationNumber++; 
         Scheduler.getInstance().run();
         
     }

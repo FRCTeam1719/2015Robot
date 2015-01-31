@@ -38,7 +38,7 @@ public abstract class DualimitedSpike extends Subsystem {
      * the full extent switch is pressed.
      * @return true if the full extent switch has been reached, false otherwise.
      */
-    public boolean extend() {
+    public boolean forwards() {
     	if(limitSwitchExt.get()) {
     		spike.set(Relay.Value.kOff);
     		return true;
@@ -53,7 +53,7 @@ public abstract class DualimitedSpike extends Subsystem {
      * the full retraction switch is pressed.
      * @return true if the full retraction switch has been reached, false otherwise.
      */
-    public boolean retract() {
+    public boolean backwards() {
     	if(limitSwitchRet.get()) {
     		spike.set(Relay.Value.kOff);
     		return true;

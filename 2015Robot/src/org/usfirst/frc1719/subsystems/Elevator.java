@@ -1,7 +1,6 @@
 package org.usfirst.frc1719.subsystems;
 
 import org.usfirst.frc1719.Robot;
-import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -44,10 +43,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	//Direction of the elevator
 	private int moveDirection = ELEVATOR_STILL;
-	
-	//Which elevator it is
-	private int elevatorNum;
-	
+		
 	//Potentiometer
 	AnalogPotentiometer elevatorPot;
 	
@@ -66,16 +62,12 @@ public class Elevator extends DualimitedSpike implements Testable {
 					Relay elevatorSpike,
 					DigitalInput limitSwitchTop,
 					DigitalInput limitSwitchBottom) {
-
 		super(elevatorSpike, limitSwitchTop, limitSwitchBottom);
 		
-		this.elevatorPot = elevatorPot;
-		this.elevatorNum = elevatorNum;
-	}
+		this.elevatorPot = elevatorPot;	}
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new UseElevator(elevatorNum) );
 	}
 	
 	//Moves elevator up in steps
@@ -89,7 +81,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		
 		
 		//Extend moves it up
-		extend();
+		forwards();
 		elevatorIsMoving = true;
 		moveType = MOVE_TYPE_STEP;
 		moveDirection = MOVE_DIRECTION_UP;
@@ -107,7 +99,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		}
 		
 		//Retract moves it down
-		retract();
+		backwards();
 		moveType = MOVE_TYPE_STEP;
 		moveDirection = MOVE_DIRECTION_DOWN;
 		elevatorIsMoving = true;
@@ -117,8 +109,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	//Moves elevator up freely
 	public void moveFreeUp() {
-		
-		extend();
+		forwards();
 		moveType = MOVE_TYPE_FREE;
 		moveDirection = MOVE_DIRECTION_UP;
 		elevatorIsMoving = true;
@@ -127,7 +118,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Moves elevator down freely
 	public void moveFreeDown() {
 		
-		retract();
+		backwards();
 		moveType = MOVE_TYPE_FREE;
 		moveDirection = MOVE_DIRECTION_DOWN;
 		elevatorIsMoving = true;
@@ -162,8 +153,10 @@ public class Elevator extends DualimitedSpike implements Testable {
 	public boolean atPotPos() {
 	
 		int perc = (int) (getPotPerc());
+		System.out.println("Perc: " + perc);
 		
-		if ((perc % 20) < POTENTIOMETER_TOLERANCE) {
+		if ((perc % 10) < POTENTIOMETER_TOLERANCE) {
+			System.out.println("AT POT POS");
 			return true;
 		}
 		

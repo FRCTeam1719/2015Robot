@@ -66,7 +66,7 @@ public class  UseDrive extends Command {
     protected void execute() {
     	//Is it nec
     	preventMovement = false;
-		System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
+		//System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
 		if(sensor.getDistance()<70){
 			preventMovement = true;
 			directionPrevent = BACK;
