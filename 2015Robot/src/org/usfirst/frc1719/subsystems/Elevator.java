@@ -1,5 +1,6 @@
 package org.usfirst.frc1719.subsystems;
 
+import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -54,8 +55,11 @@ public class Elevator extends DualimitedSpike implements Testable {
 	 * Variables used for testing
 	 */
 	boolean testCompletedInit = false;
-	
 	boolean movingUp = true;
+	
+	//Used for timing
+	int startingIterationNumber; //The robot's loopIteration number when the test starts
+	int loopIterationNumber; //Our program will loop 100 times per second
 	
 	public Elevator(int elevatorNum,
 					AnalogPotentiometer elevatorPot, 
@@ -188,11 +192,35 @@ public class Elevator extends DualimitedSpike implements Testable {
 		if (!testCompletedInit) {
 			if (getLimitSwitchRetVal()) {
 				testCompletedInit = true;
+				startingIterationNumber = Robot.getLoopIterationNumber();
 			}
 			else {
 				moveFreeDown();
 			}
+			
+			return; //Don't do anything until the elevator is at the bottom
 		}
+		
+		if (isMoving()) {
+			
+			//If we are moving without paying attention to the potentiometer
+			if (getMoveType() == MOVE_TYPE_FREE) {
+				
+				//If we are past the pot pos
+				if (!atPotPos()) {
+					
+					if (getDirection() == MOVE_DIRECTION_UP) {
+						//Start paying attention to the potentiometer again
+						moveUp();
+					}
+					if (getDirection() == MOVE_DIRECTION_DOWN) {
+						//Start paying attention to the potentiometer again
+						moveDown();
+					}
+				}
+			}
+		}
+		
 		
 	}
 	
