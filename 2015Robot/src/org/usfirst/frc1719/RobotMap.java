@@ -58,6 +58,7 @@ public class RobotMap {
     public static DigitalInput fisherExtent;
     public static DigitalInput fisherRetraction;
     public static Solenoid fisherSolenoid;
+    public static Solenoid fisherGearboxSolenoid;
     
     public static Gyro sensorsGyro;
 	public static LIDAR sensorsLIDAR;
@@ -144,5 +145,6 @@ public class RobotMap {
         fisherExtent = new DigitalInput(8);
         fisherRetraction = new DigitalInput(9);
         fisherSolenoid = new Solenoid(2);
+        fisherGearboxSolenoid = new Solenoid(3);
     }
 }

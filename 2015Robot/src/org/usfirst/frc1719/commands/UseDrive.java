@@ -45,7 +45,8 @@ public class  UseDrive extends Command {
 	//Creating the lidar and infrared sensors
 	Sensors sensor = new Sensors();
 	//Accessing the elevators (front and back)
-	
+	Elevator backElevator = Robot.backElevator;
+	Elevator frontElevator = Robot.frontElevator;
 	
 	
     public UseDrive() {
@@ -68,11 +69,11 @@ public class  UseDrive extends Command {
     	//Is it nec
     	preventMovement = false;
 		System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
-		if(sensor.getDistance()<70){
+		if(sensor.getDistance() < 70 && backElevator.getPotLevel() >= 2){
 			preventMovement = true;
 			directionPrevent = BACK;
 		}
-		else if(sensor.getIRSensorValue()>200000){
+		else if(sensor.getIRSensorValue() > 200000 && frontElevator.getPotLevel() >= 2){
 			preventMovement = true;
 			directionPrevent = FRONT;
 		}

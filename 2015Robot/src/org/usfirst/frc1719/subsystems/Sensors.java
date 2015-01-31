@@ -123,7 +123,7 @@ public class Sensors extends Subsystem implements Testable {
 		try {
 			System.out.println("LIDAR Distance (cm): " + getDistance());
 			System.out.println("Encoder speeds (RPM): " + getEncoderRPM(1) + " | " + getEncoderRPM(2));
-			//System.out.println("IR value (mV): " + getIRSensorValue());
+			System.out.println("IR value (mV): " + getIRSensorValue());
 			System.out.println("Potentiometer Values (0 bottome to 100 top): " + getPotentiometerValue(1) + " | " + getPotentiometerValue(2));
 			System.out.println("");
 		} catch(final Throwable t) {
