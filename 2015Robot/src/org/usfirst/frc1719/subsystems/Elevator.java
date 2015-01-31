@@ -52,23 +52,20 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	DualimitedSpike elevatorMotor;
 	
-	public Elevator(AnalogPotentiometer elevatorPot, 
+	public Elevator(int elevatorNum,
+					AnalogPotentiometer elevatorPot, 
 					Relay elevatorSpike,
 					DigitalInput limitSwitchTop,
 					DigitalInput limitSwitchBottom) {
 		super(elevatorSpike, limitSwitchTop, limitSwitchBottom);
 		
 		this.elevatorPot = elevatorPot;
+		this.elevatorNum = elevatorNum;
 	}
 
 	@Override
 	public void initDefaultCommand() {
-		if (elevatorNum == ELEVATOR_FRONT) {
-			setDefaultCommand(new UseElevator(ELEVATOR_FRONT));
-		}
-		if (elevatorNum == ELEVATOR_BACK) {
-			setDefaultCommand(new UseElevator(ELEVATOR_BACK));
-		}
+		setDefaultCommand(new UseElevator(elevatorNum) );
 	}
 	
 	//Moves elevator up in steps
