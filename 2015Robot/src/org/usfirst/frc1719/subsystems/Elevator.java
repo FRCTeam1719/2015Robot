@@ -21,9 +21,18 @@ public class Elevator extends DualimitedSpike implements Testable {
 	public static double POTENTIOMETER_MIN = 0.0D;
 	public static double POTENTIOMETER_MAX = 100D;
 	
-	public static int ELEVATOR_MOVING_FREE = 1;
-	public static int ELEVATOR_MOVING_STEP = -1;
+	//Whether the elevator is moving in free mode or step
+	public static int MOVE_TYPE_FREE = 1;
+	public static int MOVE_TYPE_STEP = -1;
+	
+	//The direction that the elevator is moving
+	public static int MOVE_DIRECTION_UP = 1;
+	public static int MOVE_DIRECTION_DOWN = -1;
+	
+	//Indicates that the elevator isn't moving at all
 	public static int ELEVATOR_STILL = 0;
+	
+	
 	
 	//Potentiometer's position
 	private double potPos = 0;
@@ -34,8 +43,13 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Whether the elevator is moving freely or in steps
 	private int moveType = ELEVATOR_STILL;
 	
+	//Direction of the elevator
+	private int moveDirection = ELEVATOR_STILL;
+	
 	private int elevatorNum;
+	
 	AnalogPotentiometer elevatorPot;
+	
 	DualimitedSpike elevatorMotor;
 	
 	public Elevator(AnalogPotentiometer elevatorPot, 
@@ -57,7 +71,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		}
 	}
 	
-	//Moves elevator up
+	//Moves elevator up in steps
 	public boolean moveUp() {
 		
 		//If the potentiometer position is within the desired range
@@ -70,11 +84,13 @@ public class Elevator extends DualimitedSpike implements Testable {
 		//Extend moves it up
 		elevatorMotor.extend();
 		elevatorIsMoving = true;
+		moveType = MOVE_TYPE_STEP;
+		moveDirection = MOVE_DIRECTION_UP;
 		return true;
 		
 	}
 	
-	//Moves elevator down
+	//Move elevator down in steps
 	public boolean moveDown() {
 				
 		//If the potentiometer is within the correct range
@@ -85,27 +101,38 @@ public class Elevator extends DualimitedSpike implements Testable {
 		
 		//Retract moves it down
 		elevatorMotor.retract();
+		moveType = MOVE_TYPE_STEP;
+		moveDirection = MOVE_DIRECTION_DOWN;
 		elevatorIsMoving = true;
 		
 		return true;
 	}
 	
-	void moveFreeUp() {
+	//Moves elevator up freely
+	public void moveFreeUp() {
 		
 		elevatorMotor.extend();
+		moveType = MOVE_TYPE_FREE;
+		moveDirection = MOVE_DIRECTION_UP;
 		elevatorIsMoving = true;
 	}
 	
-	void moveFreeDown() {
+	//Moves elevator down freely
+	public void moveFreeDown() {
 		
 		elevatorMotor.retract();
+		moveType = MOVE_TYPE_FREE;
+		moveDirection = MOVE_DIRECTION_DOWN;
 		elevatorIsMoving = true;
 	}
 	
+	//Stops elevator movement
 	public void setStill() {
 		
 		//We don't have to worry about tripping a limit switch because we won't be moving
 		elevatorMotor.off();
+		moveType = ELEVATOR_STILL;
+		moveDirection = ELEVATOR_STILL;
 		elevatorIsMoving = false;
 	}
 
@@ -150,5 +177,10 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Whether the elevator is moving in free mode or step mode
 	public int getMoveType() {
 		return moveType;
+	}
+	
+	//Gets the direction of the elevator's movement
+	public int getDirection() {
+		return moveDirection;
 	}
 }

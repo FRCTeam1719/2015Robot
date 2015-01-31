@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class UseElevator extends Command {
 	
-	public static double JOYSTICK_FLICK_TOLERANCE_UP   = -0.8D;
-	public static double JOYSTICK_FLICK_TOLERANCE_DOWN = 0.8D;
-	public static double JOYSTICK_RETURN_TOLERANCE = 0.1D;
+	public static double JOYSTICK_FLICK_TOLERANCE = 0.8D;
+	public static double JOYSTICK_RETURN_TOLERANCE = 0.2D;
 	public static double JOYSTICK_DEFAULT_POS = 0.5D;	
 	
 	boolean done = false;
+	private boolean joystickHasReturned = true;
 	
 	int joystickNum;
 	double joystickY = 0.0D;
@@ -52,6 +52,48 @@ public class UseElevator extends Command {
     	
     	if (elevator.isMoving()) {
     		
+    		if (elevator.getMoveType() == Elevator.MOVE_TYPE_FREE) {
+    			
+    			//If the elevator has moved past the potPos, change it to stepping,
+    			//So that it will stop at future PotPos's
+    			if (!elevator.atPotPos()) {
+    				
+    				//If the elevator was moving down,
+    				if (elevator.getDirection() == Elevator.MOVE_DIRECTION_DOWN) {
+    					elevator.moveDown();
+    				}
+    				//If it was moving up
+    				else if (elevator.getDirection() == Elevator.MOVE_DIRECTION_UP) {
+    					elevator.moveUp();
+    				}
+    				
+    			}
+    		}
+    	}
+    	
+    	//The elevator is still
+    	else {
+    		
+    		//If the joystick isn't in the middle
+    		if (!(Math.abs(joystickY) < JOYSTICK_FLICK_TOLERANCE)) {
+    			if (joystickHasReturned) {
+    				
+    				//If the joystick was flicked up
+    				if (joystickY > 0) {
+    					
+    					//Move the elevator without regard for potPos,
+    					//This will allow it to move past the potentiometer's tolerance
+    					elevator.moveFreeUp();
+    				}
+    				//If it was flicked down
+    				else if (joystickY > 0) {
+    					
+    					//Move the elevator without regard for potPos
+    					//This will allow it to move past the potentiometer's tolerance
+    					elevator.moveFreeDown();
+    				}
+    			}
+    		}
     	}
     }
 
