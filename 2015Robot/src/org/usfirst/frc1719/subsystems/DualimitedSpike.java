@@ -68,5 +68,13 @@ public abstract class DualimitedSpike extends Subsystem {
     	//We don't need to worry about limit switches because the motor won't be moving
     	spike.set(Relay.Value.kOff);
     }
+    
+    public boolean getLimitSwitchRetVal() {
+    	return limitSwitchRet.get();
+    }
+    
+    public boolean getLimitSwitchExtVal() {
+    	return limitSwitchExt.get();
+    }
 }
 

@@ -32,8 +32,6 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Indicates that the elevator isn't moving at all
 	public static int ELEVATOR_STILL = 0;
 	
-	
-	
 	//Potentiometer's position
 	private double potPos = 0;
 	
@@ -46,17 +44,25 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Direction of the elevator
 	private int moveDirection = ELEVATOR_STILL;
 	
+	//Which elevator it is
 	private int elevatorNum;
 	
+	//Potentiometer
 	AnalogPotentiometer elevatorPot;
 	
-	DualimitedSpike elevatorMotor;
+	/*
+	 * Variables used for testing
+	 */
+	boolean testCompletedInit = false;
+	
+	boolean movingUp = true;
 	
 	public Elevator(int elevatorNum,
 					AnalogPotentiometer elevatorPot, 
 					Relay elevatorSpike,
 					DigitalInput limitSwitchTop,
 					DigitalInput limitSwitchBottom) {
+
 		super(elevatorSpike, limitSwitchTop, limitSwitchBottom);
 		
 		this.elevatorPot = elevatorPot;
@@ -79,7 +85,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		
 		
 		//Extend moves it up
-		elevatorMotor.extend();
+		extend();
 		elevatorIsMoving = true;
 		moveType = MOVE_TYPE_STEP;
 		moveDirection = MOVE_DIRECTION_UP;
@@ -97,7 +103,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		}
 		
 		//Retract moves it down
-		elevatorMotor.retract();
+		retract();
 		moveType = MOVE_TYPE_STEP;
 		moveDirection = MOVE_DIRECTION_DOWN;
 		elevatorIsMoving = true;
@@ -108,7 +114,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Moves elevator up freely
 	public void moveFreeUp() {
 		
-		elevatorMotor.extend();
+		extend();
 		moveType = MOVE_TYPE_FREE;
 		moveDirection = MOVE_DIRECTION_UP;
 		elevatorIsMoving = true;
@@ -117,7 +123,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Moves elevator down freely
 	public void moveFreeDown() {
 		
-		elevatorMotor.retract();
+		retract();
 		moveType = MOVE_TYPE_FREE;
 		moveDirection = MOVE_DIRECTION_DOWN;
 		elevatorIsMoving = true;
@@ -127,18 +133,13 @@ public class Elevator extends DualimitedSpike implements Testable {
 	public void setStill() {
 		
 		//We don't have to worry about tripping a limit switch because we won't be moving
-		elevatorMotor.off();
+		off();
 		moveType = ELEVATOR_STILL;
 		moveDirection = ELEVATOR_STILL;
 		elevatorIsMoving = false;
 	}
 
-	@Override
-	public void test() {
-		// TODO Auto-generated method stub
 		
-	}
-	
 	
 	public double getPotPos() {
 		potPos = elevatorPot.get();
@@ -180,4 +181,19 @@ public class Elevator extends DualimitedSpike implements Testable {
 	public int getDirection() {
 		return moveDirection;
 	}
+	
+	@Override
+	public void test() {
+		
+		if (!testCompletedInit) {
+			if (getLimitSwitchRetVal()) {
+				testCompletedInit = true;
+			}
+			else {
+				moveFreeDown();
+			}
+		}
+		
+	}
+	
 }
