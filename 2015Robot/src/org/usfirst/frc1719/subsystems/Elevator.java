@@ -4,6 +4,7 @@ import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class Elevator extends DualimitedSpike implements Testable {
 	
@@ -20,10 +21,10 @@ public class Elevator extends DualimitedSpike implements Testable {
 	private int elevatorNum;
 	DigitalInput limitSwitchTop;;
 	DigitalInput limitSwitchBottom;
-	AnalogPotentiometer elevatorPot;
+	Potentiometer elevatorPot;
 	DualimitedSpike elevatorMotor;
 	
-	public Elevator(AnalogPotentiometer elevatorPot, 
+	public Elevator(Potentiometer elevatorPot, 
 					Relay elevatorSpike,
 					DigitalInput limitSwitchTop,
 					DigitalInput limitSwitchBottom) {
