@@ -151,8 +151,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	double x = Robot.sensors.getGyro().getAngle() / 180.0D;
-    	if(Math.abs(x) <= 1.0D) Robot.cameraMount.setXServoRaw(-x);
+    	double x = Robot.sensors.getGyro().getAngle() / 360.0D;
+    	if(Math.abs(x) <= 0.5D) Robot.cameraMount.setXServoRaw(0.5D - x);
     	loopIterationNumber++;
         Scheduler.getInstance().run();
     }
