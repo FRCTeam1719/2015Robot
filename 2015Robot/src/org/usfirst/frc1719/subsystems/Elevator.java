@@ -153,7 +153,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	public boolean atPotPos() {
 	
 		int perc = (int) (getPotPerc());
-		System.out.println("Perc: " + perc);
+		//System.out.println("Perc: " + perc);
 		
 		if ((perc % 10) < POTENTIOMETER_TOLERANCE) {
 			System.out.println("AT POT POS");
