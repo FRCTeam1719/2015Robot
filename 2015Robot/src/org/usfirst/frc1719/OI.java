@@ -87,9 +87,7 @@ public class OI {
     
     private Joystick driverJoystick;
     private Joystick operatorJoystick;
-    private JoystickButton xButtonPressed;
     private JoystickButton bButton;
-    private JoystickButton aButton;
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
 
@@ -109,7 +107,6 @@ public class OI {
         
         bButton = new JoystickButton(operatorJoystick, B_BUTTON);
         bButton.whenPressed(new MoveElevatorUp(Elevator.ELEVATOR_FRONT) );
-        aButton = new JoystickButton(operatorJoystick, Y_BUTTON);
         
         
         // Enabling one button as a time is dealt with in TransferCameraControl.execute().
