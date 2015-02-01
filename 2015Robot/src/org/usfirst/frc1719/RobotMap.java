@@ -55,9 +55,10 @@ public class RobotMap {
     public static Servo cameraMountXServo;
     
     public static Relay fisherSpike;
-    public static DigitalInput fisherExtent;
+    public static DigitalInput fisherLowered;
     public static DigitalInput fisherRetraction;
     public static Solenoid fisherSolenoid;
+    public static Solenoid fisherAimSolenoid;
     
     public static Gyro sensorsGyro;
 	public static LIDAR sensorsLIDAR;
@@ -97,7 +98,7 @@ public class RobotMap {
         
         pneumaticsCompressor = new Compressor(0);
         
-        pneumaticsSolenoid1 = new Solenoid(0, 0);
+        pneumaticsSolenoid1 = new Solenoid(1);
         LiveWindow.addActuator("Pneumatics", "Solenoid1", pneumaticsSolenoid1);
         
         frontElevatorSwitchTop = new DigitalInput(10);
@@ -140,8 +141,9 @@ public class RobotMap {
         sensorsLIDAR.start();
         
         fisherSpike = new Relay(2);
-        fisherExtent = new DigitalInput(8);
+        fisherLowered = new DigitalInput(8);
         fisherRetraction = new DigitalInput(9);
-        fisherSolenoid = new Solenoid(2);
+        fisherSolenoid = new Solenoid(0);
+        fisherAimSolenoid = new Solenoid(3);
     }
 }

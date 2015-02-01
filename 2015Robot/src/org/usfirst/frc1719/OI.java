@@ -15,8 +15,10 @@ import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
-import org.usfirst.frc1719.commands.MoveElevatorUp;
+import org.usfirst.frc1719.commands.LowerFisher;
+import org.usfirst.frc1719.commands.RaiseFisher;
 import org.usfirst.frc1719.commands.RetractFisher;
+import org.usfirst.frc1719.commands.MoveElevatorUp;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
@@ -44,6 +46,8 @@ public class OI {
 	public final static int RIGHT_BUMPER = 6;
 	public final static int BACK_BUTTON  = 7;
 	public final static int START_BUTTON = 8;
+	public final static int LEFT_JOYSTICK_BUTTON = 9;
+	public final static int RIGHT_JOYSTICK_BUTTON = 10;
 	
 	public final static int LEFT_JOYSTICK_X_AXIS = 0;
 	public final static int LEFT_JOYSTICK_Y_AXIS = 1;
@@ -87,6 +91,7 @@ public class OI {
     
     private Joystick driverJoystick;
     private Joystick operatorJoystick;
+    private JoystickButton leftJoystickButtonPressed;
     private JoystickButton bButton;
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
@@ -121,11 +126,7 @@ public class OI {
         SmartDashboard.putData("UseDrive", new UseDrive());
         SmartDashboard.putData("DriveServos", new DriveServos());
         SmartDashboard.putData("CentreCamera", new CentreCamera());
-        
-        
-        
-        (new JoystickButton(operatorJoystick, X_BUTTON)).whenPressed(new ExtendFisher());
-        (new JoystickButton(operatorJoystick, Y_BUTTON)).whenPressed(new RetractFisher());
+         
     }
     
     public Joystick getDriverJoystick() {
