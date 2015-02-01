@@ -83,9 +83,9 @@ public class Robot extends IterativeRobot {
         pneumatics = new Pneumatics();
         sensors = new Sensors();
         cameraMount = new CameraMount();
-        fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherExtent,
-        		RobotMap.fisherRetraction, RobotMap.fisherSolenoid);
-        
+        fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherLowered,
+        		RobotMap.fisherRetraction, RobotMap.fisherSolenoid, 
+        		RobotMap.fisherAimSolenoid);
         frontElevator = new Elevator(Elevator.ELEVATOR_FRONT,
         							 RobotMap.frontElevatorPot,
         							 RobotMap.frontElevatorMotor,

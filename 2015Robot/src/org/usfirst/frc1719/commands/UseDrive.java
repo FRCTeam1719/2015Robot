@@ -14,7 +14,7 @@ package org.usfirst.frc1719.commands;
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
-
+import org.usfirst.frc1719.subsystems.Elevator;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -43,7 +43,9 @@ public class  UseDrive extends Command {
 	private boolean directionPrevent = false;
 	//Creating the lidar and infrared sensors
 	Sensors sensor = new Sensors();
-	
+	//Accessing the elevators (front and back)
+	Elevator backElevator = Robot.backElevator;
+	Elevator frontElevator = Robot.frontElevator;
 	
 	
     public UseDrive() {
@@ -65,14 +67,20 @@ public class  UseDrive extends Command {
     protected void execute() {
     	int RIGHT_X = (int) Robot.driverController.getSelected();
     	//Is it nec
+    	
     	preventMovement = false;
-		if(sensor.getDistance()<70){
-			preventMovement = true;
-			directionPrevent = BACK;
+		//System.out.println("LIDAR: " + sensor.getLIDARValue() + "IRS:" + sensor.getIRSensorValue());
+		if(sensor.getLIDARValue() == 0){
+			preventMovement = false;
 		}
-		else if(sensor.getIRSensorValue()>200000){
-			preventMovement = true;
-			directionPrevent = FRONT;
+		else{
+			if(sensor.getLIDARValue() < 70 && backElevator.getPotLevel() >= 2){
+				preventMovement = true;
+				directionPrevent = BACK;
+			} else if(sensor.getIRSensorValue() > 200000 && frontElevator.getPotLevel() >= 2){
+				preventMovement = true;
+				directionPrevent = FRONT;
+			}
 		}
 		
     	//gets values from the joystick
@@ -88,12 +96,11 @@ public class  UseDrive extends Command {
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
     	
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
-    	if(false && (preventMovement == true)){
-
+    	if(preventMovement == true){
     		if(directionPrevent==FRONT){
     			if(ly>0){
     				ly = -0.1D;
-    				if(sensor.getDistance()<50) ly = -0.3D;
+    				if(sensor.getLIDARValue()<50) ly = -0.3D;
     			}
     		}
     		else if(directionPrevent==BACK){
