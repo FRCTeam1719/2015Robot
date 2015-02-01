@@ -23,9 +23,14 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class  UseDrive extends Command {
 	//Magic numbers: these numbers determine the input from the joystick
+<<<<<<< HEAD
 	private static final int LEFT_X = 0;
 	private static final int LEFT_Y = 1;
 	private static final int RIGHT_X = 4;
+=======
+	private static final int LEFT_X = 0;
+	private static final int LEFT_Y = 1;
+>>>>>>> master
 	//magic numbers: directions to prevent
 	private static final boolean FRONT = true;
 	private static final boolean BACK = false;
@@ -64,6 +69,7 @@ public class  UseDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	int RIGHT_X = (int) Robot.driverController.getSelected();
     	//Is it nec
     	preventMovement = false;
 		System.out.println("LIDAR: " + sensor.getDistanceCM() + "IRS:" + sensor.getIRSensorValue());
@@ -89,7 +95,7 @@ public class  UseDrive extends Command {
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
 
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
-    	if(preventMovement == true){
+    	if(false && (preventMovement == true)){
     		if(directionPrevent==FRONT){
     			if(ly>0){
     				ly = -0.1D;
