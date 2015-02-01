@@ -9,7 +9,7 @@ public class GetCtrByDistance implements ICommandOption {
 	private int stage = 0;
 	private double ctr_rng;
 	private static final double TOLERANCE_1 = 1.0D;
-	private static final double TOLERANCE_2 = 0.1D;
+	private static final double TOLERANCE_2 = 0.25D;
 	private static final double SPD = 0.5D;
 	private static final double NIL = 0.0D;
 	private static final long RETREAT_TIME = 1000L;
