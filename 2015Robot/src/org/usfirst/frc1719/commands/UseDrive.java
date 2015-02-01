@@ -66,8 +66,11 @@ public class  UseDrive extends Command {
     	int RIGHT_X = (int) Robot.driverController.getSelected();
     	//Is it nec
     	preventMovement = false;
-		System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
-		if(sensor.getDistance()<70){
+		System.out.println("LIDAR: " + sensor.getLIDARValue() + "IRS:" + sensor.getIRSensorValue());
+		if(sensor.getLIDARValue() == 0){
+			preventMovement = false;
+		}
+		else if(sensor.getLIDARValue()<70){
 			preventMovement = true;
 			directionPrevent = BACK;
 		}
@@ -89,12 +92,12 @@ public class  UseDrive extends Command {
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
     	
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
-    	if(false && (preventMovement == true)){
+    	if(preventMovement == true){
 
     		if(directionPrevent==FRONT){
     			if(ly>0){
     				ly = -0.1D;
-    				if(sensor.getDistance()<50) ly = -0.3D;
+    				if(sensor.getLIDARValue()<50) ly = -0.3D;
     			}
     		}
     		else if(directionPrevent==BACK){
