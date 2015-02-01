@@ -15,7 +15,6 @@ public class GetCtrByDistance implements ICommandOption {
 	private static final long RETREAT_TIME = 1000L;
 	private static final long CLEARANCE_TIME = 1000L;
 	private Date time;
-	private boolean printlns = true; // for testing purposes
 	
 	@Override
 	public void doCMD() {
@@ -23,16 +22,9 @@ public class GetCtrByDistance implements ICommandOption {
 			case 0:
 				ctr_rng = Robot.sensors.getLIDARDistanceM();
 				stage++;
-				System.out.println("Completed stage 0: Distance read as " + ctr_rng + "m.");
 			case 1:
-				if(printlns) {
-					System.out.println("Beginning stage 1");
-					printlns = false;
-				}
 				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) > TOLERANCE_1) {
 					stage++;
-					System.out.println("Completed stage 1");
-					printlns = true;
 					time = new Date();
 				}
 				else {
@@ -40,14 +32,8 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 2:
-				if(printlns) {
-					System.out.println("Beginning stage 2");
-					printlns = false;
-				}
 				if(((new Date()).getTime() - time.getTime()) > CLEARANCE_TIME) {
 					stage++;
-					System.out.println("Completed stage 2");
-					printlns = true;
 				}
 				else {
 					Robot.drive.moveCartesian(SPD, NIL, NIL);
@@ -56,32 +42,19 @@ public class GetCtrByDistance implements ICommandOption {
 			case 3:
 				Robot.fisher.extend();
 				stage++;
-				System.out.println("Completed stage 3");
 			case 4:
-				if(printlns) {
-					System.out.println("Beginning stage 4");
-					printlns = false;
-				}
 				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
 					time = new Date();
 					stage++;
-					System.out.println("Completed stage 4");
-					printlns = true;
 				}
 				else {
 					Robot.drive.moveCartesian(-SPD, NIL, NIL);
 					break;
 				}
 			case 5:
-				if(printlns) {
-					System.out.println("Beginning stage 5");
-					printlns = false;
-				}
 				if(((new Date()).getTime() - time.getTime()) > RETREAT_TIME) {
 					stage++;
 					time = new Date();
-					System.out.println("Completed stage 5");
-					printlns = true;
 				}
 				else {
 					Robot.fisher.retract();
@@ -89,14 +62,8 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 6:
-				if(printlns) {
-					System.out.println("Beginning stage 6");
-					printlns = false;
-				}
 				if(((new Date()).getTime() - time.getTime()) > RETREAT_TIME) {
 					stage++;
-					System.out.println("Completed stage 6");
-					printlns = true;
 				}
 				else {
 					Robot.fisher.extend();
@@ -104,29 +71,17 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 7:
-				if(printlns) {
-					System.out.println("Beginning stage 7");
-					printlns = false;
-				}
 				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) > TOLERANCE_1) {
 					stage++;
-					System.out.println("Completed stage 7");
-					printlns = true;
 				}
 				else {
 					Robot.drive.moveCartesian(SPD, NIL, NIL);
 					break;
 				}
 			case 8:
-				if(printlns) {
-					System.out.println("Beginning stage 8");
-					printlns = false;
-				}
 				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
 					stage = 5;
 					time = new Date();
-					System.out.println("Completed stage 8 (final); returning to stage 5");
-					printlns = true;
 				}
 				else {
 					Robot.drive.moveCartesian(SPD, NIL, NIL);
