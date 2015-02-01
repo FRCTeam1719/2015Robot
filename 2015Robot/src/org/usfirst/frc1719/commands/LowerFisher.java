@@ -32,6 +32,7 @@ public class LowerFisher extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same

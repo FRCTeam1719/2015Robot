@@ -25,13 +25,11 @@ public class ExtendFisher extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(done) {
-			done = false;
-			return true;
-		} else return false;
+		return done;
 	}
 	// Called once after isFinished returns true
 	protected void end() {
+		done = false;
 	}
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run

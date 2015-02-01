@@ -138,6 +138,7 @@ public class RobotMap {
         sensorsGyro.reset();
         
         sensorsLIDAR = new LIDAR(Port.kMXP);
+        
         sensorsLIDAR.start();
         
         fisherSpike = new Relay(2);

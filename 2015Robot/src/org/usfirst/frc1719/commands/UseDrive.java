@@ -68,7 +68,7 @@ public class  UseDrive extends Command {
     	int RIGHT_X = (int) Robot.driverController.getSelected();
     	//Is it nec
     	preventMovement = false;
-		System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
+		//System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
 		if(sensor.getDistance() < 70 && backElevator.getPotLevel() >= 2){
 			preventMovement = true;
 			directionPrevent = BACK;

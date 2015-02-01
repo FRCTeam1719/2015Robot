@@ -1,5 +1,7 @@
 package org.usfirst.frc1719.subsystems;
 
+import org.usfirst.frc1719.RobotMap;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -16,6 +18,9 @@ public class Fisher extends Subsystem implements Testable {
 	private DigitalInput limitSwitchRet;
 	
 	public Fisher(Relay par1, DigitalInput par2, DigitalInput par3, Solenoid par4, Solenoid par5) {
+		spike = par1;
+		limitSwitchDown = par2;
+		limitSwitchRet = par3;
 		fisherSolenoid = par4;
 		fisherAimSolenoid = par5;
 	}
@@ -35,17 +40,19 @@ public class Fisher extends Subsystem implements Testable {
     		spike.set(Relay.Value.kOff);
     		return true;
     	}
-    	
+		System.out.println("Retracting");
     	spike.set(Relay.Value.kReverse);
     	return false;
 	}
 	
 	public boolean lower(){
+		System.out.println("Lowering");
 		fisherAimSolenoid.set(true);
 		return limitSwitchDown.get();
 	}
 	
 	public boolean raise(){
+		System.out.println("Raising");
 		if(retract()){
 			fisherAimSolenoid.set(false);
 			return true;
