@@ -14,13 +14,13 @@ public class Fisher extends DualimitedSpike {
 	}
 
 	@Override
-	public boolean extend() {
+	public boolean forwards() {
 		fisherSolenoid.set(true);
-		return super.extend();
+		return super.forwards();
 	}
 	
 	public boolean store() {
-		if(retract()) {
+		if(backwards()) {
 			fisherSolenoid.set(false);
 			return true;
 		} else return false;

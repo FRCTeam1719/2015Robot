@@ -15,11 +15,13 @@ import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
+import org.usfirst.frc1719.commands.MoveElevatorUp;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
+import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -85,7 +87,7 @@ public class OI {
     
     private Joystick driverJoystick;
     private Joystick operatorJoystick;
-    private JoystickButton xButtonPressed;
+    private JoystickButton bButton;
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
 
@@ -103,6 +105,9 @@ public class OI {
         leftBumper = new JoystickButton(driverJoystick, LEFT_BUMPER);
         leftBumper.whenPressed(new TurnToCamera());
         
+        bButton = new JoystickButton(operatorJoystick, B_BUTTON);
+        bButton.whenPressed(new MoveElevatorUp(Elevator.ELEVATOR_FRONT) );
+        
         
         // Enabling one button as a time is dealt with in TransferCameraControl.execute().
         (new JoystickButton(driverJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
@@ -117,9 +122,7 @@ public class OI {
         SmartDashboard.putData("DriveServos", new DriveServos());
         SmartDashboard.putData("CentreCamera", new CentreCamera());
         
-
-        xButtonPressed = new JoystickButton(operatorJoystick, 3);
-        xButtonPressed.whenPressed(new CentreCamera());
+        
         
         (new JoystickButton(operatorJoystick, X_BUTTON)).whenPressed(new ExtendFisher());
         (new JoystickButton(operatorJoystick, Y_BUTTON)).whenPressed(new RetractFisher());
