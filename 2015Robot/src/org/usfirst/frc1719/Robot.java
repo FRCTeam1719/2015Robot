@@ -13,6 +13,8 @@ package org.usfirst.frc1719;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc1719.autonomous.DriveRight;
+import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.TestDrive;
@@ -40,9 +42,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	private static int loopIterationNumber = 0;
+	public static Robot instance;
 
 	public static enum EnumAutoCMD {
-		NULL("Do Nothing", new ICommandOption() {public void doCMD() {} public boolean done() {return false;}});
+		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
+		TEST("Go right", new DriveRight()),
+		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
 		
 		final String name;
 		public final ICommandOption cmd;
@@ -85,17 +90,15 @@ public class Robot extends IterativeRobot {
         fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherExtent,
         		RobotMap.fisherRetraction, RobotMap.fisherSolenoid);
         
-        frontElevator = new Elevator(Elevator.ELEVATOR_FRONT,
-        							 RobotMap.frontElevatorPot,
-        							 RobotMap.frontElevatorMotor,
-        							 RobotMap.frontElevatorSwitchTop,
-        							 RobotMap.frontElevatorSwitchBottom);
-        
-        backElevator = new Elevator(Elevator.ELEVATOR_BACK,
-        							RobotMap.backElevatorPot,
-        							RobotMap.backElevatorMotor,
-        							RobotMap.backElevatorSwitchTop,
-        							RobotMap.backElevatorSwitchBottom);
+        frontElevator = new Elevator(RobotMap.frontElevatorPot,
+				 RobotMap.frontElevatorMotor,
+				 RobotMap.frontElevatorSwitchTop,
+				 RobotMap.frontElevatorSwitchBottom);
+
+        backElevator = new Elevator(RobotMap.backElevatorPot,
+				RobotMap.backElevatorMotor,
+				RobotMap.backElevatorSwitchTop,
+				RobotMap.backElevatorSwitchBottom);
         devices.add(drive);
         /*devices.add(frontElevator);
         devices.add(backElevator);*/

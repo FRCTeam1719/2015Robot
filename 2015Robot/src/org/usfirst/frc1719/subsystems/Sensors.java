@@ -43,8 +43,16 @@ public class Sensors extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public int getLIDARValue() {
+    /**
+     * 
+     * @return the distance sensed in centimeters
+     */
+    public int getLIDARDistanceCM() {
     	return lidar.getDistance();
+    }
+    
+    public double getLIDARDistanceM() {
+    	return ((double) getLIDARDistanceCM()) * 0.01D;
     }
     
     public double getEncoderRate(int index){

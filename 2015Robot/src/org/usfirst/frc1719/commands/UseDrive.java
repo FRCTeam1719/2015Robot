@@ -66,15 +66,12 @@ public class  UseDrive extends Command {
     	int RIGHT_X = (int) Robot.driverController.getSelected();
     	//Is it nec
     	preventMovement = false;
-		System.out.println("LIDAR: " + sensor.getLIDARValue() + "IRS:" + sensor.getIRSensorValue());
-		if(sensor.getLIDARValue() == 0){
-			preventMovement = false;
-		}
-		else if(sensor.getLIDARValue()<70){
+		System.out.println("LIDAR: " + sensor.getLIDARDistanceCM() + "IRS:" + sensor.getIRSensorValue());
+		if(sensor.getLIDARDistanceCM() < 70){
 			preventMovement = true;
 			directionPrevent = BACK;
 		}
-		else if(sensor.getIRSensorValue()>200000){
+		else if(sensor.getIRSensorValue() > 200_000){
 			preventMovement = true;
 			directionPrevent = FRONT;
 		}
@@ -90,20 +87,20 @@ public class  UseDrive extends Command {
     	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
     	if (Math.abs(lx) < TOLERANCE) lx = 0.0D;
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
-    	
+
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
     	if(preventMovement == true){
 
     		if(directionPrevent==FRONT){
-    			if(ly>0){
+    			if(ly > 0){
     				ly = -0.1D;
-    				if(sensor.getLIDARValue()<50) ly = -0.3D;
+    				if(sensor.getLIDARDistanceCM() < 50) ly = -0.3D;
     			}
     		}
     		else if(directionPrevent==BACK){
-    			if(ly<0){
+    			if(ly < 0){
     				ly = 0.1D;
-    				if(sensor.getIRSensorValue()>2.6) ly = 0.3D;
+    				if(sensor.getIRSensorValue() > 2.6) ly = 0.3D;
     			}
     		}
     	}
