@@ -2,6 +2,7 @@ package org.usfirst.frc1719.subsystems;
 
 import org.usfirst.frc1719.Robot;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -52,6 +53,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	private boolean elevatorIsMoving = false;
 		
 	//Potentiometer
+	AnalogPotentiometer elevatorPot;
 	
 	/*
 	 * Variables used for testing
@@ -63,12 +65,8 @@ public class Elevator extends DualimitedSpike implements Testable {
 	int loopIterationNumber; //Our program will loop 100 times per second
 	boolean startPausing = true;
 	
-	DigitalInput limitSwitchTop;;
-	DigitalInput limitSwitchBottom;
-	Potentiometer elevatorPot;
-	DualimitedSpike elevatorMotor;
-	
-	public Elevator(Potentiometer elevatorPot, 
+	public Elevator(int elevatorNum,
+					AnalogPotentiometer elevatorPot, 
 					Relay elevatorSpike,
 					DigitalInput limitSwitchTop,
 					DigitalInput limitSwitchBottom) {

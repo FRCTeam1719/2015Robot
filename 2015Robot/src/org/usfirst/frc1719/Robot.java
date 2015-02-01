@@ -88,12 +88,12 @@ public class Robot extends IterativeRobot {
         pneumatics = new Pneumatics();
         sensors = new Sensors();
         cameraMount = new CameraMount();
-        frontElevator = new Elevator(RobotMap.frontElevatorPot,
+        frontElevator = new Elevator(Elevator.ELEVATOR_FRONT, RobotMap.frontElevatorPot,
 				 RobotMap.frontElevatorMotor,
 				 RobotMap.frontElevatorSwitchTop,
 				 RobotMap.frontElevatorSwitchBottom);
 
-        backElevator = new Elevator(RobotMap.backElevatorPot,
+        backElevator = new Elevator(Elevator.ELEVATOR_BACK, RobotMap.backElevatorPot,
 				RobotMap.backElevatorMotor,
 				RobotMap.backElevatorSwitchTop,
 				RobotMap.backElevatorSwitchBottom);

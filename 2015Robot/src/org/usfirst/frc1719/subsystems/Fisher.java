@@ -48,7 +48,7 @@ public class Fisher extends Subsystem implements Testable {
 	public boolean lower(){
 		System.out.println("Lowering");
 		fisherAimSolenoid.set(true);
-		return true;
+		return limitSwitchDown.get();
 	}
 	
 	//raises, but only if arm is fully retracted, otherwise retracts the arm

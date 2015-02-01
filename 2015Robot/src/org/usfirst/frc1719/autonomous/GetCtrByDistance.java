@@ -9,7 +9,7 @@ public class GetCtrByDistance implements ICommandOption {
 	private int stage = 0;
 	private double ctr_rng;
 	private static final double TOLERANCE_1 = 1.0D;
-	private static final double TOLERANCE_2 = 0.25D;
+	private static final double TOLERANCE_2 = 0.5D;
 	private static final double SPD = 0.5D;
 	private static final double NIL = 0.0D;
 	private static final long RETREAT_TIME = 1000L;
@@ -40,8 +40,8 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 3:
-				Robot.fisher.extend();
-				stage++;
+				if(Robot.fisher.extend()) stage++;
+				else break;
 			case 4:
 				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
 					time = new Date();
