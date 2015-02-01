@@ -14,7 +14,7 @@ package org.usfirst.frc1719.commands;
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
-
+import org.usfirst.frc1719.subsystems.Elevator;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -43,7 +43,9 @@ public class  UseDrive extends Command {
 	private boolean directionPrevent = false;
 	//Creating the lidar and infrared sensors
 	Sensors sensor = new Sensors();
-	
+	//Accessing the elevators (front and back)
+	Elevator backElevator = Robot.backElevator;
+	Elevator frontElevator = Robot.frontElevator;
 	
 	
     public UseDrive() {
@@ -90,7 +92,6 @@ public class  UseDrive extends Command {
 
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
     	if(preventMovement == true){
-
     		if(directionPrevent==FRONT){
     			if(ly > 0){
     				ly = -0.1D;

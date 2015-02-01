@@ -10,7 +10,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
-	
+	public static int PERCENT_PER_LEVEL = 10;
 	public static int POTENTIOMETER_TOLERANCE = 3;
 	
 	//For distinguishing which elevator to control
@@ -141,6 +141,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	public double getPotPos() {
 		potPos = elevatorPot.get();
+		
 		return potPos;
 	}
 	
@@ -151,15 +152,20 @@ public class Elevator extends DualimitedSpike implements Testable {
 		
 		return percent;
 	}
+	
+	public double getPotLevel(){
+		double level = getPotPerc() / PERCENT_PER_LEVEL;
+		
+		return level;
+	}
 
 	//Whether the elevator is at the
 	public boolean atPotPos() {
 	
 		int perc = (int) (getPotPerc());
-		System.out.println("Perc: " + perc);
+		//System.out.println("Perc: " + perc);
 		
 		if ((perc % 10) < POTENTIOMETER_TOLERANCE) {
-			System.out.println("AT POT POS");
 			return true;
 		}
 		
