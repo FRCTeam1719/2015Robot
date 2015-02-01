@@ -129,7 +129,7 @@ public class Sensors extends Subsystem implements Testable {
 	@Override
 	public void test() {
 		try {
-			System.out.println("LIDAR Distance (cm): " + getLIDARValue());
+			System.out.println("LIDAR Distance (cm): " + getLIDARDistanceCM());
 			System.out.println("Encoder speeds (RPM): " + getEncoderRPM(1) + " | " + getEncoderRPM(2));
 			System.out.println("IR value (mV): " + getIRSensorValue());
 			System.out.println("Potentiometer Values (0 bottome to 100 top): " + getPotentiometerValue(1) + " | " + getPotentiometerValue(2));
