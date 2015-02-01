@@ -44,6 +44,8 @@ public class MoveElevatorToPos extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("MoveToPos");
+    	elevator = Robot.currentElevator;
     	currentPosition = elevator.getElevatorPos();
     	
     	if (desiredPosition == ERROR_NUM) {
@@ -61,12 +63,7 @@ public class MoveElevatorToPos extends Command {
     	else if (currentPosition == desiredPosition) {
     		elevator.setStill();
     		done = true;
-    	}
-    	
-    	System.out.println("Desired Pos: " + desiredPosition);
-    	System.out.println("Current Pos: " + elevator.getElevatorPos());
-    	System.out.println("Pot percentage: " + elevator.getPotPerc());
-    	
+    	}    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -14,7 +14,6 @@ package org.usfirst.frc1719;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
-import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
@@ -86,10 +85,14 @@ public class OI {
     
     private Joystick driverJoystick;
     private Joystick operatorJoystick;
-    private JoystickButton aButton;
-    private JoystickButton bButton;
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
+    private JoystickButton bottomButton1;
+    private JoystickButton bottomButton2;
+    private JoystickButton bottomButton3;
+    private JoystickButton bottomButton4;
+    private JoystickButton bottomButton5;
+    private JoystickButton bottomButton6;
 
 
 
@@ -105,11 +108,7 @@ public class OI {
         leftBumper = new JoystickButton(driverJoystick, LEFT_BUMPER);
         leftBumper.whenPressed(new TurnToCamera());
         
-        bButton = new JoystickButton(operatorJoystick, B_BUTTON);
-        bButton.whenPressed(new MoveElevatorToPos(4));
         
-        aButton = new JoystickButton(operatorJoystick, A_BUTTON);
-        aButton.whenPressed(new MoveElevatorToPos(1));
         
         // Enabling one button as a time is dealt with in TransferCameraControl.execute().
         (new JoystickButton(driverJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
