@@ -89,7 +89,7 @@ public class  UseDrive extends Command {
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
     	
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
-    	if(preventMovement == true){
+    	if(preventMovement == true && false){
     		if(directionPrevent==FRONT){
     			if(ly>0){
     				ly = -0.1D;
