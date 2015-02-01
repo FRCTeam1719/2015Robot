@@ -82,18 +82,11 @@ public class Robot extends IterativeRobot {
         pneumatics = new Pneumatics();
         sensors = new Sensors();
         cameraMount = new CameraMount();
-<<<<<<< HEAD
         fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherLowered,
         		RobotMap.fisherRetraction, RobotMap.fisherSolenoid, 
         		RobotMap.fisherAimSolenoid);
-        /*frontElevator = new Elevator(RobotMap.frontElevatorPot,
-=======
-        fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherExtent,
-        		RobotMap.fisherRetraction, RobotMap.fisherSolenoid);
-        
         frontElevator = new Elevator(Elevator.ELEVATOR_FRONT,
         							 RobotMap.frontElevatorPot,
->>>>>>> ca8f9b6b0d97a2f5a4a616240348f1d4ebca7000
         							 RobotMap.frontElevatorMotor,
         							 RobotMap.frontElevatorSwitchTop,
         							 RobotMap.frontElevatorSwitchBottom);
