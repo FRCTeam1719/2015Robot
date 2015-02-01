@@ -23,14 +23,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class  UseDrive extends Command {
 	//Magic numbers: these numbers determine the input from the joystick
-<<<<<<< HEAD
 	private static final int LEFT_X = 0;
 	private static final int LEFT_Y = 1;
-	private static final int RIGHT_X = 4;
-=======
-	private static final int LEFT_X = 0;
-	private static final int LEFT_Y = 1;
->>>>>>> master
 	//magic numbers: directions to prevent
 	private static final boolean FRONT = true;
 	private static final boolean BACK = false;
