@@ -15,14 +15,11 @@ import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
-import org.usfirst.frc1719.commands.LowerFisher;
-import org.usfirst.frc1719.commands.RaiseFisher;
+import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
-import org.usfirst.frc1719.commands.MoveElevatorUp;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
-import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -133,7 +130,7 @@ public class OI {
     private Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);
     private Button retractFisher = new JoystickButton(driverController, WINGMAN_BUTTON_5);
     
-
+ 
     public OI() {
 
         driverController = new Joystick(0);
@@ -146,16 +143,7 @@ public class OI {
         
         
         //Operator Controller
-        elevatorPos1.whenPressed(new )
         
-        rightBumper = new JoystickButton(driverJoystick, RIGHT_BUMPER);
-        rightBumper.whenPressed(new ToggleCamera());
-        
-        leftBumper = new JoystickButton(driverJoystick, LEFT_BUMPER);
-        leftBumper.whenPressed(new TurnToCamera());
-        
-        bButton = new JoystickButton(operatorJoystick, B_BUTTON);
-        bButton.whenPressed(new MoveElevatorUp(Elevator.ELEVATOR_FRONT) );
         
         
        
@@ -169,7 +157,7 @@ public class OI {
     }
     
     public Joystick getDriverJoystick() {
-        return driverJoystick;
+        return driverController;
     }
     
     public Joystick getOperatorJoystick() {
