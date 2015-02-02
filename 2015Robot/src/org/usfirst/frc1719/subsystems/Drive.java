@@ -109,9 +109,27 @@ public class Drive extends Subsystem implements Testable {
 		// move foraward
 		System.out.println("moving forward");
 		for (int i = 0; i < 2000; i++) {
+			moveCartesian(0.0D, 1.0D, 0.0D);
+		}
+		System.out.println("moving backward");
+		for (int i = 0; i < 2000; i++) {
+			moveCartesian(0.0D, -1.0D, 0.0D);
+		}
+		System.out.println("strafing left");
+		for (int i = 0; i < 2000; i++) {
+			moveCartesian(-1.0D, 0.0D, 0.0D);
+		}
+		System.out.println("strafing right");
+		for (int i = 0; i < 2000; i++) {
 			moveCartesian(1.0D, 0.0D, 0.0D);
 		}
-		
-
+		System.out.println("Turning clockwise");
+		for (int i = 0; i < 2000; i++) {
+			moveCartesian(0.0D, 0.0D, 1.0D);
+		}
+		System.out.println("Turning anticlockwise");
+		for (int i = 0; i < 2000; i++) {
+			moveCartesian(0.0D, 0.0D, -1.0D);
+		}
 	}
 }

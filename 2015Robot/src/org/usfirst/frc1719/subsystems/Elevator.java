@@ -161,8 +161,16 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	@Override
 	public void test() {
-		
-		if (!testCompletedInit) {
+		while(!testCompletedInit) {
+			if (getLimitSwitchRetVal()) {
+				testCompletedInit = true;
+				startingIterationNumber = Robot.getLoopIterationNumber();
+			}
+			else {
+				moveUp();
+			}
+		}
+		while(!testCompletedInit) {
 			if (getLimitSwitchRetVal()) {
 				testCompletedInit = true;
 				startingIterationNumber = Robot.getLoopIterationNumber();
