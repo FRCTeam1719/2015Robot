@@ -14,7 +14,7 @@ package org.usfirst.frc1719.commands;
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
-
+import org.usfirst.frc1719.subsystems.Elevator;
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,7 +25,6 @@ public class  UseDrive extends Command {
 	//Magic numbers: these numbers determine the input from the joystick
 	private static final int LEFT_X = 0;
 	private static final int LEFT_Y = 1;
-	private static final int RIGHT_X = 4;
 	//magic numbers: directions to prevent
 	private static final boolean FRONT = true;
 	private static final boolean BACK = false;
@@ -44,7 +43,9 @@ public class  UseDrive extends Command {
 	private boolean directionPrevent = false;
 	//Creating the lidar and infrared sensors
 	Sensors sensor = new Sensors();
-	
+	//Accessing the elevators (front and back)
+	Elevator backElevator = Robot.backElevator;
+	Elevator frontElevator = Robot.frontElevator;
 	
 	
     public UseDrive() {
@@ -64,14 +65,18 @@ public class  UseDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	int RIGHT_X = (int) Robot.driverController.getSelected();
     	//Is it nec
     	preventMovement = false;
-		System.out.println("LIDAR: " + sensor.getDistance() + "IRS:" + sensor.getIRSensorValue());
-		if(sensor.getDistance()<70){
+		System.out.println("LIDAR: " + sensor.getLIDARDistanceCM() + "IRS:" + sensor.getIRSensorValue());
+		if(sensor.getLIDARDistanceCM() == 0){
+			preventMovement = false;
+		}
+		else if(sensor.getLIDARDistanceCM() < 70){
 			preventMovement = true;
 			directionPrevent = BACK;
 		}
-		else if(sensor.getIRSensorValue()>200000){
+		else if(sensor.getIRSensorValue() > 200_000){
 			preventMovement = true;
 			directionPrevent = FRONT;
 		}
@@ -87,19 +92,19 @@ public class  UseDrive extends Command {
     	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
     	if (Math.abs(lx) < TOLERANCE) lx = 0.0D;
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
-    	
+
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
     	if(preventMovement == true){
     		if(directionPrevent==FRONT){
-    			if(ly>0){
+    			if(ly > 0){
     				ly = -0.1D;
-    				if(sensor.getDistance()<50) ly = -0.3D;
+    				if(sensor.getLIDARDistanceCM() < 50) ly = -0.3D;
     			}
     		}
     		else if(directionPrevent==BACK){
-    			if(ly<0){
+    			if(ly < 0){
     				ly = 0.1D;
-    				if(sensor.getIRSensorValue()>2.6) ly = 0.3D;
+    				if(sensor.getIRSensorValue() > 2.6) ly = 0.3D;
     			}
     		}
     	}

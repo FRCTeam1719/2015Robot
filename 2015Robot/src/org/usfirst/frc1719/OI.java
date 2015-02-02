@@ -14,8 +14,7 @@ package org.usfirst.frc1719;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
-import org.usfirst.frc1719.commands.ExtendFisher;
-import org.usfirst.frc1719.commands.RetractFisher;
+import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
@@ -42,6 +41,8 @@ public class OI {
 	public final static int RIGHT_BUMPER = 6;
 	public final static int BACK_BUTTON  = 7;
 	public final static int START_BUTTON = 8;
+	public final static int LEFT_JOYSTICK_BUTTON = 9;
+	public final static int RIGHT_JOYSTICK_BUTTON = 10;
 	
 	public final static int LEFT_JOYSTICK_X_AXIS = 0;
 	public final static int LEFT_JOYSTICK_Y_AXIS = 1;
@@ -85,7 +86,8 @@ public class OI {
     
     private Joystick driverJoystick;
     private Joystick operatorJoystick;
-    private JoystickButton xButtonPressed;
+    private JoystickButton aButton;
+    private JoystickButton bButton;
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
 
@@ -103,6 +105,12 @@ public class OI {
         leftBumper = new JoystickButton(driverJoystick, LEFT_BUMPER);
         leftBumper.whenPressed(new TurnToCamera());
         
+
+        bButton = new JoystickButton(operatorJoystick, B_BUTTON);
+        bButton.whenPressed(new MoveElevatorToPos(4));
+        
+        aButton = new JoystickButton(operatorJoystick, A_BUTTON);
+        aButton.whenPressed(new MoveElevatorToPos(1));
         
         // Enabling one button as a time is dealt with in TransferCameraControl.execute().
         (new JoystickButton(driverJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
@@ -116,14 +124,7 @@ public class OI {
         SmartDashboard.putData("UseDrive", new UseDrive());
         SmartDashboard.putData("DriveServos", new DriveServos());
         SmartDashboard.putData("CentreCamera", new CentreCamera());
-        
 
-        xButtonPressed = new JoystickButton(operatorJoystick, 3);
-        xButtonPressed.whenPressed(new CentreCamera());
-        
-        
-        (new JoystickButton(operatorJoystick, X_BUTTON)).whenPressed(new ExtendFisher());
-        (new JoystickButton(operatorJoystick, Y_BUTTON)).whenPressed(new RetractFisher());
     }
     
     public Joystick getDriverJoystick() {

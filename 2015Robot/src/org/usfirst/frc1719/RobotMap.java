@@ -57,9 +57,10 @@ public class RobotMap {
     public static Solenoid backClawSolenoid;
     
     public static Relay fisherSpike;
-    public static DigitalInput fisherExtent;
+    public static DigitalInput fisherLowered;
     public static DigitalInput fisherRetraction;
     public static Solenoid fisherSolenoid;
+    public static Solenoid fisherAimSolenoid;
     
     public static Gyro sensorsGyro;
 	public static LIDAR sensorsLIDAR;
@@ -100,22 +101,22 @@ public class RobotMap {
         
         pneumaticsCompressor = new Compressor(0);
         
-        pneumaticsSolenoid1 = new Solenoid(0, 0);
+        pneumaticsSolenoid1 = new Solenoid(1);
         LiveWindow.addActuator("Pneumatics", "Solenoid1", pneumaticsSolenoid1);
         frontClawSolenoid = new Solenoid(1, 0);
         backClawSolenoid = new Solenoid(2, 0);
         
         frontElevatorSwitchTop = new DigitalInput(10);
         frontElevatorSwitchBottom = new DigitalInput(11);
-        frontElevatorPot = new AnalogPotentiometer(1, Elevator.POTENTIOMETER_SCALE_FACTOR, -3.6595);
+        frontElevatorPot = new AnalogPotentiometer(1, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);
         frontElevatorMotor = new Relay(0);
         
         //We need to define ports for the back elevator
         backElevatorSwitchTop = new DigitalInput(12);
         backElevatorSwitchBottom = new DigitalInput(13);
-        backElevatorPot = new AnalogPotentiometer(2, Elevator.POTENTIOMETER_SCALE_FACTOR, -3695);
-        frontElevatorMotor = new Relay(1);
-       
+        backElevatorPot = new AnalogPotentiometer(2, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);
+        backElevatorMotor = new Relay(1);
+        
         sensorsQuadratureEncoder1 = new Encoder(2, 3, false, EncodingType.k4X);
         LiveWindow.addSensor("Sensors", "Quadrature Encoder 1", sensorsQuadratureEncoder1);
         sensorsQuadratureEncoder1.setDistancePerPulse(1.0);
@@ -145,8 +146,10 @@ public class RobotMap {
         sensorsLIDAR.start();
         
         fisherSpike = new Relay(2);
-        fisherExtent = new DigitalInput(8);
+
+        fisherLowered = new DigitalInput(8);
         fisherRetraction = new DigitalInput(9);
         fisherSolenoid = new Solenoid(0);
+        fisherAimSolenoid = new Solenoid(3);
     }
 }
