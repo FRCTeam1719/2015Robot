@@ -5,7 +5,6 @@ import org.usfirst.frc1719.Robot;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class Elevator extends DualimitedSpike implements Testable {
 	
