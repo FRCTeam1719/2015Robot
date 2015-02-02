@@ -12,10 +12,10 @@
 package org.usfirst.frc1719;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.usfirst.frc1719.autonomous.DriveRight;
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
+import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.TestDrive;
@@ -47,6 +47,7 @@ public class Robot extends IterativeRobot {
 
 	public static enum EnumAutoCMD {
 		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
+		ZONE("Go to the Auto Zone and stop", new GetInZone()),
 		TEST("Go right", new DriveRight()),
 		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
 		
