@@ -43,8 +43,16 @@ public class Sensors extends Subsystem implements Testable {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public int getLIDARValue() {
+    /**
+     * 
+     * @return the distance sensed in centimeters
+     */
+    public int getLIDARDistanceCM() {
     	return lidar.getDistance();
+    }
+    
+    public double getLIDARDistanceM() {
+    	return ((double) getLIDARDistanceCM()) * 0.01D;
     }
     
     public double getEncoderRate(int index){
@@ -121,7 +129,7 @@ public class Sensors extends Subsystem implements Testable {
 	@Override
 	public void test() {
 		try {
-			System.out.println("LIDAR Distance (cm): " + getLIDARValue());
+			System.out.println("LIDAR Distance (cm): " + getLIDARDistanceCM());
 			System.out.println("Encoder speeds (RPM): " + getEncoderRPM(1) + " | " + getEncoderRPM(2));
 			System.out.println("IR value (mV): " + getIRSensorValue());
 			System.out.println("Potentiometer Values (0 bottome to 100 top): " + getPotentiometerValue(1) + " | " + getPotentiometerValue(2));
