@@ -13,6 +13,7 @@ package org.usfirst.frc1719;
     
 
 import org.usfirst.frc1719.customSensors.LIDAR;
+import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
 import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -50,7 +51,6 @@ public class RobotMap {
     public static DigitalInput sensorsLimitSwitch;
     public static Encoder sensorsQuadratureEncoder1;
     public static Encoder sensorsQuadratureEncoder2;
-    public static AnalogInput sensorsIRSensor;
     public static Servo cameraMountYServo;
     public static Servo cameraMountXServo;
     
@@ -62,6 +62,7 @@ public class RobotMap {
     
     public static Gyro sensorsGyro;
 	public static LIDAR sensorsLIDAR;
+	public static MB1220UltrasonicAnalog sensorsUltrasonic;
     public static DigitalInput frontElevatorSwitchTop;
     public static DigitalInput backElevatorSwitchTop;
     public static DigitalInput frontElevatorSwitchBottom;
@@ -121,10 +122,6 @@ public class RobotMap {
         sensorsQuadratureEncoder2.setDistancePerPulse(1.0);
         sensorsQuadratureEncoder2.setPIDSourceParameter(PIDSourceParameter.kRate);*/
         
-        
-        sensorsIRSensor = new AnalogInput(3);
-        LiveWindow.addSensor("Sensors", "IRSensor", sensorsIRSensor);
-        
         cameraMountYServo = new Servo(4);
         LiveWindow.addActuator("CameraMount", "YServo", cameraMountYServo);
         
@@ -139,6 +136,8 @@ public class RobotMap {
         
         sensorsLIDAR = new LIDAR(Port.kMXP);
         sensorsLIDAR.start();
+        
+        sensorsUltrasonic = new MB1220UltrasonicAnalog(3);
         
         fisherSpike = new Relay(2);
         fisherLowered = new DigitalInput(8);
