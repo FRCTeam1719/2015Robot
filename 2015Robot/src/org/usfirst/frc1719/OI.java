@@ -20,12 +20,12 @@ import org.usfirst.frc1719.commands.RaiseFisher;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.MoveElevatorUp;
 import org.usfirst.frc1719.commands.ToggleCamera;
-import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
 import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 //import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,29 +37,57 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
-	//Magic number declarations for buttons
-	public final static int A_BUTTON = 1;
-	public final static int B_BUTTON = 2;
-	public final static int X_BUTTON = 3;
-	public final static int Y_BUTTON = 4;
-	public final static int LEFT_BUMPER  = 5;
-	public final static int RIGHT_BUMPER = 6;
-	public final static int BACK_BUTTON  = 7;
-	public final static int START_BUTTON = 8;
-	public final static int LEFT_JOYSTICK_BUTTON = 9;
-	public final static int RIGHT_JOYSTICK_BUTTON = 10;
+	//Button Declaration
 	
-	public final static int LEFT_JOYSTICK_X_AXIS = 0;
-	public final static int LEFT_JOYSTICK_Y_AXIS = 1;
-	public final static int RIGHT_JOYSTICK_X_AXIS = 4;
-	public final static int RIGHT_JOYSTICK_Y_AXIS = 5;
-	public final static int LEFT_TRIGGER  = 2;
-	public final static int RIGHT_TRIGGER = 3;
+	//XBOX BINDINGS
+	final int LEFT_X = 0;
+	final int LEFT_Y = 1;
+	final int LEFT_TRIGGER = 3;
+	final int RIGHT_TRIGGER = 4;
+	final int RIGHT_X = 5;
+	final int RIGHT_Y = 6;
+	final int A_BUTTON = 1;
+	final int B_BUTTON = 2;
+	final int X_BUTTON = 3;
+	final int Y_BUTTON = 4;
+	final int LEFT_BUMPER = 5;
+	final int RIGHT_BUMPER = 6;
+	final int BACK_BUTTON = 7;
+	final int START_BUTTON = 8;
+	final int LEFT_BUTTON = 9;
+	final int RIGHT_BUTTON = 10;
+	
+	//LOGITECH ATTACK 3 BINDINGS
+	final int ATTACK_X_AXIS = 0;
+	final int ATTACK_Y_AXIS = 1;
+	final int ATTACK_TRIGGER = 1;
+	final int ATTACK_BUTTON_2 = 2;
+	final int ATTACK_BUTTON_3 = 3;
+	final int ATTACK_BUTTON_4 = 4;
+	final int ATTACK_BUTTON_5 = 5;
+	final int ATTACK_BUTTON_6 = 6;
+	final int ATTACK_BUTTON_7 = 7;
+	final int ATTACK_BUTTON_8 = 8;
+	final int ATTACK_BUTTON_9 = 9;
+	final int ATTACK_BUTTON_10 = 10;
+	final int ATTACK_BUTTON_11 = 11;
+	
+	//WINGMAN BINDINGS
+	final int WINGMAN_X_AXIS = 0;
+	final int WINGMAN_Y_AXIS = 1;
+	final int WINGMAN_Z_AXIS = 2;
+	final int WINGMAN_THROTTLE = 3;
+	final int WINGMAN_TRIGGER = 1;
+	final int WINGMAN_BUTTON_2 = 2;
+	final int WINGMAN_BUTTON_3 = 3;
+	final int WINGMAN_BUTTON_4 = 4;
+	final int WINGMAN_BUTTON_5 = 5;
+	final int WINGMAN_BUTTON_6 = 6;
+	final int WINGMAN_BUTTON_7 = 7;
+	
 	
 	//POV is the big plus thingy
-	public final static int POV_NUMBER = 0;
 	
-    public static final int TRANSFER_CAMERA_CONTROL_BUTTON = 1;
     
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -89,20 +117,36 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     
-    private Joystick driverJoystick;
+    private Joystick driverController;
     private Joystick operatorJoystick;
-    private JoystickButton leftJoystickButtonPressed;
-    private JoystickButton bButton;
-    private JoystickButton rightBumper;
-    private JoystickButton leftBumper;
-
-
-
+    private Joystick cameraJoystick;
+    //Button Creations
+    private Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
+    private Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
+    private Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
+    private Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
+    private Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
+    private Button elevatorPos6 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+    private Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
+    private Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
+    private Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
+    private Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);
+    private Button retractFisher = new JoystickButton(driverController, WINGMAN_BUTTON_5);
+    
 
     public OI() {
 
-        driverJoystick = new Joystick(0);
+        driverController = new Joystick(0);
         operatorJoystick = new Joystick(1);
+        cameraJoystick = new Joystick(2);
+        
+        //Driver Buttons
+        retractFisher.whenPressed(new RetractFisher());
+        extendFisher.whenPressed(new ExtendFisher());
+        
+        
+        //Operator Controller
+        elevatorPos1.whenPressed(new )
         
         rightBumper = new JoystickButton(driverJoystick, RIGHT_BUMPER);
         rightBumper.whenPressed(new ToggleCamera());
@@ -114,12 +158,7 @@ public class OI {
         bButton.whenPressed(new MoveElevatorUp(Elevator.ELEVATOR_FRONT) );
         
         
-        // Enabling one button as a time is dealt with in TransferCameraControl.execute().
-        (new JoystickButton(driverJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
-        	.whenPressed(new TransferCameraControl(TransferCameraControl.DRIVER));
-        (new JoystickButton(operatorJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
-        	.whenPressed(new TransferCameraControl(TransferCameraControl.OPERATOR));
-        
+       
         
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());

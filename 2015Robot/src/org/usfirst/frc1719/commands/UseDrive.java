@@ -86,9 +86,7 @@ public class  UseDrive extends Command {
     	//gets values from the joystick
     	double ly = Robot.oi.getDriverJoystick().getRawAxis(LEFT_Y);
     	double lx = Robot.oi.getDriverJoystick().getRawAxis(LEFT_X);
-    	double rx = (!TransferCameraControl.getController()
-    			&& Robot.oi.getDriverJoystick().getRawButton(DriveServos.JOYSTICK_RIGHT_BUTTON)) ? 
-    			0.0D : Robot.oi.getDriverJoystick().getRawAxis(RIGHT_X);
+    	double rx = Robot.oi.getDriverJoystick().getRawAxis(RIGHT_X);
     	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
     	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
