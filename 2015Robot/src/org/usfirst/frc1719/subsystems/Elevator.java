@@ -73,6 +73,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		
 		this.elevatorPot = elevatorPot;
 		
+		determineElevatorPos();
 	}
 
 	@Override
@@ -83,7 +84,6 @@ public class Elevator extends DualimitedSpike implements Testable {
 	public void moveUp() {
 				
 		determineElevatorPos();
-		System.out.println("UP");
 		
 		//Extend moves it up
 		forwards();
@@ -94,7 +94,6 @@ public class Elevator extends DualimitedSpike implements Testable {
 	public void moveDown() {
 		
 		determineElevatorPos();
-		System.out.println("DOWN");
 				
 		//Retract moves it down
 		backwards();

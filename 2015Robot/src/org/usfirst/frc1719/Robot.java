@@ -95,7 +95,7 @@ public class Robot extends IterativeRobot {
         							RobotMap.backElevatorSwitchTop,
         							RobotMap.backElevatorSwitchBottom);
         
-        currentElevator = backElevator;
+        currentElevator = frontElevator;
         
         devices.add(drive);
         /*devices.add(frontElevator);
