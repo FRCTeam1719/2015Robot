@@ -24,6 +24,8 @@ public class  DriveServos extends Command {
 	static final int JOYSTICK_RIGHT_X = 4;
 	static final int JOYSTICK_RIGHT_Y = 5;
 	public static final int JOYSTICK_RIGHT_BUTTON = 10;
+	final boolean OPERATOR = true;
+	final boolean DRIVER = false;
 
     public DriveServos() {
         // Use requires() here to declare subsystem dependencies
@@ -41,22 +43,13 @@ public class  DriveServos extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	boolean ctr = TransferCameraControl.getController();
     	//The camera can only be moved if the right joystick is pushed in
-    	if((ctr && !(Robot.oi.getOperatorJoystick().getRawButton(JOYSTICK_RIGHT_BUTTON)) )
-    			|| (!ctr && !(Robot.oi.getDriverJoystick().getRawButton(JOYSTICK_RIGHT_BUTTON)))) {
-    		return;
-    	}
+    	
     	//gets joystick values
-    	double joystickXPosition;
-    	double joystickYPosition;
-    	if(ctr) {
-    		joystickXPosition = Robot.oi.getOperatorJoystick().getRawAxis(JOYSTICK_RIGHT_X);
-        	joystickYPosition = Robot.oi.getOperatorJoystick().getRawAxis(JOYSTICK_RIGHT_Y);
-    	} else {
-    		joystickXPosition = Robot.oi.getDriverJoystick().getRawAxis(JOYSTICK_RIGHT_X);
-        	joystickYPosition = Robot.oi.getDriverJoystick().getRawAxis(JOYSTICK_RIGHT_Y);
-    	}
+    	double joystickXPosition = Robot.oi.getCameraX();
+    	double joystickYPosition = Robot.oi.getCameraY();
+    	
+    	
     	
     	//pans using the values gotten from the joystick
     	Robot.cameraMount.setXServoPan(joystickXPosition);

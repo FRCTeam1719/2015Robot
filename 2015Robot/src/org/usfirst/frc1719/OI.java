@@ -33,7 +33,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
+	//Modes
+	final int XBOX = 0;
+	final int JOYSTICK = 1;
+	int driverRotationAxis;
 	//Button Declaration
 	
 	//XBOX BINDINGS
@@ -82,6 +85,10 @@ public class OI {
 	final int WINGMAN_BUTTON_6 = 6;
 	final int WINGMAN_BUTTON_7 = 7;
 	
+	//Non Hardware Bindings
+	final int DRIVER_X = 0;
+	final int DRIVER_Y = 1;
+	
 	
 	//POV is the big plus thingy
 	
@@ -117,13 +124,14 @@ public class OI {
     private Joystick driverController;
     private Joystick operatorJoystick;
     private Joystick cameraJoystick;
+    
     //Button Creations
-    private Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
-    private Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
-    private Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
-    private Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
-    private Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
-    private Button elevatorPos6 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+    private Button elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
+    private Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
+    private Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
+    private Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
+    private Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
+    private Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
     private Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
     private Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
     private Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
@@ -143,9 +151,19 @@ public class OI {
         
         
         //Operator Controller
-        
-        
-        
+        elevatorPos0.whenPressed(new MoveElevatorToPos(0));
+        elevatorPos1.whenPressed(new MoveElevatorToPos(1));
+        elevatorPos2.whenPressed(new MoveElevatorToPos(2));
+        elevatorPos3.whenPressed(new MoveElevatorToPos(3));
+        elevatorPos4.whenPressed(new MoveElevatorToPos(4));
+        elevatorPos5.whenPressed(new MoveElevatorToPos(5));
+        /* PLACEHOLDER CODE FOR ELEVATOR MODES
+         * modeFront.whenPressed(new toggleElevatorMode(FRONT))
+         * modeBack.whenPressed(new toggleElevatormode(BACK))
+         */
+        /* PLACEHOLDER CODE FOR CLAWS
+         * toggleClaws.whenPressed(new toggleClaws())
+         */
        
         
         // SmartDashboard Buttons
@@ -156,6 +174,18 @@ public class OI {
          
     }
     
+    //Periodic method for updating control configurations
+    public void OIPeriodic(){
+    	if((int) Robot.driverController.getSelected() == XBOX){
+    		driverRotationAxis = RIGHT_X;
+    	}
+    	if((int) Robot.driverController.getSelected() == JOYSTICK){
+    		driverRotationAxis = WINGMAN_Z_AXIS;
+    	}
+    			
+    }
+    
+    
     public Joystick getDriverJoystick() {
         return driverController;
     }
@@ -163,6 +193,36 @@ public class OI {
     public Joystick getOperatorJoystick() {
     	return operatorJoystick;
     }
+    
+    public double getCameraX(){
+    	double x;
+    	x = cameraJoystick.getRawAxis(ATTACK_X_AXIS);
+    	return x;
+    }
+    
+    public double getCameraY(){
+    	double y;
+    	y = cameraJoystick.getRawAxis(ATTACK_Y_AXIS);
+    	return y;
+    }
+    
+    public double getDriveX(){
+    	double x;
+    	x = driverController.getRawAxis(DRIVER_X);
+    	return x;
+    }
+    public double getDriveY(){
+    	double y;
+    	y = driverController.getRawAxis(DRIVER_Y);
+    	return y;
+    }
+    public double getDriveR(){
+    	double r;
+    	r = driverController.getRawAxis(driverRotationAxis);
+    	return r;
+    }
+    
+    
 
 }
 

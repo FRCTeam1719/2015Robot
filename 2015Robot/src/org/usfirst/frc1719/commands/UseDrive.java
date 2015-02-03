@@ -14,7 +14,7 @@ package org.usfirst.frc1719.commands;
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
-import org.usfirst.frc1719.subsystems.Elevator;
+
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,9 +22,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class  UseDrive extends Command {
-	//Magic numbers: these numbers determine the input from the joystick
-	private static final int LEFT_X = 0;
-	private static final int LEFT_Y = 1;
+	
 	//magic numbers: directions to prevent
 	private static final boolean FRONT = true;
 	private static final boolean BACK = false;
@@ -43,9 +41,6 @@ public class  UseDrive extends Command {
 	private boolean directionPrevent = false;
 	//Creating the lidar and infrared sensors
 	Sensors sensor = new Sensors();
-	//Accessing the elevators (front and back)
-	Elevator backElevator = Robot.backElevator;
-	Elevator frontElevator = Robot.frontElevator;
 	
 	
     public UseDrive() {
@@ -65,7 +60,6 @@ public class  UseDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	int RIGHT_X = (int) Robot.driverController.getSelected();
     	//Is it nec
     	preventMovement = false;
 		System.out.println("LIDAR: " + sensor.getLIDARDistanceCM() + "IRS:" + sensor.getIRSensorValue());
@@ -82,9 +76,9 @@ public class  UseDrive extends Command {
 		}
 		
     	//gets values from the joystick
-    	double ly = Robot.oi.getDriverJoystick().getRawAxis(LEFT_Y);
-    	double lx = Robot.oi.getDriverJoystick().getRawAxis(LEFT_X);
-    	double rx = Robot.oi.getDriverJoystick().getRawAxis(RIGHT_X);
+    	double ly = Robot.oi.getDriveX();
+    	double lx = Robot.oi.getDriveY();
+    	double rx = Robot.oi.getDriveR();
     	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
     	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
