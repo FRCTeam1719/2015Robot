@@ -157,5 +157,9 @@ public class OI {
     	return operatorJoystick;
     }
 
+	public boolean getAAAOverride() {
+		return driverJoystick.getRawButton(1);
+	}
+
 }
 

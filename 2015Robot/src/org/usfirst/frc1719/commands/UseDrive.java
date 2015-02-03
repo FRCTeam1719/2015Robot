@@ -13,10 +13,12 @@ package org.usfirst.frc1719.commands;
 
 //import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc1719.Robot;
-import org.usfirst.frc1719.subsystems.Sensors;
 import org.usfirst.frc1719.subsystems.Elevator;
+import org.usfirst.frc1719.subsystems.Sensors;
+
 import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -66,21 +68,18 @@ public class  UseDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	int RIGHT_X = (int) Robot.driverController.getSelected();
-    	//Is it nec
-    	preventMovement = false;
 		System.out.println("LIDAR: " + sensor.getLIDARDistanceCM() + "USS:" + sensor.getUltrasonicDistanceCM());
-		if(sensor.getLIDARDistanceCM() == 0){
-			preventMovement = false;
-		}
-		else if(sensor.getLIDARDistanceCM() < 70){
-			preventMovement = true;
-			directionPrevent = BACK;
-		}
-		else if(sensor.getUltrasonicDistanceCM() < 70){
-			preventMovement = true;
-			directionPrevent = FRONT;
-		}
-		
+		if(SmartDashboard.getBoolean("Avoid Accidents") && !Robot.oi.getAAAOverride()) {
+			if(sensor.getLIDARDistanceCM() == 0) preventMovement = false;
+			else if(sensor.getLIDARDistanceCM() < 70){
+				preventMovement = true;
+				directionPrevent = BACK;
+			}
+			else if(sensor.getUltrasonicDistanceCM() < 70){
+				preventMovement = true;
+				directionPrevent = FRONT;
+			} else preventMovement = false;
+		} else preventMovement = false;
     	//gets values from the joystick
     	double ly = Robot.oi.getDriverJoystick().getRawAxis(LEFT_Y);
     	double lx = Robot.oi.getDriverJoystick().getRawAxis(LEFT_X);
@@ -94,14 +93,14 @@ public class  UseDrive extends Command {
     	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
 
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
-    	if(preventMovement == true){
-    		if(directionPrevent==FRONT){
+    	if(preventMovement){
+    		if(directionPrevent == FRONT){
     			if(ly > 0){
     				ly = -0.1D;
     				if(sensor.getLIDARDistanceCM() < 50) ly = -0.3D;
     			}
     		}
-    		else if(directionPrevent==BACK){
+    		else if(directionPrevent == BACK){
     			if(ly < 0){
     				ly = 0.1D;
     				if(sensor.getUltrasonicDistanceCM() < 50) ly = 0.3D;

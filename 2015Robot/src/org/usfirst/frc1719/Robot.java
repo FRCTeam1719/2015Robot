@@ -128,6 +128,8 @@ public class Robot extends IterativeRobot {
         driverController.addDefault("3-axis joystick", 2);
         driverController.addObject("XBox controller", 4);
         SmartDashboard.putData("Driver controller type", driverController);
+        
+        SmartDashboard.putBoolean("Avoid Accidents", true);
     }
 
     /**
