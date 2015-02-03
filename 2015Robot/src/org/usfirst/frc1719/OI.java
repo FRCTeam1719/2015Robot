@@ -18,8 +18,10 @@ import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.ToggleCamera;
+import org.usfirst.frc1719.commands.ToggleElevator;
 import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
+import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -157,20 +159,25 @@ public class OI {
         elevatorPos3.whenPressed(new MoveElevatorToPos(3));
         elevatorPos4.whenPressed(new MoveElevatorToPos(4));
         elevatorPos5.whenPressed(new MoveElevatorToPos(5));
-        /* PLACEHOLDER CODE FOR ELEVATOR MODES
-         * modeFront.whenPressed(new toggleElevatorMode(FRONT))
-         * modeBack.whenPressed(new toggleElevatormode(BACK))
-         */
+        modeFront.whenPressed(new ToggleElevator(Elevator.ELEVATOR_FRONT));
+        modeBack.whenPressed(new ToggleElevator(Elevator.ELEVATOR_BACK));
+         
         /* PLACEHOLDER CODE FOR CLAWS
          * toggleClaws.whenPressed(new toggleClaws())
          */
        
+        
+
         
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("UseDrive", new UseDrive());
         SmartDashboard.putData("DriveServos", new DriveServos());
         SmartDashboard.putData("CentreCamera", new CentreCamera());
+        
+        
+        
+        
          
     }
     

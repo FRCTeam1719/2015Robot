@@ -34,8 +34,6 @@ public class MoveElevatorToPos extends Command {
 		desiredPosition = position;
 		
 		requires(Robot.currentElevator);
-		
-		System.out.println("INITIALIZE MOVELEVATOR");
 	}
 
     // Called just before this Command runs the first time
@@ -44,6 +42,7 @@ public class MoveElevatorToPos extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	elevator = Robot.currentElevator;
     	currentPosition = elevator.getElevatorPos();
     	
     	if (desiredPosition == ERROR_NUM) {
@@ -62,10 +61,6 @@ public class MoveElevatorToPos extends Command {
     		elevator.setStill();
     		done = true;
     	}
-    	
-    	System.out.println("Desired Pos: " + desiredPosition);
-    	System.out.println("Current Pos: " + elevator.getElevatorPos());
-    	System.out.println("Pot percentage: " + elevator.getPotPerc());
     	
     }
 

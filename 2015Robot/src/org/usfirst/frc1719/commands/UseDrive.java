@@ -62,7 +62,7 @@ public class  UseDrive extends Command {
     protected void execute() {
     	//Is it nec
     	preventMovement = false;
-		System.out.println("LIDAR: " + sensor.getLIDARDistanceCM() + "IRS:" + sensor.getIRSensorValue());
+		System.out.println("LIDAR: " + sensor.getLIDARDistanceCM() + "USS:" + sensor.getUltrasonicDistanceCM());
 		if(sensor.getLIDARDistanceCM() == 0){
 			preventMovement = false;
 		}
@@ -70,7 +70,7 @@ public class  UseDrive extends Command {
 			preventMovement = true;
 			directionPrevent = BACK;
 		}
-		else if(sensor.getIRSensorValue() > 200_000){
+		else if(sensor.getUltrasonicDistanceCM() < 70){
 			preventMovement = true;
 			directionPrevent = FRONT;
 		}
@@ -96,7 +96,7 @@ public class  UseDrive extends Command {
     		else if(directionPrevent==BACK){
     			if(ly < 0){
     				ly = 0.1D;
-    				if(sensor.getIRSensorValue() > 2.6) ly = 0.3D;
+    				if(sensor.getUltrasonicDistanceCM() < 50) ly = 0.3D;
     			}
     		}
     	}

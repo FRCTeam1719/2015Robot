@@ -73,6 +73,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		
 		this.elevatorPot = elevatorPot;
 		
+		determineElevatorPos();
 	}
 
 	@Override
@@ -101,7 +102,6 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	//Stops elevator movement
 	public void setStill() {
-		System.out.println("SETTING STILL");
 		//We don't have to worry about tripping a limit switch because we won't be moving
 		off();
 		elevatorIsMoving = false;
@@ -135,7 +135,6 @@ public class Elevator extends DualimitedSpike implements Testable {
 		double perc = getPotPerc();
 		
 		if (Math.abs(POTENTIOMETER_POS[pos] - perc) < POTENTIOMETER_TOLERANCE) {
-			System.out.println("AT POS");
 			return true;
 		}
 		
