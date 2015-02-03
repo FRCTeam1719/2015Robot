@@ -15,7 +15,6 @@ import org.usfirst.frc1719.RobotMap;
 import org.usfirst.frc1719.customSensors.LIDAR;
 import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 //import org.usfirst.frc1719.TEST.commands.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
