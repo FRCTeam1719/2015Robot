@@ -17,9 +17,7 @@ import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
-import org.usfirst.frc1719.commands.ToggleCamera;
 import org.usfirst.frc1719.commands.ToggleElevator;
-import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
 import org.usfirst.frc1719.subsystems.Elevator;
 
@@ -134,7 +132,9 @@ public class OI {
     private Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
     private Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
     private Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
-    private Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
+    //Suppressed because currently unused but will be in the future
+    @SuppressWarnings("unused")
+	private Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
     private Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
     private Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
     private Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);

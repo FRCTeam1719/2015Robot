@@ -16,7 +16,6 @@ import org.usfirst.frc1719.customSensors.LIDAR;
 import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
 import org.usfirst.frc1719.subsystems.Elevator;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
