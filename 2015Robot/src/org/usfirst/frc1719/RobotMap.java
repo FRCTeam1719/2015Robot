@@ -47,7 +47,6 @@ public class RobotMap {
     public static SpeedController driveRightFront;
     public static RobotDrive driveRobotDrive;
     public static Compressor pneumaticsCompressor;
-    public static Solenoid pneumaticsSolenoid1;
     public static DigitalInput sensorsLimitSwitch;
     public static Encoder sensorsQuadratureEncoder1;
     public static Encoder sensorsQuadratureEncoder2;
