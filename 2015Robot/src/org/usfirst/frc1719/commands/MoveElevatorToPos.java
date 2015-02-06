@@ -22,7 +22,7 @@ public class MoveElevatorToPos extends Command {
 	boolean done = false;
 
 	public MoveElevatorToPos(int position) {
-		System.out.println("INIT THINGY");
+
 		//If the position is invalid
 		if (position < 0 || position > 5) {
 			System.out.println("BAD ELEVATOR POSITION");
