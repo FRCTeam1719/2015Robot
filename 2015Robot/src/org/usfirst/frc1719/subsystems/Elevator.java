@@ -1,6 +1,6 @@
 package org.usfirst.frc1719.subsystems;
 
-import org.usfirst.frc1719.Robot;
+//import org.usfirst.frc1719.Robot;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
