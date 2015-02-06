@@ -19,7 +19,6 @@ import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.ToggleElevator;
 import org.usfirst.frc1719.commands.UseDrive;
-import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -36,6 +35,9 @@ public class OI {
 	//Modes
 	final int XBOX = 0;
 	final int JOYSTICK = 1;
+	final int MODE_BACK  = 0;
+	final int MODE_FRONT = 1;
+	static int currentMode = 0;
 	int driverRotationAxis;
 	//Button Declaration
 	
@@ -159,8 +161,8 @@ public class OI {
         elevatorPos3.whenPressed(new MoveElevatorToPos(3));
         elevatorPos4.whenPressed(new MoveElevatorToPos(4));
         elevatorPos5.whenPressed(new MoveElevatorToPos(5));
-        modeFront.whenPressed(new ToggleElevator(Elevator.ELEVATOR_FRONT));
-        modeBack.whenPressed(new ToggleElevator(Elevator.ELEVATOR_BACK));
+        modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
+        modeBack.whenPressed(new ToggleElevator(MODE_BACK));
          
         /* PLACEHOLDER CODE FOR CLAWS
          * toggleClaws.whenPressed(new toggleClaws())
@@ -228,7 +230,12 @@ public class OI {
     	r = driverController.getRawAxis(driverRotationAxis);
     	return r;
     }
-    
+    public static int getMode(){
+    	return currentMode;
+    }
+    public static void setMode(int newMode){
+    	currentMode = newMode;
+    }
     
 
 }

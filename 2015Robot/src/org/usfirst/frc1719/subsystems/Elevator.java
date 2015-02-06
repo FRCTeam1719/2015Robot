@@ -14,10 +14,9 @@ public class Elevator extends Subsystem implements Testable {
 	public static int PERCENT_PER_LEVEL = 10;
 	public static int POTENTIOMETER_TOLERANCE = 3;
 	
-	//For distinguishing which elevator to control
-	public static int ELEVATOR_BACK  = 0;
-	public static int ELEVATOR_FRONT = 1;
-	
+	//Constants for elevator
+	public static int ELEVATOR_FRONT = 0;
+	public static int ELEVATOR_BACK = 1;
 	//Potentiometer constants, MIN is the elevator's bottom, MAX means the elevator is at the top
 	public static double POTENTIOMETER_MIN = 0.0D;
 	public static double POTENTIOMETER_MAX = 100.0D;
