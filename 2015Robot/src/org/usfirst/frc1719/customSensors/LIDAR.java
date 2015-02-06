@@ -14,9 +14,9 @@ public class LIDAR {
 	private byte[] distance;
 	private java.util.Timer updater;
 	
-	private final int LIDAR_ADDR = 98;
-	private final int LIDAR_CONFIG_REGISTER = 0;
-	private final int LIDAR_DISTANCE_REGISTER = 143;
+	private final int LIDAR_ADDR = 0x62;
+	private final int LIDAR_CONFIG_REGISTER = 0x00;
+	private final int LIDAR_DISTANCE_REGISTER = 0x8f;
 	
 	public LIDAR(Port port) {
 		i2c = new I2C(port, LIDAR_ADDR);
@@ -53,7 +53,7 @@ public class LIDAR {
 	
 	// Update distance variable
 	public void update() {
-		i2c.write(LIDAR_CONFIG_REGISTER, 4); // Initiate measurement
+		i2c.write(LIDAR_CONFIG_REGISTER, 0x04); // Initiate measurement
 		Timer.delay(0.04); // Delay for measurement to be taken
 		i2c.read(LIDAR_DISTANCE_REGISTER, 2, distance); // Read in measurement
 		Timer.delay(0.005); // Delay to prevent over polling
