@@ -44,9 +44,5 @@ public class Pneumatics extends Subsystem {
     public Compressor getCompressor() {
     	return compressor;
     }
-    //get solenoid state
-    public Solenoid getSolenoid1() {
-    	return solenoid1;
-    }
 }
 
