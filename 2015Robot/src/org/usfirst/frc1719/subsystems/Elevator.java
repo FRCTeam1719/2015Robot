@@ -164,6 +164,7 @@ public class Elevator extends Subsystem implements Testable {
 	
 	@Override
 	public void test() {
+		try {
 		if(!testUpCompletedInit) {
 			if (elevatorMotor.getLimitSwitchForwardVal()) {
 				testUpCompletedInit = true;
@@ -185,11 +186,21 @@ public class Elevator extends Subsystem implements Testable {
 			
 			return; //Don't do anything until the elevator is at the bottom
 		}
+		} catch(final Throwable t) {
+			System.err.println("ELEVATOR TEST FAILURE\n" + t.getClass().toString() + ": " + t.getMessage()
+					+ "thrown while running Elevator.test()");
+		}
 	}
 	
 	
 	public int getElevatorPos() {
 		return elevatorPos;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

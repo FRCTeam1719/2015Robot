@@ -14,6 +14,7 @@ public class Fisher extends Subsystem implements Testable {
 	private Relay spike;
 	private DigitalInput limitSwitchDown;
 	private DigitalInput limitSwitchRet;
+	private int stage = 0;
 	
 	public Fisher(Relay par1, DigitalInput par2, DigitalInput par3, Solenoid par4, Solenoid par5) {
 		spike = par1;
@@ -64,27 +65,35 @@ public class Fisher extends Subsystem implements Testable {
 	@Override
 	//to test this class
 	public void test() {
-		while(!extend()){
-			System.out.println("Attempting extension");
+		try {
+			switch(stage) {
+				case 0:
+					if(extend()) stage++;
+					else break;
+				case 1:
+					if(retract()) stage++;
+					else break;
+				case 2:
+					if(raise()) stage++;
+					else break;
+				case 3:
+					if(lower()) stage++;
+					break;
+			}
+		} catch(final Throwable t) {
+			System.err.println("FISHER TEST FAILURE\n" + t.getClass().toString() + ": " + t.getMessage()
+					+ "thrown while running FISHER.test()");
 		}
-		System.out.println("Extension complete");
-		while(!retract()){
-			System.out.println("Attempting retraction");
-		}
-		System.out.println("Retraction Complete");
-		while(!raise()){
-			System.out.println("Attempting to raise");
-		}
-		System.out.println("Raising Complete");
-		while(!lower()){
-			System.out.println("Attempting to lower");
-		}
-		System.out.println("Lowering Complete");
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void reset() {
+		stage = 0;
 	}
 }

@@ -115,5 +115,11 @@ public class CameraMount extends Subsystem implements Testable {
 					+ "thrown while running CameraMount.test()");
 		}
 	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

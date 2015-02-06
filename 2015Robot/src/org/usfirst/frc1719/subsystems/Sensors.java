@@ -14,8 +14,6 @@ package org.usfirst.frc1719.subsystems;
 import org.usfirst.frc1719.RobotMap;
 import org.usfirst.frc1719.customSensors.LIDAR;
 import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
-
-//import org.usfirst.frc1719.TEST.commands.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
@@ -134,10 +132,13 @@ public class Sensors extends Subsystem implements Testable {
 			System.out.println("LIDAR Distance (cm): " + getLIDARDistanceCM());
 			System.out.println("Ultrasonic Distance (cm): " + getUltrasonicDistanceCM());
 			System.out.println("Encoder speeds (RPM): " + getEncoderRPM(1) + " | " + getEncoderRPM(2));
-			System.out.println("Potentiometer Values (0 bottome to 100 top): " + getPotentiometerValue(1) + " | " + getPotentiometerValue(2));
+			System.out.println("Potentiometer Values (0 bottom to 100 top): " + getPotentiometerValue(1) + " | " + getPotentiometerValue(2));
 			System.out.println("");
 		} catch(final Throwable t) {
 			System.err.println("SENSOR TEST FAILURE\n" + t.getClass().toString() + ": " + t.getMessage() + "thrown.");
 		}
 	}
+
+	@Override
+	public void reset() {}
 }
