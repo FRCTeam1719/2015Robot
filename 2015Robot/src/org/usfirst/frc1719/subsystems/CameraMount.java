@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * 
  */
 
-public class CameraMount extends Subsystem {
+public class CameraMount extends Subsystem implements Testable {
 	
 	//Gives this command access to the camera servos
 	Servo yServo = RobotMap.cameraMountYServo;
@@ -105,5 +105,22 @@ public class CameraMount extends Subsystem {
     	return panPositionY;
     }
 
+
+	@Override
+	public void test() {
+		try {
+			setYServoPan(0.5D);
+			setXServoPan(0.5D);
+		} catch(final Throwable t) {
+			System.err.println("CAMERA MOUNT TEST FAILURE\n" + t.getClass().toString() + ": " + t.getMessage()
+					+ "thrown while running CameraMount.test()");
+		}
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem {
+public class Elevator extends Subsystem implements Testable {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
@@ -167,6 +167,7 @@ public class Elevator extends Subsystem {
 		return elevatorPos;
 	}
 	
+	@Override
 	public void test() {
 		
 		if (testFinished) {
@@ -183,6 +184,7 @@ public class Elevator extends Subsystem {
 				
 				setStill(); //We probably don't need this, but redundancy is good
 				testStage++; //Move to the next stage
+
 			}
 			
 			//If it isn't at the bottom, move down
@@ -251,4 +253,11 @@ public class Elevator extends Subsystem {
 			testFinished = true;
 		}
 	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

@@ -11,6 +11,8 @@
 
 package org.usfirst.frc1719;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import org.usfirst.frc1719.autonomous.DriveRight;
@@ -98,9 +100,7 @@ public class Robot extends IterativeRobot {
         		RobotMap.fisherRetraction, RobotMap.fisherSolenoid, 
         		RobotMap.fisherAimSolenoid);
         currentElevator = frontElevator;
-        //devices.add(drive);
-        /*devices.add(frontElevator);
-        devices.add(backElevator);*/
+
         // OI must be constructed after subsystems. If the OI creates Commands 
         //(which it very likely will), subsystems are not guaranteed to be 
         // constructed yet. Thus, their requires() statements may grab null 
@@ -127,6 +127,7 @@ public class Robot extends IterativeRobot {
         driverController.addDefault("3-axis joystick", 2);
         driverController.addObject("XBox controller", 4);
         SmartDashboard.putData("Driver controller type", driverController);
+        setUpTests();
     }
 
     /**
@@ -180,6 +181,18 @@ public class Robot extends IterativeRobot {
     	loopIterationNumber++;
     	//We don't know what this does, but it breaks things
         //LiveWindow.run();
+    	Testable[] toTest = (Testable[]) devices.toArray();
+    	for(int i = 0; i < toTest.length; i++) {
+    		toTest[i].test();
+    	}
+    }
+    
+    @Override
+    public void testInit() {
+    	Testable[] toTest = (Testable[]) devices.toArray();
+    	for(int i = 0; i < toTest.length; i++) {
+    		toTest[i].reset();
+    	}
     }
     
     //returns the number of loops the robot has gone through
@@ -197,6 +210,17 @@ public class Robot extends IterativeRobot {
     	}
     	else {
     		System.out.println("Error: Wrong elevator!");
+    	}
+    }
+    
+    private void setUpTests() {
+    	Field[] f = Robot.class.getDeclaredFields();
+    	for(int i = 0; i < f.length; i++) {
+    		if(!Modifier.isStatic(f[i].getModifiers())) continue;
+    		try {
+				Object o = f[i].get(null);
+				if(o instanceof Testable) devices.add((Testable) o);
+			} catch (IllegalArgumentException | IllegalAccessException e) {throw new RuntimeException(e);}
     	}
     }
 }
