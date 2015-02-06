@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem implements Testable {
+public class Elevator extends Subsystem {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
@@ -160,24 +160,7 @@ public class Elevator extends Subsystem implements Testable {
 	public boolean isMoving() {
 		return elevatorIsMoving;
 	}
-	
-	@Override
-	public void test() {
-		
-		if (!testCompletedInit) {
-			if (elevatorMotor.getLimitSwitchBackwardVal()) {
-				testCompletedInit = true;
-				startingIterationNumber = Robot.getLoopIterationNumber();
-			}
-			else {
-				moveDown();
-			}
-			
-			return; //Don't do anything until the elevator is at the bottom
-		}
-	}
-	
-	
+
 	public int getElevatorPos() {
 		return elevatorPos;
 	}

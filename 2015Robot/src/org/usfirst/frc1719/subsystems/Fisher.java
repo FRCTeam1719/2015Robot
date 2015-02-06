@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 //TODO (CH0NC0) IMPLEMENT TESTABLE
 
-public class Fisher extends Subsystem implements Testable {
+public class Fisher extends Subsystem {
 
 	private Solenoid fisherSolenoid;
 	private Solenoid fisherAimSolenoid;
@@ -59,27 +59,6 @@ public class Fisher extends Subsystem implements Testable {
 			return true;
 		}
 		return false;
-	}
-	
-	@Override
-	//to test this class
-	public void test() {
-		while(!extend()){
-			System.out.println("Attempting extension");
-		}
-		System.out.println("Extension complete");
-		while(!retract()){
-			System.out.println("Attempting retraction");
-		}
-		System.out.println("Retraction Complete");
-		while(!raise()){
-			System.out.println("Attempting to raise");
-		}
-		System.out.println("Raising Complete");
-		while(!lower()){
-			System.out.println("Attempting to lower");
-		}
-		System.out.println("Lowering Complete");
 	}
 
 	@Override
