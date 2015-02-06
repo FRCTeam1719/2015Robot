@@ -2,6 +2,8 @@ package org.usfirst.frc1719.subsystems;
 
 //import org.usfirst.frc1719.Robot;
 
+import org.usfirst.frc1719.Robot;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
@@ -61,12 +63,12 @@ public class Elevator extends Subsystem {
 	/*
 	 * Variables used for testing
 	 */
-	boolean testCompletedInit = false;
-	boolean movingUp = true;
+	int testStage = 0;
 	//Used for timing
 	int startingIterationNumber; //The robot's loopIteration number when the test starts
-	int loopIterationNumber; //Our program will loop 100 times per second
-	boolean startPausing = true;
+	double timePassed = 0;
+	boolean testFinished = false;
+	
 	
 	public Elevator(int elevatorNum,
 					AnalogPotentiometer elevatorPot, 
@@ -165,4 +167,88 @@ public class Elevator extends Subsystem {
 		return elevatorPos;
 	}
 	
+	public void test() {
+		
+		if (testFinished) {
+			return;
+		}
+		
+		//This stage moves the elevator to the tippity top
+		if (testStage == 0) {
+			
+			//If the elevator is at the bottom, move to the next stage
+			if (elevatorMotor.getLimitSwitchForwardVal()) {
+				
+				System.out.println("No value From Limit Switch");
+				
+				setStill(); //We probably don't need this, but redundancy is good
+				testStage++; //Move to the next stage
+			}
+			
+			//If it isn't at the bottom, move down
+			else {
+				moveUp();
+			}
+			
+			//Exit so that no other stages get run
+			return;
+		}
+		
+		
+		//This stage steps the elevator halfway
+		else if (testStage == 1) {
+			
+			//If we have hit the position
+			if (atPotPos(2)) {
+				System.out.println("At potentiometer position");
+				
+				//Get how much time has passed since the last time the motor was moving
+				//in this stage
+				timePassed = (startingIterationNumber - Robot.getLoopIterationNumber()) / 100;
+				
+				//If less than half a second has passed
+				if (timePassed < .5) {
+					setStill();
+				}
+				//If more than half a second has passed
+				else {
+					//Move to the next stage, and exit
+					testStage++; 
+					return;
+				}
+			}
+			
+			//If we are still moving down
+			else {
+				moveDown();
+				
+				//Get the starting potentiometer position, if this condition isn't
+				//true on the next loop, then the elevator is at pos 2, and we don't
+				//want this to be updated
+				startingIterationNumber = Robot.getLoopIterationNumber();
+				timePassed = 0;
+			}
+		}
+		
+		else if (testStage == 2) {
+			
+			//If the elevator is at the bottom
+			if (elevatorMotor.getLimitSwitchBackwardVal()) {
+				
+				//Report and move to the next stage
+				System.out.println("No value from limit switch");
+				
+				testStage++;
+			}
+			
+			//If the elevator isn't at the bottom, move down
+			else {
+				moveDown();
+			}
+		}
+		
+		else if (testStage < 2) {
+			testFinished = true;
+		}
+	}
 }
