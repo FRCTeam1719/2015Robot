@@ -163,7 +163,7 @@ public class Elevator extends Subsystem implements Testable {
 	
 	@Override
 	public void test() {
-		while(!testCompletedInit) {
+		if(!testCompletedInit) {
 			if (elevatorMotor.getLimitSwitchForwardVal()) {
 				testCompletedInit = true;
 				startingIterationNumber = Robot.getLoopIterationNumber();
@@ -174,7 +174,7 @@ public class Elevator extends Subsystem implements Testable {
 		}
 		testCompletedInit = false;
 		
-		while (!testCompletedInit) {
+		if (!testCompletedInit) {
 			if (elevatorMotor.getLimitSwitchBackwardVal()) {
 				testCompletedInit = true;
 				startingIterationNumber = Robot.getLoopIterationNumber();
