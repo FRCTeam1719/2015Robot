@@ -61,7 +61,8 @@ public class Elevator extends Subsystem implements Testable {
 	/*
 	 * Variables used for testing
 	 */
-	boolean testCompletedInit = false;
+	boolean testUpCompletedInit = false;
+	boolean testDownCompletedInit = false;
 	boolean movingUp = true;
 	//Used for timing
 	int startingIterationNumber; //The robot's loopIteration number when the test starts
@@ -163,20 +164,19 @@ public class Elevator extends Subsystem implements Testable {
 	
 	@Override
 	public void test() {
-		if(!testCompletedInit) {
+		if(!testUpCompletedInit) {
 			if (elevatorMotor.getLimitSwitchForwardVal()) {
-				testCompletedInit = true;
+				testUpCompletedInit = true;
 				startingIterationNumber = Robot.getLoopIterationNumber();
 			}
 			else {
 				moveUp();
 			}
 		}
-		testCompletedInit = false;
 		
-		if (!testCompletedInit) {
+		if (!testDownCompletedInit) {
 			if (elevatorMotor.getLimitSwitchBackwardVal()) {
-				testCompletedInit = true;
+				testDownCompletedInit = true;
 				startingIterationNumber = Robot.getLoopIterationNumber();
 			}
 			else {
