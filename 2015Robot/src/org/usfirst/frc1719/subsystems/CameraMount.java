@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * 
  */
 
-public class CameraMount extends Subsystem implements Testable {
+public class CameraMount extends Subsystem implements ITestable {
 	
 	//Gives this command access to the camera servos
 	Servo yServo = RobotMap.cameraMountYServo;

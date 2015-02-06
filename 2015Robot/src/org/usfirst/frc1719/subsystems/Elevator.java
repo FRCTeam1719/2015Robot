@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem implements Testable {
+public class Elevator extends Subsystem implements ITestable {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;

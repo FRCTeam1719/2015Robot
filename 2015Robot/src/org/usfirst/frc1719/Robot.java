@@ -26,7 +26,7 @@ import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
-import org.usfirst.frc1719.subsystems.Testable;
+import org.usfirst.frc1719.subsystems.ITestable;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
     public static Elevator frontElevator;
     public static Elevator backElevator;
     public static Elevator currentElevator;
-    public ArrayList<Testable> devices = new ArrayList<Testable>();
+    public ArrayList<ITestable> devices = new ArrayList<ITestable>();
 	public static SendableChooser driverController;
 
     /**
@@ -180,7 +180,7 @@ public class Robot extends IterativeRobot {
     	loopIterationNumber++;
     	//We don't know what this does, but it breaks things
         //LiveWindow.run();
-    	Testable[] toTest = (Testable[]) devices.toArray();
+    	ITestable[] toTest = (ITestable[]) devices.toArray();
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].test();
     	}
@@ -188,7 +188,7 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void testInit() {
-    	Testable[] toTest = (Testable[]) devices.toArray();
+    	ITestable[] toTest = (ITestable[]) devices.toArray();
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].reset();
     	}
@@ -218,7 +218,7 @@ public class Robot extends IterativeRobot {
     		if(!Modifier.isStatic(f[i].getModifiers())) continue;
     		try {
 				Object o = f[i].get(null);
-				if(o instanceof Testable) devices.add((Testable) o);
+				if(o instanceof ITestable) devices.add((ITestable) o);
 			} catch (IllegalArgumentException | IllegalAccessException e) {throw new RuntimeException(e);}
     	}
     }
