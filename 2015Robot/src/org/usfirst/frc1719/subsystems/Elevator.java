@@ -4,9 +4,10 @@ import org.usfirst.frc1719.Robot;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends DualimitedSpike implements Testable {
+public class Elevator extends Subsystem implements Testable {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
@@ -54,6 +55,9 @@ public class Elevator extends DualimitedSpike implements Testable {
 	//Potentiometer
 	AnalogPotentiometer elevatorPot;
 	
+	//Motor
+	DualLimitedVictor elevatorMotor;
+	
 	/*
 	 * Variables used for testing
 	 */
@@ -66,16 +70,16 @@ public class Elevator extends DualimitedSpike implements Testable {
 	
 	public Elevator(int elevatorNum,
 					AnalogPotentiometer elevatorPot, 
-					Relay elevatorSpike,
+					Victor elevatorVictor,
 					DigitalInput limitSwitchTop,
 					DigitalInput limitSwitchBottom) {
-		super(elevatorSpike, limitSwitchTop, limitSwitchBottom);
 		
+		elevatorMotor = new DualLimitedVictor(elevatorVictor, limitSwitchTop, limitSwitchBottom);
 		this.elevatorPot = elevatorPot;
 		
+		determineElevatorPos();
 	}
 
-	@Override
 	public void initDefaultCommand() {
 	}
 	
@@ -85,7 +89,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 		determineElevatorPos();
 		
 		//Extend moves it up
-		forwards();
+		elevatorMotor.forward();
 		elevatorIsMoving = true;		
 	}
 	
@@ -95,15 +99,14 @@ public class Elevator extends DualimitedSpike implements Testable {
 		determineElevatorPos();
 				
 		//Retract moves it down
-		backwards();
+		elevatorMotor.backward();
 		elevatorIsMoving = true;
 	}
 	
 	//Stops elevator movement
 	public void setStill() {
-		System.out.println("SETTING STILL");
 		//We don't have to worry about tripping a limit switch because we won't be moving
-		off();
+		elevatorMotor.still();
 		elevatorIsMoving = false;
 	}
 
@@ -135,7 +138,6 @@ public class Elevator extends DualimitedSpike implements Testable {
 		double perc = getPotPerc();
 		
 		if (Math.abs(POTENTIOMETER_POS[pos] - perc) < POTENTIOMETER_TOLERANCE) {
-			System.out.println("AT POS");
 			return true;
 		}
 		
@@ -162,7 +164,7 @@ public class Elevator extends DualimitedSpike implements Testable {
 	@Override
 	public void test() {
 		while(!testCompletedInit) {
-			if (getLimitSwitchRetVal()) {
+			if (elevatorMotor.getLimitSwitchForwardVal()) {
 				testCompletedInit = true;
 				startingIterationNumber = Robot.getLoopIterationNumber();
 			}
@@ -170,8 +172,10 @@ public class Elevator extends DualimitedSpike implements Testable {
 				moveUp();
 			}
 		}
-		while(!testCompletedInit) {
-			if (getLimitSwitchRetVal()) {
+		testCompletedInit = false;
+		
+		while (!testCompletedInit) {
+			if (elevatorMotor.getLimitSwitchBackwardVal()) {
 				testCompletedInit = true;
 				startingIterationNumber = Robot.getLoopIterationNumber();
 			}

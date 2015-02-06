@@ -54,7 +54,6 @@ public class Drive extends Subsystem implements Testable {
 	 *            a double on the interval [-1.0,1.0]. Defines the speed at
 	 *            which the robot should turn in place.
 	 */
-	@Deprecated
 	public void moveMechanum(double magnitude, double direction, double rotation) {
 		// converts from degrees to radians then executes mecanumdrivepolar
 		robotDrive.mecanumDrive_Polar(magnitude, direction * 180 / Math.PI,
