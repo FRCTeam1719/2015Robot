@@ -14,7 +14,7 @@ public class TestDrive extends Command{
 
 	@Override
 	protected void execute() {
-		Robot.drive.test();
+		//Robot.drive.test();
 		
 	}
 

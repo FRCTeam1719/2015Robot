@@ -98,7 +98,7 @@ public class Robot extends IterativeRobot {
         		RobotMap.fisherRetraction, RobotMap.fisherSolenoid, 
         		RobotMap.fisherAimSolenoid);
         currentElevator = frontElevator;
-        devices.add(drive);
+        //devices.add(drive);
         /*devices.add(frontElevator);
         devices.add(backElevator);*/
         // OI must be constructed after subsystems. If the OI creates Commands 
