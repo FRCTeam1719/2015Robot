@@ -16,9 +16,11 @@ import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.ToggleCamera;
+import org.usfirst.frc1719.commands.ToggleElevator;
 import org.usfirst.frc1719.commands.TransferCameraControl;
 import org.usfirst.frc1719.commands.TurnToCamera;
 import org.usfirst.frc1719.commands.UseDrive;
+import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -86,11 +88,16 @@ public class OI {
     
     private Joystick driverJoystick;
     private Joystick operatorJoystick;
-    private JoystickButton aButton;
-    private JoystickButton bButton;
     private JoystickButton rightBumper;
     private JoystickButton leftBumper;
-
+    private JoystickButton bottomButton1;
+    private JoystickButton bottomButton2;
+    private JoystickButton bottomButton3;
+    private JoystickButton bottomButton4;
+    private JoystickButton bottomButton5;
+    private JoystickButton bottomButton6;
+    private JoystickButton switchElevatorFront;
+    private JoystickButton switchElevatorBack;
 
 
 
@@ -106,11 +113,7 @@ public class OI {
         leftBumper.whenPressed(new TurnToCamera());
         
 
-        bButton = new JoystickButton(operatorJoystick, B_BUTTON);
-        bButton.whenPressed(new MoveElevatorToPos(4));
         
-        aButton = new JoystickButton(operatorJoystick, A_BUTTON);
-        aButton.whenPressed(new MoveElevatorToPos(1));
         
         // Enabling one button as a time is dealt with in TransferCameraControl.execute().
         (new JoystickButton(driverJoystick, TRANSFER_CAMERA_CONTROL_BUTTON))
@@ -125,6 +128,27 @@ public class OI {
         SmartDashboard.putData("DriveServos", new DriveServos());
         SmartDashboard.putData("CentreCamera", new CentreCamera());
 
+        
+        bottomButton1 = new JoystickButton(operatorJoystick, 6);
+        bottomButton2 = new JoystickButton(operatorJoystick, 7);
+        bottomButton3 = new JoystickButton(operatorJoystick, 8);
+        bottomButton4 = new JoystickButton(operatorJoystick, 9);
+        bottomButton5 = new JoystickButton(operatorJoystick, 10);
+        bottomButton6 = new JoystickButton(operatorJoystick, 11);
+        
+        bottomButton1.whenPressed(new MoveElevatorToPos(0));
+        bottomButton2.whenPressed(new MoveElevatorToPos(1));
+        bottomButton3.whenPressed(new MoveElevatorToPos(2));
+        bottomButton4.whenPressed(new MoveElevatorToPos(3));
+        bottomButton5.whenPressed(new MoveElevatorToPos(4));
+        bottomButton6.whenPressed(new MoveElevatorToPos(5));
+        
+        switchElevatorFront = new JoystickButton(operatorJoystick, 3);
+        switchElevatorFront.whenPressed(new ToggleElevator(Elevator.ELEVATOR_FRONT));
+        
+        switchElevatorBack = new JoystickButton(operatorJoystick, 2);
+        switchElevatorBack.whenPressed(new ToggleElevator(Elevator.ELEVATOR_BACK));
+         
     }
     
     public Joystick getDriverJoystick() {
