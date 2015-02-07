@@ -2,12 +2,14 @@ package org.usfirst.frc1719.subsystems;
 
 //import org.usfirst.frc1719.Robot;
 
+import org.usfirst.frc1719.Robot;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem {
+public class Elevator extends Subsystem implements ITestable {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
@@ -60,7 +62,8 @@ public class Elevator extends Subsystem {
 	/*
 	 * Variables used for testing
 	 */
-	boolean testCompletedInit = false;
+	boolean testUpCompletedInit = false;
+	boolean testDownCompletedInit = false;
 	boolean movingUp = true;
 	//Used for timing
 	int startingIterationNumber; //The robot's loopIteration number when the test starts
@@ -160,8 +163,45 @@ public class Elevator extends Subsystem {
 		return elevatorIsMoving;
 	}
 
+	@Override
+	public void test() {
+		try {
+		if(!testUpCompletedInit) {
+			if (elevatorMotor.getLimitSwitchForwardVal()) {
+				testUpCompletedInit = true;
+				startingIterationNumber = Robot.getLoopIterationNumber();
+			}
+			else {
+				moveUp();
+			}
+		}
+		
+		if (!testDownCompletedInit) {
+			if (elevatorMotor.getLimitSwitchBackwardVal()) {
+				testDownCompletedInit = true;
+				startingIterationNumber = Robot.getLoopIterationNumber();
+			}
+			else {
+				moveDown();
+			}
+			
+			return; //Don't do anything until the elevator is at the bottom
+		}
+		} catch(final Throwable t) {
+			System.err.println("ELEVATOR TEST FAILURE\n" + t.getClass().toString() + ": " + t.getMessage()
+					+ "thrown while running Elevator.test()");
+		}
+	}
+	
+	
 	public int getElevatorPos() {
 		return elevatorPos;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
