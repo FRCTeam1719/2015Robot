@@ -13,11 +13,9 @@ package org.usfirst.frc1719;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc1719.autonomous.DriveRight;
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
-import org.usfirst.frc1719.commands.TestDrive;
 import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
@@ -46,7 +44,6 @@ public class Robot extends IterativeRobot {
 
 	public static enum EnumAutoCMD {
 		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
-		TEST("Go right", new DriveRight()),
 		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
 		
 		final String name;
@@ -80,7 +77,6 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     RobotMap.init();
-    	SmartDashboard.putData("Test Drive", new TestDrive());
         drive = new Drive();
         pneumatics = new Pneumatics();
         sensors = new Sensors();
@@ -98,7 +94,7 @@ public class Robot extends IterativeRobot {
         		RobotMap.fisherRetraction, RobotMap.fisherSolenoid, 
         		RobotMap.fisherAimSolenoid);
         currentElevator = frontElevator;
-        devices.add(drive);
+        //devices.add(drive);
         /*devices.add(frontElevator);
         devices.add(backElevator);*/
         // OI must be constructed after subsystems. If the OI creates Commands 
