@@ -126,28 +126,31 @@ public class OI {
     private Joystick driverController;
     private Joystick operatorJoystick;
     private Joystick cameraJoystick;
-    
-    //Button Creations
-    private Button elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
-    private Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
-    private Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
-    private Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
-    private Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
-    private Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
-    //Suppressed because currently unused but will be in the future
-    @SuppressWarnings("unused")
-	private Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
-    private Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
-    private Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
-    private Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);
-    private Button retractFisher = new JoystickButton(driverController, WINGMAN_BUTTON_5);
+    	
+    	
     
  
     public OI() {
-
-        driverController = new Joystick(0);
+    	driverController = new Joystick(0);
         operatorJoystick = new Joystick(1);
         cameraJoystick = new Joystick(2);
+        
+        //Button Creations
+        Button elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
+        Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
+        Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
+        Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
+        Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
+        Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+        //Suppressed because currently unused but will be in the future
+        @SuppressWarnings("unused")
+    	Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
+        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
+        Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
+        Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);
+        Button retractFisher = new JoystickButton(driverController, WINGMAN_BUTTON_5);
+        
+        
         
         //Driver Buttons
         retractFisher.whenPressed(new RetractFisher());
