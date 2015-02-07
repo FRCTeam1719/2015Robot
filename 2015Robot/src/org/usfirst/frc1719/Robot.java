@@ -11,8 +11,6 @@
 
 
 package org.usfirst.frc1719;
-
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
