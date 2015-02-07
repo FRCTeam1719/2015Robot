@@ -17,6 +17,7 @@ import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
+import org.usfirst.frc1719.commands.ToggleClaw;
 import org.usfirst.frc1719.commands.ToggleElevator;
 import org.usfirst.frc1719.commands.UseDrive;
 
@@ -167,10 +168,8 @@ public class OI {
         elevatorPos5.whenPressed(new MoveElevatorToPos(5));
         modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
         modeBack.whenPressed(new ToggleElevator(MODE_BACK));
-         
-        /* PLACEHOLDER CODE FOR CLAWS
-         * toggleClaws.whenPressed(new toggleClaws())
-         */
+        toggleClaws.whenPressed(new ToggleClaw());  
+       
        
         
 
