@@ -180,7 +180,8 @@ public class Robot extends IterativeRobot {
     	loopIterationNumber++;
     	//We don't know what this does, but it breaks things
         //LiveWindow.run();
-    	ITestable[] toTest = (ITestable[]) devices.toArray();
+    	ITestable[] m = new ITestable[] {};
+    	ITestable[] toTest = devices.toArray(m);
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].test();
     	}
@@ -188,7 +189,8 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void testInit() {
-    	ITestable[] toTest = (ITestable[]) devices.toArray();
+    	ITestable[] m = new ITestable[] {};
+    	ITestable[] toTest = devices.toArray(m);
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].reset();
     	}
