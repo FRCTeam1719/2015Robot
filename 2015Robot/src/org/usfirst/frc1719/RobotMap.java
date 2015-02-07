@@ -47,7 +47,6 @@ public class RobotMap {
     public static SpeedController driveRightFront;
     public static RobotDrive driveRobotDrive;
     public static Compressor pneumaticsCompressor;
-    public static Solenoid pneumaticsSolenoid1;
     public static DigitalInput sensorsLimitSwitch;
     public static Encoder sensorsQuadratureEncoder1;
     public static Encoder sensorsQuadratureEncoder2;
@@ -102,11 +101,9 @@ public class RobotMap {
         
         pneumaticsCompressor = new Compressor(0);
         
-        pneumaticsSolenoid1 = new Solenoid(1);
-        LiveWindow.addActuator("Pneumatics", "Solenoid1", pneumaticsSolenoid1);
         frontClawSolenoid = new Solenoid(1, 0);
         backClawSolenoid = new Solenoid(2, 0);
-        
+       
         frontElevatorSwitchTop = new DigitalInput(10);
         frontElevatorSwitchBottom = new DigitalInput(11);
         frontElevatorPot = new AnalogPotentiometer(1, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);

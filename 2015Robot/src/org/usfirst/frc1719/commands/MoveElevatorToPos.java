@@ -44,7 +44,6 @@ public class MoveElevatorToPos extends Command {
     protected void execute() {
     	elevator = Robot.currentElevator;
     	currentPosition = elevator.getElevatorPos();
-    	
     	if (desiredPosition == ERROR_NUM) {
     		System.out.println("BAD ELEVATOR POSITION");
     		done = true;

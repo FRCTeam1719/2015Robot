@@ -1,5 +1,6 @@
 package org.usfirst.frc1719.commands;
 
+import org.usfirst.frc1719.OI;
 import org.usfirst.frc1719.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,7 +26,7 @@ public class ToggleElevator extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.currentElevator.setStill();
-    	Robot.setCurrentElevator(whichElevator);    	
+    	OI.setMode(whichElevator);    	
     	done = true;
     }
 

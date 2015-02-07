@@ -1,23 +1,22 @@
 package org.usfirst.frc1719.subsystems;
 
-import org.usfirst.frc1719.Robot;
+//import org.usfirst.frc1719.Robot;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem implements Testable {
+public class Elevator extends Subsystem {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
 	public static int PERCENT_PER_LEVEL = 10;
 	public static int POTENTIOMETER_TOLERANCE = 3;
 	
-	//For distinguishing which elevator to control
-	public static int ELEVATOR_BACK  = 0;
-	public static int ELEVATOR_FRONT = 1;
-	
+	//Constants for elevator
+	public static int ELEVATOR_FRONT = 0;
+	public static int ELEVATOR_BACK = 1;
 	//Potentiometer constants, MIN is the elevator's bottom, MAX means the elevator is at the top
 	public static double POTENTIOMETER_MIN = 0.0D;
 	public static double POTENTIOMETER_MAX = 100.0D;
@@ -160,24 +159,7 @@ public class Elevator extends Subsystem implements Testable {
 	public boolean isMoving() {
 		return elevatorIsMoving;
 	}
-	
-	@Override
-	public void test() {
-		
-		if (!testCompletedInit) {
-			if (elevatorMotor.getLimitSwitchBackwardVal()) {
-				testCompletedInit = true;
-				startingIterationNumber = Robot.getLoopIterationNumber();
-			}
-			else {
-				moveDown();
-			}
-			
-			return; //Don't do anything until the elevator is at the bottom
-		}
-	}
-	
-	
+
 	public int getElevatorPos() {
 		return elevatorPos;
 	}

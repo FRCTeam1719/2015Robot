@@ -19,7 +19,6 @@ import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.ToggleElevator;
 import org.usfirst.frc1719.commands.UseDrive;
-import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -36,6 +35,9 @@ public class OI {
 	//Modes
 	final int XBOX = 0;
 	final int JOYSTICK = 1;
+	final int MODE_BACK  = 0;
+	final int MODE_FRONT = 1;
+	static int currentMode = 0;
 	int driverRotationAxis;
 	//Button Declaration
 	
@@ -124,30 +126,33 @@ public class OI {
     private Joystick driverController;
     private Joystick operatorJoystick;
     private Joystick cameraJoystick;
-    
-    //Button Creations
-    private Button elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
-    private Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
-    private Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
-    private Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
-    private Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
-    private Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
-    //Suppressed because currently unused but will be in the future
-    @SuppressWarnings("unused")
-	private Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
-    private Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
-    private Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
-    private Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);
-    private Button retractFisher = new JoystickButton(driverController, WINGMAN_BUTTON_5);
+    	
+    	
     
  
     public OI() {
-
-        driverController = new Joystick(0);
+    	driverController = new Joystick(0);
         operatorJoystick = new Joystick(1);
         cameraJoystick = new Joystick(2);
         
 
+        //Button Creations
+        Button elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
+        Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
+        Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
+        Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
+        Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
+        Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+        //Suppressed because currently unused but will be in the future
+        @SuppressWarnings("unused")
+    	Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
+        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
+        Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
+        Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);
+        Button retractFisher = new JoystickButton(driverController, WINGMAN_BUTTON_5);
+        
+        
+        
         //Driver Buttons
         retractFisher.whenPressed(new RetractFisher());
         extendFisher.whenPressed(new ExtendFisher());
@@ -160,8 +165,8 @@ public class OI {
         elevatorPos3.whenPressed(new MoveElevatorToPos(3));
         elevatorPos4.whenPressed(new MoveElevatorToPos(4));
         elevatorPos5.whenPressed(new MoveElevatorToPos(5));
-        modeFront.whenPressed(new ToggleElevator(Elevator.ELEVATOR_FRONT));
-        modeBack.whenPressed(new ToggleElevator(Elevator.ELEVATOR_BACK));
+        modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
+        modeBack.whenPressed(new ToggleElevator(MODE_BACK));
          
         /* PLACEHOLDER CODE FOR CLAWS
          * toggleClaws.whenPressed(new toggleClaws())
@@ -230,7 +235,12 @@ public class OI {
     	r = driverController.getRawAxis(driverRotationAxis);
     	return r;
     }
-    
+    public static int getMode(){
+    	return currentMode;
+    }
+    public static void setMode(int newMode){
+    	currentMode = newMode;
+    }
     
 
 }
