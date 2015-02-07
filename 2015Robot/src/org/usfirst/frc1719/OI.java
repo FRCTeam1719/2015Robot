@@ -241,5 +241,9 @@ public class OI {
     }
     
 
+	public boolean getAAAOverride() {
+		return driverController.getRawButton(WINGMAN_TRIGGER);
+	}
+
 }
 
