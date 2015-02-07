@@ -184,7 +184,7 @@ public class Elevator extends Subsystem implements ITestable {
 
 			}
 			
-			//If it isn't at the bottom, move down
+			//If it isn't at the top, move up
 			else {
 				moveUp();
 			}
