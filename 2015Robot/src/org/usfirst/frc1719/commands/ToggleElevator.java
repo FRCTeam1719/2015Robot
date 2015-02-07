@@ -27,6 +27,8 @@ public class ToggleElevator extends Command {
     protected void execute() {
     	Robot.currentElevator.setStill();
     	OI.setMode(whichElevator);    	
+    	System.out.println(OI.getMode());
+    	//TODO PRINTLN
     	done = true;
     }
 

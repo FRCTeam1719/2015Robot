@@ -17,6 +17,7 @@ import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
+import org.usfirst.frc1719.commands.ToggleClaw;
 import org.usfirst.frc1719.commands.ToggleElevator;
 import org.usfirst.frc1719.commands.UseDrive;
 
@@ -135,6 +136,7 @@ public class OI {
         operatorJoystick = new Joystick(1);
         cameraJoystick = new Joystick(2);
         
+
         //Button Creations
         Button elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
         Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
@@ -166,10 +168,8 @@ public class OI {
         elevatorPos5.whenPressed(new MoveElevatorToPos(5));
         modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
         modeBack.whenPressed(new ToggleElevator(MODE_BACK));
-         
-        /* PLACEHOLDER CODE FOR CLAWS
-         * toggleClaws.whenPressed(new toggleClaws())
-         */
+        toggleClaws.whenPressed(new ToggleClaw());  
+       
        
         
 
@@ -179,6 +179,7 @@ public class OI {
         SmartDashboard.putData("UseDrive", new UseDrive());
         SmartDashboard.putData("DriveServos", new DriveServos());
         SmartDashboard.putData("CentreCamera", new CentreCamera());
+
         
         
         
