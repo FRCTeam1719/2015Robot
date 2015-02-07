@@ -129,7 +129,6 @@ public class Robot extends IterativeRobot {
         driverController.addObject("XBox controller", 0);
         driverController.addDefault("3-axis joystick", 1);
         SmartDashboard.putData("Driver controller type", driverController);
-
         setUpTests();
     }
 
@@ -205,18 +204,7 @@ public class Robot extends IterativeRobot {
     	return loopIterationNumber;
     }
     
-    public static void setCurrentElevator(int elevator) {
-    	
-    	if (elevator == Elevator.ELEVATOR_FRONT) {
-    		currentElevator = frontElevator;
-    	}
-    	else if (elevator == Elevator.ELEVATOR_BACK) {
-       		currentElevator = backElevator;
-    	}
-    	else {
-    		System.out.println("Error: Wrong elevator!");
-    	}
-    }
+
     
     private void setUpTests() {
     	Field[] f = Robot.class.getDeclaredFields();
@@ -228,4 +216,5 @@ public class Robot extends IterativeRobot {
 			} catch (IllegalArgumentException | IllegalAccessException e) {throw new RuntimeException(e);}
     	}
     }
+    
 }

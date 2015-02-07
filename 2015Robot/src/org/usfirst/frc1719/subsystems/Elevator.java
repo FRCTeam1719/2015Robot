@@ -64,7 +64,7 @@ public class Elevator extends Subsystem implements ITestable {
 	 */
 	int testStage = 0;
 	//Used for timing
-	int startingIterationNumber; //The robot's loopIteration number when the test starts
+	double startingIterationNumber; //The robot's loopIteration number when the test starts
 	double timePassed = 0;
 	boolean testFinished = false;
 	
@@ -79,6 +79,8 @@ public class Elevator extends Subsystem implements ITestable {
 		this.elevatorPot = elevatorPot;
 		
 		determineElevatorPos();
+		
+		elevatorMotor.setSpeed(0.5);
 	}
 
 	public void initDefaultCommand() {
@@ -201,10 +203,10 @@ public class Elevator extends Subsystem implements ITestable {
 				
 				//Get how much time has passed since the last time the motor was moving
 				//in this stage
-				timePassed = (startingIterationNumber - Robot.getLoopIterationNumber()) / 100;
+				timePassed = (Robot.getLoopIterationNumber() - startingIterationNumber) / 100;
 				
 				//If less than half a second has passed
-				if (timePassed < .5) {
+				if (timePassed < .25) {
 					setStill();
 				}
 				//If more than half a second has passed
@@ -231,6 +233,7 @@ public class Elevator extends Subsystem implements ITestable {
 			
 			//If the elevator is at the bottom
 			if (elevatorMotor.getLimitSwitchBackwardVal()) {
+				setStill();
 				
 				//Report and move to the next stage
 				System.out.println("No value from limit switch");
@@ -244,7 +247,8 @@ public class Elevator extends Subsystem implements ITestable {
 			}
 		}
 		
-		else if (testStage < 2) {
+		else {
+			setStill();
 			testFinished = true;
 		}
 	}
@@ -255,8 +259,10 @@ public class Elevator extends Subsystem implements ITestable {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+		startingIterationNumber = 0;
+		timePassed = 0;
+		testStage = 0;
+		testFinished = false;
 	}
 	
 }
