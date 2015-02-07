@@ -191,16 +191,4 @@ public class Robot extends IterativeRobot {
     	return loopIterationNumber;
     }
     
-    public static void setCurrentElevator(int elevator) {
-    	
-    	if (elevator == Elevator.ELEVATOR_FRONT) {
-    		currentElevator = frontElevator;
-    	}
-    	else if (elevator == Elevator.ELEVATOR_BACK) {
-       		currentElevator = backElevator;
-    	}
-    	else {
-    		System.out.println("Error: Wrong elevator!");
-    	}
-    }
 }
