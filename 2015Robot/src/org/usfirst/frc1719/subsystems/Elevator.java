@@ -162,10 +162,6 @@ public class Elevator extends Subsystem implements ITestable {
 		return elevatorIsMoving;
 	}
 
-	public int getElevatorPos() {
-		return elevatorPos;
-	}
-	
 	@Override
 	public void test() {
 		
@@ -251,6 +247,10 @@ public class Elevator extends Subsystem implements ITestable {
 		else if (testStage < 2) {
 			testFinished = true;
 		}
+	}
+
+	public int getElevatorPos() {
+		return elevatorPos;
 	}
 
 	@Override

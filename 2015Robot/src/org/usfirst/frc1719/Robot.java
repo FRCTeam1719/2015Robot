@@ -11,7 +11,6 @@
 
 
 package org.usfirst.frc1719;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -126,12 +125,11 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("KI", 0.001D);
         SmartDashboard.putNumber("KD", 5.0D);
         
-
         driverController = new SendableChooser();
         driverController.addObject("XBox controller", 0);
         driverController.addDefault("3-axis joystick", 1);
         SmartDashboard.putData("Driver controller type", driverController);
-        
+
         setUpTests();
     }
 

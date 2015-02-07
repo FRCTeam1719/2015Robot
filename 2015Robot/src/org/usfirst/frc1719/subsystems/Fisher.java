@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-//TODO (CH0NC0) IMPLEMENT TESTABLE
-
 public class Fisher extends Subsystem implements ITestable {
 
 	private Solenoid fisherSolenoid;

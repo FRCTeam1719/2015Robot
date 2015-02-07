@@ -120,7 +120,7 @@ public class CameraMount extends Subsystem implements ITestable {
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
 	}
+
 }
 
