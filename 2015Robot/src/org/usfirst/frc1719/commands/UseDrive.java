@@ -63,7 +63,7 @@ public class  UseDrive extends Command {
     	//Is it nec
     	preventMovement = false;
 		//System.out.println("LIDAR: " + sensor.getLIDARDistanceCM() + "USS:" + sensor.getUltrasonicDistanceCM());
-		if(sensor.getLIDARDistanceCM() == 0){
+		if(true || sensor.getLIDARDistanceCM() == 0){
 			preventMovement = false;
 		}
 		else if(sensor.getLIDARDistanceCM() < 70){
