@@ -66,7 +66,7 @@ public class  UseDrive extends Command {
 				preventMovement = true;
 				directionPrevent = BACK;
 			}
-			else if(sensor.getUltrasonicDistanceCM() < 70){
+			else if(sensor.getUltrasonicDistanceCM() < 55){
 				preventMovement = true;
 				directionPrevent = FRONT;
 			} else preventMovement = false;
