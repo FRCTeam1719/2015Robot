@@ -76,8 +76,8 @@ public class  UseDrive extends Command {
 		}
 		
     	//gets values from the joystick
-    	double ly = Robot.oi.getDriveX();
-    	double lx = Robot.oi.getDriveY();
+    	double ly = Robot.oi.getDriveY();
+    	double lx = Robot.oi.getDriveX();
     	double rx = Robot.oi.getDriveR();
     	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
