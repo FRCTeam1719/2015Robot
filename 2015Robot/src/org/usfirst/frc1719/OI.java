@@ -145,8 +145,7 @@ public class OI {
         Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
         Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
         //Suppressed because currently unused but will be in the future
-        @SuppressWarnings("unused")
-    	Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
+        Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
         Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
         Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
         Button extendFisher = new JoystickButton(driverController, WINGMAN_BUTTON_4);
