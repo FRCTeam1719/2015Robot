@@ -245,5 +245,9 @@ public class OI {
 		return driverController.getRawButton(WINGMAN_TRIGGER);
 	}
 
+	public boolean getPIDOverride() {
+		return driverController.getRawButton(WINGMAN_BUTTON_7);
+	}
+
 }
 
