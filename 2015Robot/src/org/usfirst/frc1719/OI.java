@@ -218,6 +218,10 @@ public class OI {
     	return y;
     }
     
+    public double getOperatorY() {
+    	return operatorJoystick.getRawAxis(ATTACK_Y_AXIS);
+    }
+    
     public double getDriveX(){
     	double x;
     	x = driverController.getRawAxis(DRIVER_X);

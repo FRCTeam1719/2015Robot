@@ -64,10 +64,10 @@ public class RobotMap {
     public static Gyro sensorsGyro;
 	public static LIDAR sensorsLIDAR;
 	public static MB1220UltrasonicAnalog sensorsUltrasonic;
-    public static DigitalInput frontElevatorSwitchTop;
-    public static DigitalInput backElevatorSwitchTop;
     public static DigitalInput frontElevatorSwitchBottom;
     public static DigitalInput backElevatorSwitchBottom;
+    public static DigitalInput frontElevatorSwitchTop;
+    public static DigitalInput backElevatorSwitchTop;
     public static AnalogPotentiometer frontElevatorPot;
     public static AnalogPotentiometer backElevatorPot;
 
@@ -104,13 +104,13 @@ public class RobotMap {
         frontClawSolenoid = new Solenoid(1);
         backClawSolenoid = new Solenoid(2);
        
-        frontElevatorSwitchTop = new DigitalInput(10);
-        frontElevatorSwitchBottom = new DigitalInput(11);
+        frontElevatorSwitchBottom = new DigitalInput(10);
+        frontElevatorSwitchTop = new DigitalInput(11);
         frontElevatorPot = new AnalogPotentiometer(1, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);
         frontElevatorMotor = new Victor(6);
         
-        backElevatorSwitchTop = new DigitalInput(12);
-        backElevatorSwitchBottom = new DigitalInput(13);
+        backElevatorSwitchBottom = new DigitalInput(12);
+        backElevatorSwitchTop = new DigitalInput(13);
         backElevatorPot = new AnalogPotentiometer(2, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);
         backElevatorMotor = new Victor(7);
         

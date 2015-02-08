@@ -26,6 +26,7 @@ public class MoveElevatorToPos extends Command {
 		//If the position is invalid
 		if (position < 0 || position > 5) {
 			System.out.println("BAD ELEVATOR POSITION");
+			done = true;
 			return;
 		}
 		

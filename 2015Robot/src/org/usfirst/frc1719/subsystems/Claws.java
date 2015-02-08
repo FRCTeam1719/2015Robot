@@ -5,8 +5,8 @@ import org.usfirst.frc1719.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Claws extends Subsystem{
-	final int FRONT_CLAW = 0;
-	final int BACK_CLAW = 1;
+	final int FRONT_CLAW = 1;
+	final int BACK_CLAW = 2;
 	final boolean OPEN = false;
 	final boolean CLOSED = true;
 	boolean frontStatus = OPEN;

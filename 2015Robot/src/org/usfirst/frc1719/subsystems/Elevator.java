@@ -3,6 +3,7 @@ package org.usfirst.frc1719.subsystems;
 //import org.usfirst.frc1719.Robot;
 
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -84,6 +85,7 @@ public class Elevator extends Subsystem implements ITestable {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new UseElevator());
 	}
 	
 	//Moves elevator up in steps
@@ -111,6 +113,16 @@ public class Elevator extends Subsystem implements ITestable {
 		//We don't have to worry about tripping a limit switch because we won't be moving
 		elevatorMotor.still();
 		elevatorIsMoving = false;
+	}
+	
+	public void setSpeed(double speed) {
+		
+		if (speed < 0 || speed > 1) {
+			return;
+		}
+		
+		elevatorMotor.setSpeed(speed);
+		
 	}
 
 		
