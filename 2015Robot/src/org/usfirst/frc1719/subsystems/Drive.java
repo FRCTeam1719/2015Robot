@@ -63,7 +63,7 @@ public class Drive extends Subsystem implements ITestable {
 				rotation);
 	}
 
-	public void moveCartesian(double x, double y, double rot) {
+	public void moveCartesian(double x, double y, double rot, boolean usePID) {
 		// get PID constants
 		double KP = SmartDashboard.getNumber("KP") * 0.001D;
 		double KI = SmartDashboard.getNumber("KI") * 0.001D;
@@ -71,7 +71,7 @@ public class Drive extends Subsystem implements ITestable {
 
 		// Try to go straight if desired using PID
     	if(isPIDEnabled) {
-    		if((rot != 0.0D) || ((y == 0.0D) && (x == 0.0D))) isPIDEnabled = false;
+    		if(!usePID || (rot != 0.0D) || ((y == 0.0D) && (x == 0.0D))) isPIDEnabled = false;
     		else {
     			double err = Robot.sensors.getGyro().getAngle();
     			double ierr = 0.0D;
@@ -85,7 +85,7 @@ public class Drive extends Subsystem implements ITestable {
     			nperr[pastErr.length] = err;
     			pastErr = nperr;
     		}
-    	} else if((((new Date()).getTime() - lastRot.getTime()) > COOLDOWN_TIME) 
+    	} else if(usePID && (((new Date()).getTime() - lastRot.getTime()) > COOLDOWN_TIME) 
     			&& (rot == 0.0D) && ((y != 0.0D) || (x != 0.0D))) {
     		Robot.sensors.getGyro().reset();
     		pastErr = new double[0];
@@ -112,17 +112,17 @@ public class Drive extends Subsystem implements ITestable {
 			// move foraward
 			long l = Robot.getLoopIterationNumber();
 			if(l < TEST_DUR) {
-				moveCartesian(0.0D, 1.0D, 0.0D);
+				moveCartesian(0.0D, 1.0D, 0.0D, true);
 			} else if (l < TEST_DUR * 2) {
-				moveCartesian(0.0D, -1.0D, 0.0D);
+				moveCartesian(0.0D, -1.0D, 0.0D, true);
 			} else if (l < TEST_DUR * 3) {
-				moveCartesian(-1.0D, 0.0D, 0.0D);
+				moveCartesian(-1.0D, 0.0D, 0.0D, true);
 			} else if (l < TEST_DUR * 4) {
-				moveCartesian(1.0D, 0.0D, 0.0D);
+				moveCartesian(1.0D, 0.0D, 0.0D, true);
 			} else if (l < TEST_DUR * 5) {
-				moveCartesian(0.0D, 0.0D, 1.0D);
+				moveCartesian(0.0D, 0.0D, 1.0D, true);
 			} else if (l < TEST_DUR * 6) {
-				moveCartesian(0.0D, 0.0D, -1.0D);
+				moveCartesian(0.0D, 0.0D, -1.0D, true);
 			}
 		
 		} catch(final Throwable t) {

@@ -98,7 +98,7 @@ public class  UseDrive extends Command {
     	}
 
     	//Drives (mechanum) given the values from the joystick
-    	Robot.drive.moveCartesian(lx, ly, rx);
+    	Robot.drive.moveCartesian(lx, ly, rx, true);
     	
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
