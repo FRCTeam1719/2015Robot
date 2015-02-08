@@ -86,13 +86,11 @@ public class  UseDrive extends Command {
     		if(directionPrevent == FRONT){
     			if(ly > 0){
     				ly = -0.1D;
-    				if(sensor.getLIDARDistanceCM() < 50) ly = -0.3D;
     			}
     		}
     		else if(directionPrevent == BACK){
     			if(ly < 0){
     				ly = 0.1D;
-    				if(sensor.getUltrasonicDistanceCM() < 50) ly = 0.3D;
     			}
     		}
     	}
