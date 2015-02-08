@@ -187,7 +187,7 @@ public class OI {
     }
     
     //Periodic method for updating control configurations
-    public void OIPeriodic(){
+    public void oiPeriodic(){
     	if((int) Robot.driverController.getSelected() == XBOX){
     		driverRotationAxis = RIGHT_X;
     	}
@@ -244,6 +244,10 @@ public class OI {
     	currentMode = newMode;
     }
     
+
+	public boolean getAAAOverride() {
+		return driverController.getRawButton(WINGMAN_TRIGGER);
+	}
 
 }
 

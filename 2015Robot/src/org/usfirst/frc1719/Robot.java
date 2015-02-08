@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
+import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.subsystems.CameraMount;
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
 
 	public static enum EnumAutoCMD {
 		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
+		ZONE("Go to the Auto Zone and stop", new GetInZone()),
 		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
 		
 		final String name;
@@ -130,6 +132,7 @@ public class Robot extends IterativeRobot {
         driverController.addDefault("3-axis joystick", 1);
         SmartDashboard.putData("Driver controller type", driverController);
         setUpTests();
+        SmartDashboard.putBoolean("Avoid Accidents", true);
     }
 
     /**
@@ -165,6 +168,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        oi.oiPeriodic();
     }
 
     /**
