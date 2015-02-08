@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class UseElevator extends Command {
-	
+	public static boolean isMovingToSetPoint = false;
 	public static final double Y_AXIS_TOLERANCE = 0.1D;
 	
 	double joystickY = 0.0D;
@@ -54,9 +54,12 @@ public class UseElevator extends Command {
     	}
     	
     	//User isn't moving the joystick
-    	else if (joystickY == 0) {
+    	else if (joystickY == 0 && !isMovingToSetPoint) {
     		elevator.setStill();
     	}
+    	
+    	System.out.println(elevator.getPotPos());
+    	//TODO println
     }
 
     // Make this return true when this Command no longer needs to run execute()
