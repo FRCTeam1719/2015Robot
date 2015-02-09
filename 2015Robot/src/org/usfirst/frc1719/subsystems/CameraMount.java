@@ -120,5 +120,10 @@ public class CameraMount extends Subsystem implements ITestable {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public String getName() {
+		return "Camera Mount Test";
+	}
 }
 

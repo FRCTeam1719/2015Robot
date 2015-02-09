@@ -108,6 +108,8 @@ public class Drive extends Subsystem implements ITestable {
 
 	@Override
 	public void test() {
+		System.out.println("Testing, damnit");
+		
 		try {
 			// move foraward
 			long l = Robot.getLoopIterationNumber();
@@ -133,4 +135,9 @@ public class Drive extends Subsystem implements ITestable {
 
 	@Override
 	public void reset() {}
+	
+	@Override
+	public String getName() {
+		return "Drive Test";
+	}
 }

@@ -14,6 +14,7 @@ package org.usfirst.frc1719;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
@@ -23,12 +24,14 @@ import org.usfirst.frc1719.subsystems.Claws;
 import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
+import org.usfirst.frc1719.subsystems.ITestable;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
-import org.usfirst.frc1719.subsystems.ITestable;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 //import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,11 +59,12 @@ public class Robot extends IterativeRobot {
 			name = par1;
 			cmd = par2;
 		}
-	}
-	
+	}	
+    
 	//Declares a new sendable chooser for autonomous command
     Command autonomousCommand;
     public static SendableChooser autoCMDChooser;
+    public static SendableChooser testSubsystemChooser;
 
     public static OI oi;
     public static Drive drive;
@@ -85,17 +89,13 @@ public class Robot extends IterativeRobot {
         pneumatics = new Pneumatics();
         sensors = new Sensors();
         cameraMount = new CameraMount();
-
-
         claws = new Claws();
-
         
        // backElevator = new Elevator(Elevator.ELEVATOR_BACK);
         frontElevator = new Elevator(Elevator.ELEVATOR_FRONT, RobotMap.frontElevatorPot,
 				 RobotMap.frontElevatorMotor,
 				 RobotMap.frontElevatorSwitchTop,
 				 RobotMap.frontElevatorSwitchBottom);
-
         backElevator = new Elevator(Elevator.ELEVATOR_BACK, RobotMap.backElevatorPot,
 				RobotMap.backElevatorMotor,
 				RobotMap.backElevatorSwitchTop,
@@ -113,16 +113,14 @@ public class Robot extends IterativeRobot {
 
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutonomousCommand();
-
         
         //Adds radio button to choose autonomous command
-        
         autoCMDChooser = new SendableChooser();
         for(EnumAutoCMD cmd : EnumAutoCMD.values()) {
         	autoCMDChooser.addObject(cmd.name, cmd);
         }
         SmartDashboard.putData("Autonomous Style", autoCMDChooser);
-        
+    	
         SmartDashboard.putNumber("KP", 45.0D);
         SmartDashboard.putNumber("KI", 0.001D);
         SmartDashboard.putNumber("KD", 5.0D);
@@ -187,11 +185,8 @@ public class Robot extends IterativeRobot {
     	loopIterationNumber++;
     	//We don't know what this does, but it breaks things
         //LiveWindow.run();
-    	ITestable[] m = new ITestable[] {};
-    	ITestable[] toTest = devices.toArray(m);
-    	for(int i = 0; i < toTest.length; i++) {
-    		toTest[i].test();
-    	}
+    	
+    	((ITestable) testSubsystemChooser.getSelected()).test();
     }
     
     @Override
@@ -201,6 +196,16 @@ public class Robot extends IterativeRobot {
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].reset();
     	}
+    	//Adds radio button to choose which subsystem to test
+        testSubsystemChooser = new SendableChooser();
+        //Adds a default test option that does nothing
+        testSubsystemChooser.addDefault("Do Nothing", new ITestable(){public void test(){} public void reset(){} public String getName(){return "Do Nothing";}});
+        for(int i = 0; i < toTest.length; i++) {
+    		testSubsystemChooser.addObject(toTest[i].getName(), toTest[i]);
+    	}
+        SmartDashboard.putData("Test Subsystem", testSubsystemChooser);
+        
+        LiveWindow.setEnabled(false);
     }
     
     //returns the number of loops the robot has gone through

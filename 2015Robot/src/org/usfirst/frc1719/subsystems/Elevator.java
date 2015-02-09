@@ -277,4 +277,8 @@ public class Elevator extends Subsystem implements ITestable {
 		testFinished = false;
 	}
 	
+	@Override
+	public String getName(){
+		return "Elevator Test";
+	}
 }

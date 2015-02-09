@@ -149,4 +149,8 @@ public class Sensors extends Subsystem implements ITestable {
 
 	@Override
 	public void reset() {}
+	
+	public String getName(){
+		return "Sensors Test";
+	}
 }

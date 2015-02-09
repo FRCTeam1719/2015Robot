@@ -94,4 +94,9 @@ public class Fisher extends Subsystem implements ITestable {
 	public void reset() {
 		stage = 0;
 	}
+	
+	@Override
+	public String getName(){
+		return "Fisher Test";
+	}
 }
