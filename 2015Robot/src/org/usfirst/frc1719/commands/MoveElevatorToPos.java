@@ -5,19 +5,17 @@ import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
+
 public class MoveElevatorToPos extends Command {
 	
 	//If this is not set in the constructor, then something bad happened, and
 	//the command shouldn't do anything
-	public static int ERROR_NUM = -1337;
-	private int desiredPosition = ERROR_NUM;
+	public static double ERROR_NUM = -1337D;
+	public static double TOLERANCE = 0.2D;
 	
+	private double desiredPotPosition = ERROR_NUM;
+	private double currentPotPosition;
 	Elevator elevator;
-	
-	private int currentPosition;
 	
 	boolean done = false;
 
@@ -32,7 +30,7 @@ public class MoveElevatorToPos extends Command {
 		
 		elevator = Robot.currentElevator;
 		
-		desiredPosition = position;
+		desiredPotPosition = Elevator.POTENTIOMETER_POS[position];
 		
 		requires(Robot.currentElevator);
 	}
@@ -44,39 +42,33 @@ public class MoveElevatorToPos extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	elevator = Robot.currentElevator;
-    	currentPosition = elevator.getElevatorPos();
-    	if (desiredPosition == ERROR_NUM) {
-    		System.out.println("BAD ELEVATOR POSITION");
+    	currentPotPosition = elevator.getPotPos();
+    	
+    	//If the elevator is at the correct position
+    	if (elevator.atPotPos(desiredPotPosition)) {
+    		elevator.setStill();
     		done = true;
     		return;
     	}
     	
-    	if (currentPosition > desiredPosition) {
-    		elevator.moveDown();
-    	}
-    	else if (currentPosition < desiredPosition) {
+    	//If the desired position is above the current one
+    	if (desiredPotPosition < currentPotPosition) {
     		elevator.moveUp();
     	}
-    	else if (currentPosition == desiredPosition) {
-    		elevator.setStill();
-    		done = true;
+    	//If the desired position is below the current one
+    	else if (desiredPotPosition > currentPotPosition) {
+    		elevator.moveDown();
     	}
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (done) {
-    		done = false;
-    		return true;
-    	}
-    	else {
-    		return false;
-    	}
+    	return done;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same

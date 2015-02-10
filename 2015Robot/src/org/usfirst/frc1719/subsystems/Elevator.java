@@ -2,7 +2,6 @@ package org.usfirst.frc1719.subsystems;
 
 //import org.usfirst.frc1719.Robot;
 
-import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -14,7 +13,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
 	public static int PERCENT_PER_LEVEL = 10;
-	public static int POTENTIOMETER_TOLERANCE = 3;
+	public static double POTENTIOMETER_TOLERANCE = .5;
 	
 	//Constants for elevator
 	public static int ELEVATOR_FRONT = 0;
@@ -25,12 +24,12 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	
 	//Array of all of the positions for the potentiometer
 	public static double POTENTIOMETER_POS[] = new double[] {
-		0.0D,
-		20.0D,
-		40.0D,
-		60.0D,
-		80.0D,
-		100.0D
+		97.5D,
+		94.0D,
+		76.3D,
+		64.3D,
+		52.3D,
+		32.0D
 	};
 	
 	//Which position the elevator is at 
@@ -84,7 +83,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new UseElevator());
+		//setDefaultCommand(new UseElevator());
 	}
 	
 	//Moves elevator up in steps
@@ -93,7 +92,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 		determineElevatorPos();
 		
 		//Extend moves it up
-		elevatorMotor.forward();
+		elevatorMotor.backward();
 		elevatorIsMoving = true;		
 	}
 	
@@ -103,7 +102,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 		determineElevatorPos();
 				
 		//Retract moves it down
-		elevatorMotor.backward();
+		elevatorMotor.forward();
 		elevatorIsMoving = true;
 	}
 	
@@ -147,11 +146,11 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	}
 
 	//Whether the elevator is at the pot pos or not
-	public boolean atPotPos(int pos) {
+	public boolean atPotPos(double goalPos) {
 	
-		double perc = getPotPerc();
+		potPos = getPotPos();
 		
-		if (Math.abs(POTENTIOMETER_POS[pos] - perc) < POTENTIOMETER_TOLERANCE) {
+		if (Math.abs(goalPos - potPos) < POTENTIOMETER_TOLERANCE) {
 			return true;
 		}
 		
