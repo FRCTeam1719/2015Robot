@@ -2,7 +2,6 @@ package org.usfirst.frc1719.subsystems;
 
 //import org.usfirst.frc1719.Robot;
 
-import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.commands.UseElevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -10,7 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem implements ITestable {
+public class Elevator extends Subsystem /*implements ITestable */{
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
@@ -176,7 +175,7 @@ public class Elevator extends Subsystem implements ITestable {
 		return elevatorIsMoving;
 	}
 
-	@Override
+	/*@Override
 	public void test() {
 		
 		if (testFinished) {
@@ -265,10 +264,6 @@ public class Elevator extends Subsystem implements ITestable {
 		}
 	}
 
-	public int getElevatorPos() {
-		return elevatorPos;
-	}
-
 	@Override
 	public void reset() {
 		startingIterationNumber = 0;
@@ -280,5 +275,10 @@ public class Elevator extends Subsystem implements ITestable {
 	@Override
 	public String getName(){
 		return "Elevator Test";
+	}*/
+	
+	public int getElevatorPos() {
+		return elevatorPos;
 	}
+
 }

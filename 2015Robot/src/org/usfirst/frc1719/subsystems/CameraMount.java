@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class CameraMount extends Subsystem implements ITestable {
+public class CameraMount extends Subsystem /*implements ITestable*/ {
 	
 	//Gives this command access to the camera servos
 	Servo yServo = RobotMap.cameraMountYServo;
@@ -104,7 +104,7 @@ public class CameraMount extends Subsystem implements ITestable {
     	return panPositionY;
     }
 
-	@Override
+/*	@Override
 	public void test() {
 		try {
 			setYServoPan(0.5D);
@@ -124,6 +124,6 @@ public class CameraMount extends Subsystem implements ITestable {
 	@Override
 	public String getName() {
 		return "Camera Mount Test";
-	}
+	}*/
 }
 

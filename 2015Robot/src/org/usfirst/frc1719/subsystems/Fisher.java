@@ -5,14 +5,14 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Fisher extends Subsystem implements ITestable {
+public class Fisher extends Subsystem /*implements ITestable*/ {
 
 	private Solenoid fisherSolenoid;
 	private Solenoid fisherAimSolenoid;
 	private Relay spike;
 	private DigitalInput limitSwitchDown;
 	private DigitalInput limitSwitchRet;
-	private int stage = 0;
+	//private int stage = 0;
 	
 	public Fisher(Relay par1, DigitalInput par2, DigitalInput par3, Solenoid par4, Solenoid par5) {
 		spike = par1;
@@ -60,7 +60,7 @@ public class Fisher extends Subsystem implements ITestable {
 		return false;
 	}
 	
-	@Override
+	/*@Override
 	//to test this class
 	public void test() {
 		try {
@@ -85,12 +85,6 @@ public class Fisher extends Subsystem implements ITestable {
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void reset() {
 		stage = 0;
 	}
@@ -98,5 +92,11 @@ public class Fisher extends Subsystem implements ITestable {
 	@Override
 	public String getName(){
 		return "Fisher Test";
+	}*/
+	
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
 	}
 }
