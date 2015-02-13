@@ -34,8 +34,6 @@ public class UseElevator extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
-		System.out.println("UseElevator Called");
 		joystickY = Robot.oi.getOperatorY();
 		
 		//This is in case the elevator gets toggled
@@ -105,22 +103,15 @@ public class UseElevator extends Command {
 
 		}
 		if (elevator.atPotPos(desiredPotPos)) {
-			System.out.println("AT POS");
 			movingToPos = false;
 			elevator.setStill();
 		}
 		else if (currentPotPos < desiredPotPos) {
-			System.out.println("moving down");
 			elevator.moveDown();
 		}
 		else if (currentPotPos > desiredPotPos) {
-			System.out.println("Moving up");
 			elevator.moveUp();
 		}
-		
-		
-		System.out.println("Desired Pos: " + desiredPotPos);
-		System.out.println("Current Pos: " + currentPotPos);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

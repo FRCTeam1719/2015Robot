@@ -29,14 +29,12 @@ public class DualLimitedVictor extends Subsystem {
 		
 		//If the limit switch is off or pressed
 		if (limitForward.get()) {
-			System.out.println("FORWARD LIMIT");
 			//Turn the motor off and exit
 			still();
 			return;
 		}
 		
 		victor.set(absoluteSpeed);
-		System.out.println("MOVING UP @: " + absoluteSpeed);
 	}
 	
 	//Spin the motor backward
@@ -44,14 +42,12 @@ public class DualLimitedVictor extends Subsystem {
 		
 		//If the limit switch is off or pressed
 		if (limitBackward.get()) {
-			System.out.println("LIMIT BACK");
 			//Turn the motor off and exit
 			still();
 			return;
 		}
 		
 		victor.set(-absoluteSpeed);
-		System.out.println("GOING BACKWARD @: " + -absoluteSpeed);
 	}
 	
 	public void setSpeed(double speed) {
