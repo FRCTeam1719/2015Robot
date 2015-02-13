@@ -3,6 +3,8 @@ package org.usfirst.frc1719.subsystems;
 //import org.usfirst.frc1719.Robot;
 
 
+import org.usfirst.frc1719.commands.UseElevator;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
@@ -83,14 +85,12 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	}
 
 	public void initDefaultCommand() {
-		//setDefaultCommand(new UseElevator());
+		setDefaultCommand(new UseElevator());
 	}
 	
 	//Moves elevator up in steps
 	public void moveUp() {
-				
-		determineElevatorPos();
-		
+						
 		//Extend moves it up
 		elevatorMotor.backward();
 		elevatorIsMoving = true;		
@@ -98,9 +98,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	
 	//Move elevator down in steps
 	public void moveDown() {
-		
-		determineElevatorPos();
-				
+						
 		//Retract moves it down
 		elevatorMotor.forward();
 		elevatorIsMoving = true;

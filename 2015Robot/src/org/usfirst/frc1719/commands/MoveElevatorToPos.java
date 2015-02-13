@@ -16,11 +16,13 @@ public class MoveElevatorToPos extends Command {
 	private double desiredPotPosition = ERROR_NUM;
 	private double currentPotPosition;
 	Elevator elevator;
-	
+	public static boolean isRunning = false;
 	boolean done = false;
-
+	
 	public MoveElevatorToPos(int position) {
 
+		
+		
 		//If the position is invalid
 		if (position < 0 || position > 5) {
 			System.out.println("BAD ELEVATOR POSITION");
@@ -29,10 +31,11 @@ public class MoveElevatorToPos extends Command {
 		}
 		
 		elevator = Robot.currentElevator;
+		Robot.setRunningProcess(true);
+		requires(Robot.currentElevator);
 		
 		desiredPotPosition = Elevator.POTENTIOMETER_POS[position];
 		
-		requires(Robot.currentElevator);
 	}
 
     // Called just before this Command runs the first time
@@ -43,7 +46,7 @@ public class MoveElevatorToPos extends Command {
     protected void execute() {
     	elevator = Robot.currentElevator;
     	currentPotPosition = elevator.getPotPos();
-    	
+    	System.out.println("PRINT");
     	//If the elevator is at the correct position
     	if (elevator.atPotPos(desiredPotPosition)) {
     		elevator.setStill();
@@ -59,6 +62,7 @@ public class MoveElevatorToPos extends Command {
     	else if (desiredPotPosition > currentPotPosition) {
     		elevator.moveDown();
     	}
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -69,6 +73,7 @@ public class MoveElevatorToPos extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	done = false;
+    	Robot.setRunningProcess(false);
     }
 
     // Called when another command which requires one or more of the same

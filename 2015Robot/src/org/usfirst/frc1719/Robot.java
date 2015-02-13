@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
     public static Elevator currentElevator;
     public ArrayList<ITestable> devices = new ArrayList<ITestable>();
 	public static SendableChooser driverController;
-
+	static boolean MoveElvRunnnig = false;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -224,6 +224,13 @@ public class Robot extends IterativeRobot {
 				if(o instanceof ITestable) devices.add((ITestable) o);
 			} catch (IllegalArgumentException | IllegalAccessException e) {throw new RuntimeException(e);}
     	}
+    }
+    
+    public static void setRunningProcess(boolean x){
+    	MoveElvRunnnig = x;
+    }
+    public static boolean  isMoveElvRunning(){
+    	return MoveElvRunnnig;
     }
 
 }

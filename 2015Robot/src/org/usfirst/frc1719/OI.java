@@ -15,7 +15,6 @@ import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
-import org.usfirst.frc1719.commands.MoveElevatorToPos;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.ToggleClaw;
 import org.usfirst.frc1719.commands.ToggleElevator;
@@ -127,6 +126,13 @@ public class OI {
     private Joystick driverController;
     private Joystick operatorJoystick;
     private Joystick cameraJoystick;
+    
+    private Button elevatorPos0;
+    private Button elevatorPos1;
+    private Button elevatorPos2;
+    private Button elevatorPos3;
+    private Button elevatorPos4;
+    private Button elevatorPos5;
     	
     	
     
@@ -138,12 +144,12 @@ public class OI {
         
 
         //Button Creations
-        Button elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
-        Button elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
-        Button elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
-        Button elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
-        Button elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
-        Button elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+        elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
+        elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
+        elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
+        elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
+        elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
+        elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
         //Suppressed because currently unused but will be in the future
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
         Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
@@ -159,12 +165,12 @@ public class OI {
         
         
         //Operator Controller
-        elevatorPos0.whenPressed(new MoveElevatorToPos(0));
-        elevatorPos1.whenPressed(new MoveElevatorToPos(1));
-        elevatorPos2.whenPressed(new MoveElevatorToPos(2));
-        elevatorPos3.whenPressed(new MoveElevatorToPos(3));
-        elevatorPos4.whenPressed(new MoveElevatorToPos(4));
-        elevatorPos5.whenPressed(new MoveElevatorToPos(5));
+//        elevatorPos0.whenPressed(new MoveElevatorToPos(0));
+//        elevatorPos1.whenPressed(new MoveElevatorToPos(1));
+//        elevatorPos2.whenPressed(new MoveElevatorToPos(2));
+//        elevatorPos3.whenPressed(new MoveElevatorToPos(3));
+//        elevatorPos4.whenPressed(new MoveElevatorToPos(4));
+//        elevatorPos5.whenPressed(new MoveElevatorToPos(5));
         modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
         modeBack.whenPressed(new ToggleElevator(MODE_BACK));
         toggleClaws.whenPressed(new ToggleClaw());  
@@ -248,6 +254,29 @@ public class OI {
 	public boolean getAAAOverride() {
 		return driverController.getRawButton(WINGMAN_TRIGGER);
 	}
-
+	
+	public Button getElevatorPos0() {
+		return elevatorPos0;
+	}
+	
+	public Button getElevatorPos1() {
+		return elevatorPos1; 
+	}
+	
+	public Button getElevatorPos2() {
+		return elevatorPos2;
+	}
+	
+	public Button getElevatorPos3() {
+		return elevatorPos3;
+	}
+	
+	public Button getElevatorPos4() {
+		return elevatorPos4;
+	}
+	
+	public Button getElevatorPos5() {
+		return elevatorPos5;
+	}
 }
 
