@@ -57,7 +57,7 @@ public class TurnToCamera extends Command {
     	
     	System.out.println("Current Error: " + (target - curr));
     	double dir = (target < curr) ? -SPEED : SPEED;
-    	Robot.drive.moveCartesian(NIL, NIL, dir);
+    	Robot.drive.moveCartesian(NIL, NIL, dir, false);
     }
     
     // Make this return true when this Command no longer needs to run execute()
