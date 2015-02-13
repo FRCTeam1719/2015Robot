@@ -36,7 +36,7 @@ public class UseElevator extends Command {
     	
     	//This is in case the elevator gets toggled
     	elevator = Robot.currentElevator;
-    	
+    
     	elevator.setSpeed(Math.abs(joystickY) );
     	
     	//If the axis is within the tolerance, don't move
