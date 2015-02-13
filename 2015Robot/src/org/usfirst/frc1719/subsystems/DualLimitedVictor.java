@@ -35,7 +35,7 @@ public class DualLimitedVictor extends Subsystem {
 			return;
 		}
 		
-		victor.set(1);
+		victor.set(absoluteSpeed);
 		System.out.println("MOVING UP @: " + absoluteSpeed);
 	}
 	
@@ -50,7 +50,7 @@ public class DualLimitedVictor extends Subsystem {
 			return;
 		}
 		
-		victor.set(-1);
+		victor.set(-absoluteSpeed);
 		System.out.println("GOING BACKWARD @: " + -absoluteSpeed);
 	}
 	

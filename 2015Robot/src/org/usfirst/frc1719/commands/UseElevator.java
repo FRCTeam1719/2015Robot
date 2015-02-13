@@ -45,7 +45,7 @@ public class UseElevator extends Command {
 		
 		// If the axis is within the tolerance, don't move
 		if (Math.abs(joystickY) < Y_AXIS_TOLERANCE) {
-			elevator.setSpeed(.25);
+			elevator.setSpeed(.5);
 				
 			if (Robot.oi.getElevatorPos0().get()) {
 				desiredPotPos = Elevator.POTENTIOMETER_POS[0];
