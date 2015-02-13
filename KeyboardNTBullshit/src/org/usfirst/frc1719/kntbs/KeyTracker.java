@@ -15,16 +15,16 @@ public class KeyTracker implements KeyEventDispatcher {
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent e) {
+	    long flags = Double.doubleToRawLongBits(table.getNumber("keyflags"));
 		switch(e.getID()) {
 			case KeyEvent.KEY_PRESSED:
-				table.putValue("keyflags", ((long) table.getValue("keyflags"))
-						| KeyConstants.getCode(e.getKeyCode()));
+			    flags |= KeyConstants.getCode(e.getKeyCode());
 				break;
 			case KeyEvent.KEY_RELEASED:
-				table.putValue("keyflags", ((long) table.getValue("keyflags"))
-						& ~KeyConstants.getCode(e.getKeyCode()));
+				flags &= ~KeyConstants.getCode(e.getKeyCode());
 				break;
 		}
+		table.putNumber("keyflags", Double.longBitsToDouble(flags));
 		return false;
 	}
 }
