@@ -34,6 +34,7 @@ public class  UseDrive extends Command {
 	//is used to slow down the print return of the gyro when testing
 	//Currently Unused
 	//private int i = 0;
+    private static final double NIL = 0.0D;
 
 	//Should a direction be prevented for robot movement?
 	private boolean preventMovement = false;
@@ -85,12 +86,12 @@ public class  UseDrive extends Command {
     	if(preventMovement){
     		if(directionPrevent == FRONT){
     			if(ly > 0){
-    				ly = -0.1D;
+    				ly = NIL;
     			}
     		}
     		else if(directionPrevent == BACK){
     			if(ly < 0){
-    				ly = 0.1D;
+    				ly = NIL;
     			}
     		}
     	}
