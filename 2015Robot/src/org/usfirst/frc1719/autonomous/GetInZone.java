@@ -15,7 +15,7 @@ public class GetInZone implements ICommandOption {
 			Robot.sensors.resetEncoder10();
 			flag = false;
 		}
-		Robot.drive.moveCartesian(NIL, SPD, NIL);
+		Robot.drive.moveCartesian(NIL, SPD, NIL, true);
 	}
 
 	@Override

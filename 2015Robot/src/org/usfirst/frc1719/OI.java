@@ -278,5 +278,10 @@ public class OI {
 	public Button getElevatorPos5() {
 		return elevatorPos5;
 	}
+
+	public boolean getPIDOverride() {
+		return driverController.getRawButton(WINGMAN_BUTTON_7);
+	}
+
 }
 

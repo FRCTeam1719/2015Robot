@@ -34,6 +34,7 @@ public class  UseDrive extends Command {
 	//is used to slow down the print return of the gyro when testing
 	//Currently Unused
 	//private int i = 0;
+    private static final double NIL = 0.0D;
 
 	//Should a direction be prevented for robot movement?
 	private boolean preventMovement = false;
@@ -85,20 +86,18 @@ public class  UseDrive extends Command {
     	if(preventMovement){
     		if(directionPrevent == FRONT){
     			if(ly > 0){
-    				ly = -0.1D;
-    				if(sensor.getLIDARDistanceCM() < 50) ly = -0.3D;
+    				ly = NIL;
     			}
     		}
     		else if(directionPrevent == BACK){
     			if(ly < 0){
-    				ly = 0.1D;
-    				if(sensor.getUltrasonicDistanceCM() < 50) ly = 0.3D;
+    				ly = NIL;
     			}
     		}
     	}
 
     	//Drives (mechanum) given the values from the joystick
-    	Robot.drive.moveCartesian(lx, ly, rx);
+    	Robot.drive.moveCartesian(lx, ly, rx, !Robot.oi.getPIDOverride());
     	
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());
