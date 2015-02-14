@@ -1,5 +1,7 @@
 package org.usfirst.frc1719.subsystems;
 
+import org.usfirst.frc1719.RobotMap;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -12,6 +14,7 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	public Relay spike;
 	private DigitalInput limitSwitchDown;
 	private DigitalInput limitSwitchRet;
+	private DigitalInput fisherReedSwitch = RobotMap.fisherReedSwitch;
 	//private int stage = 0;
 	
 	public Fisher(Relay par1, DigitalInput par2, DigitalInput par3, Solenoid par4, Solenoid par5) {
@@ -24,11 +27,11 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	
 	//extends only if the arm is lowered, otherwise lowers the arm
 	public boolean extend() {
+		
 		if(lower()){
 			fisherSolenoid.set(true);
 			return true;
 		}
-		fisherAimSolenoid.set(true);
 		return false;
 	}
 	
@@ -40,6 +43,7 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
     		spike.set(Relay.Value.kOff);
     		return true;
     	}
+		
     	spike.set(Relay.Value.kReverse);
     	return false;
 	}
@@ -47,18 +51,14 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	//Lowers the arm, returns true only once fully lowered
 	public boolean lower(){
 		System.out.println("Lowering");
-		fisherAimSolenoid.set(false);
-		return limitSwitchDown.get();
+		fisherAimSolenoid.set(true);
+		return !fisherReedSwitch.get();
 	}
 	
 	//raises, but only if arm is fully retracted, otherwise retracts the arm
-	public boolean raise(){
+	public void raise(){
 		System.out.println("Raising");
-		if(retract()){
-			fisherAimSolenoid.set(false);
-			return true;
-		}
-		return false;
+		fisherAimSolenoid.set(false);
 	}
 	
 	/*@Override

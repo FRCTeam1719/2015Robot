@@ -53,6 +53,6 @@ public class LowerFisher extends Command implements IDisableable {
 	public void disable() {
 		Robot.fisher.spike.set(Relay.Value.kOff);
 		Robot.fisher.fisherAimSolenoid.set(false);
-		Robot.fisher.fisherSolenoid.set(true);
+		Robot.fisher.fisherSolenoid.set(false);
 	}
 }

@@ -179,7 +179,6 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	loopIterationNumber++; 
         Scheduler.getInstance().run();
-        
     }
 
     /**

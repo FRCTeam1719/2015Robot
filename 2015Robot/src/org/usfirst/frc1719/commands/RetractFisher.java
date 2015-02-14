@@ -30,6 +30,7 @@ public class RetractFisher extends Command implements IDisableable {
 		System.out.println("Retracting");
 		//Retracts, stops once retracted
 		if(Robot.fisher.retract()){
+			Robot.fisher.raise();
 			done = true;
 		}
 	}
@@ -39,7 +40,7 @@ public class RetractFisher extends Command implements IDisableable {
 	}
 	// Called once after isFinished returns true
 	protected void end() {
-		//makes this command repeatedly executable
+		//makes this command boolean repeatedly executable
 		done = false;
 		
 		Robot.commands.remove(this);
@@ -51,9 +52,10 @@ public class RetractFisher extends Command implements IDisableable {
 
 	@Override
 	public void disable() {
+		
 		 Robot.fisher.spike.set(Relay.Value.kOff);
 		 Robot.fisher.fisherAimSolenoid.set(false);
-		 Robot.fisher.fisherSolenoid.set(true);
+		 Robot.fisher.fisherSolenoid.set(false);
 		
 	}
 }
