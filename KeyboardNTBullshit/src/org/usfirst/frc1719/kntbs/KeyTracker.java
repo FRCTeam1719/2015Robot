@@ -15,7 +15,7 @@ public class KeyTracker implements KeyEventDispatcher {
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent e) {
-	    long flags = Double.doubleToRawLongBits(table.getNumber("keyflags"));
+	    long flags = Long.valueOf(table.getString("keyflags"), 0x10);
 		switch(e.getID()) {
 			case KeyEvent.KEY_PRESSED:
 			    flags |= KeyConstants.getCode(e.getKeyCode());
@@ -24,7 +24,7 @@ public class KeyTracker implements KeyEventDispatcher {
 				flags &= ~KeyConstants.getCode(e.getKeyCode());
 				break;
 		}
-		table.putNumber("keyflags", Double.longBitsToDouble(flags));
+		table.putString("keyflags", Long.toHexString(flags));
 		return false;
 	}
 }

@@ -5,6 +5,6 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class RIOKeys {
 	private static NetworkTable table = NetworkTable.getTable("SmartDashboard");
 	public static boolean isKeyPressed(int hid) {
-		return (Double.doubleToRawLongBits(table.getNumber("keyflags")) & KeyConstants.getCode(hid)) != 0;
+		return (Long.valueOf(table.getString("keyflags"), 0x10) & KeyConstants.getCode(hid)) != 0;
 	}
 }
