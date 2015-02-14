@@ -56,8 +56,8 @@ public class RobotMap {
     public static Solenoid backClawSolenoid;
     
     public static Relay fisherSpike;
-    public static DigitalInput fisherLowered;
     public static DigitalInput fisherReedSwitch;
+    public static DigitalInput fisherRetraction;
     public static Solenoid fisherSolenoid;
     public static Solenoid fisherAimSolenoid;
     
@@ -139,8 +139,8 @@ public class RobotMap {
         
         fisherSpike = new Relay(2);
 
-        fisherLowered = new DigitalInput(8);
-        fisherReedSwitch = new DigitalInput(9);
+        fisherReedSwitch = new DigitalInput(8);
+        fisherRetraction = new DigitalInput(9);
         fisherSolenoid = new Solenoid(0);
         fisherAimSolenoid = new Solenoid(3);
     }
