@@ -12,17 +12,15 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	public Solenoid fisherSolenoid;
 	public Solenoid fisherAimSolenoid;
 	public Relay spike;
-	private DigitalInput limitSwitchDown;
 	private DigitalInput limitSwitchRet;
 	private DigitalInput fisherReedSwitch = RobotMap.fisherReedSwitch;
 	//private int stage = 0;
 	
-	public Fisher(Relay par1, DigitalInput par2, DigitalInput par3, Solenoid par4, Solenoid par5) {
-		spike = par1;
-		limitSwitchDown = par2;
-		limitSwitchRet = par3;
-		fisherSolenoid = par4;
-		fisherAimSolenoid = par5;
+	public Fisher() {
+		spike = RobotMap.fisherSpike;
+		limitSwitchRet = RobotMap.fisherRetraction;
+		fisherSolenoid = RobotMap.fisherSolenoid;
+		fisherAimSolenoid = RobotMap.fisherAimSolenoid;
 	}
 	
 	//extends only if the arm is lowered, otherwise lowers the arm

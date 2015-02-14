@@ -102,9 +102,7 @@ public class Robot extends IterativeRobot {
 				RobotMap.backElevatorMotor,
 				RobotMap.backElevatorSwitchTop,
 				RobotMap.backElevatorSwitchBottom);
-        fisher = new Fisher(RobotMap.fisherSpike, RobotMap.fisherLowered,
-        		RobotMap.fisherRetraction, RobotMap.fisherSolenoid, 
-        		RobotMap.fisherAimSolenoid);
+        fisher = new Fisher();
         currentElevator = frontElevator;
 
         // OI must be constructed after subsystems. If the OI creates Commands 
