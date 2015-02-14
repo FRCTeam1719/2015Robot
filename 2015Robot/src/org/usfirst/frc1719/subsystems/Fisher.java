@@ -39,7 +39,6 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	public boolean retract() {
 		fisherSolenoid.set(false);
 		if(limitSwitchRet.get()) {
-			System.out.println("HIT LIMIT SWITCH");
     		spike.set(Relay.Value.kOff);
     		return true;
     	}
@@ -50,14 +49,12 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	
 	//Lowers the arm, returns true only once fully lowered
 	public boolean lower(){
-		System.out.println("Lowering");
 		fisherAimSolenoid.set(true);
 		return !fisherReedSwitch.get();
 	}
 	
 	//raises, but only if arm is fully retracted, otherwise retracts the arm
 	public void raise(){
-		System.out.println("Raising");
 		fisherAimSolenoid.set(false);
 	}
 	

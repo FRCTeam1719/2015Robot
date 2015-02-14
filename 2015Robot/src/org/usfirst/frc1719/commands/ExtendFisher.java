@@ -25,7 +25,6 @@ public class ExtendFisher extends Command implements IDisableable {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
-		System.out.println("Extending fisher");
 		//extends, ends once extended
 		if(Robot.fisher.extend()){
 			done = true;

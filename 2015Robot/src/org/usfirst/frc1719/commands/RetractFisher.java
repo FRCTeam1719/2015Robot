@@ -26,8 +26,6 @@ public class RetractFisher extends Command implements IDisableable {
 	
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
-		System.out.println("Retracting");
 		//Retracts, stops once retracted
 		if(Robot.fisher.retract()){
 			Robot.fisher.raise();
