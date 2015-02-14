@@ -11,7 +11,7 @@ public class Start {
 		NetworkTable.setClientMode();
 		NetworkTable.setIPAddress("roboRIO-1719.local");
 		NetworkTable table = NetworkTable.getTable("SmartDashboard");
-		table.putValue("keyflags", 0x0000000000000000L);
+		table.putNumber("keyflags", Double.longBitsToDouble(0x0000000000000000L));
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyTracker(table));
 	}
 
