@@ -1,12 +1,15 @@
 package org.usfirst.frc1719.commands;
 
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.interfaces.IDisableable;
+
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RetractFisher extends Command {
+public class RetractFisher extends Command implements IDisableable {
 	//makes the program terminable
 	boolean done = false;
 	
@@ -18,10 +21,13 @@ public class RetractFisher extends Command {
 	
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.commands.add(this);
 	}
 	
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
+		System.out.println("Retracting");
 		//Retracts, stops once retracted
 		if(Robot.fisher.retract()){
 			done = true;
@@ -35,9 +41,19 @@ public class RetractFisher extends Command {
 	protected void end() {
 		//makes this command repeatedly executable
 		done = false;
+		
+		Robot.commands.remove(this);
 	}
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+	}
+
+	@Override
+	public void disable() {
+		 Robot.fisher.spike.set(Relay.Value.kOff);
+		 Robot.fisher.fisherAimSolenoid.set(false);
+		 Robot.fisher.fisherSolenoid.set(true);
+		
 	}
 }

@@ -11,7 +11,9 @@ public class Claws extends Subsystem{
 	final boolean CLOSED = true;
 	boolean frontStatus = OPEN;
 	boolean backStatus = OPEN;
+	
 	public void toggleClaw(int claw){
+		
 		if(claw==FRONT_CLAW){
 			RobotMap.frontClawSolenoid.set(!frontStatus);
 			frontStatus = !frontStatus;

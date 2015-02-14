@@ -1,13 +1,15 @@
 package org.usfirst.frc1719.commands;
 
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.interfaces.IDisableable;
 
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LowerFisher extends Command {
+public class LowerFisher extends Command implements IDisableable {
 	
 	boolean done = false;
     public LowerFisher() {
@@ -18,6 +20,7 @@ public class LowerFisher extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.commands.add(this);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,10 +40,19 @@ public class LowerFisher extends Command {
     protected void end() {
     	//makes the command repeatedly executable
     	done = false;
+    	
+    	Robot.commands.remove(this);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+
+	@Override
+	public void disable() {
+		Robot.fisher.spike.set(Relay.Value.kOff);
+		Robot.fisher.fisherAimSolenoid.set(false);
+		Robot.fisher.fisherSolenoid.set(true);
+	}
 }

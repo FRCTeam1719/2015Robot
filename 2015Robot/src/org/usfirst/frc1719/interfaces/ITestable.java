@@ -1,4 +1,4 @@
-package org.usfirst.frc1719.subsystems;
+package org.usfirst.frc1719.interfaces;
 
 public interface ITestable {
 	public String getName();

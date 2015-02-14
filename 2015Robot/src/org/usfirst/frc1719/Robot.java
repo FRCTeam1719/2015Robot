@@ -19,12 +19,13 @@ import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
+import org.usfirst.frc1719.interfaces.IDisableable;
+import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Claws;
 import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
-import org.usfirst.frc1719.subsystems.ITestable;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
 
@@ -76,7 +77,8 @@ public class Robot extends IterativeRobot {
     public static Elevator backElevator;
     public static Claws claws;
     public static Elevator currentElevator;
-    public ArrayList<ITestable> devices = new ArrayList<ITestable>();
+    public static ArrayList<ITestable> devices = new ArrayList<ITestable>();
+    public static ArrayList<IDisableable> commands = new ArrayList<IDisableable>();
 	public static SendableChooser driverController;
 	static boolean MoveElvRunnnig = false;
     /**
@@ -138,7 +140,9 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	for (IDisableable itr : commands) {
+    		itr.disable();
+    	}
     }
 
     public void disabledPeriodic() {

@@ -1,6 +1,7 @@
 package org.usfirst.frc1719.commands;
 
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class UseElevator extends Command {
+public class UseElevator extends Command implements IDisableable {
 	
 	public static final double Y_AXIS_TOLERANCE = 0.1D;
 
@@ -30,6 +31,7 @@ public class UseElevator extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.commands.add(this);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -107,10 +109,10 @@ public class UseElevator extends Command {
 			elevator.setStill();
 		}
 		else if (currentPotPos < desiredPotPos) {
-			elevator.moveDown();
+			elevator.moveUp();
 		}
 		else if (currentPotPos > desiredPotPos) {
-			elevator.moveUp();
+			elevator.moveDown();
 		}
 	}
 
@@ -121,10 +123,18 @@ public class UseElevator extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.commands.remove(this);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+	}
+
+	@Override
+	public void disable() {
+		elevator.setSpeed(0);
+		elevator.setStill();
+		
 	}
 }

@@ -2,10 +2,12 @@ package org.usfirst.frc1719.commands;
 
 import org.usfirst.frc1719.OI;
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.RobotMap;
+import org.usfirst.frc1719.interfaces.IDisableable;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ToggleClaw extends Command{
+public class ToggleClaw extends Command implements IDisableable {
 	boolean done = false;
 	final int FRONT_CLAW = 0;
 	final int BACK_CLAW = 1;
@@ -15,7 +17,7 @@ public class ToggleClaw extends Command{
 	
 	@Override
 	protected void end() {
-		
+		Robot.commands.remove(this);
 	}
 
 	@Override
@@ -26,7 +28,7 @@ public class ToggleClaw extends Command{
 
 	@Override
 	protected void initialize() {
-		
+		Robot.commands.add(this);
 	}
 
 	@Override
@@ -37,6 +39,12 @@ public class ToggleClaw extends Command{
 	@Override
 	protected boolean isFinished() {
 		return done;
+	}
+
+	@Override
+	public void disable() {
+		
+		
 	}
 
 }

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Fisher extends Subsystem /*implements ITestable*/ {
 
-	private Solenoid fisherSolenoid;
-	private Solenoid fisherAimSolenoid;
-	private Relay spike;
+	public Solenoid fisherSolenoid;
+	public Solenoid fisherAimSolenoid;
+	public Relay spike;
 	private DigitalInput limitSwitchDown;
 	private DigitalInput limitSwitchRet;
 	//private int stage = 0;
@@ -36,6 +36,7 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	public boolean retract() {
 		fisherSolenoid.set(false);
 		if(limitSwitchRet.get()) {
+			System.out.println("HIT LIMIT SWITCH");
     		spike.set(Relay.Value.kOff);
     		return true;
     	}
@@ -46,7 +47,7 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	//Lowers the arm, returns true only once fully lowered
 	public boolean lower(){
 		System.out.println("Lowering");
-		fisherAimSolenoid.set(true);
+		fisherAimSolenoid.set(false);
 		return limitSwitchDown.get();
 	}
 	
@@ -91,7 +92,7 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	
 	@Override
 	public String getName(){
-		return "Fisher Test";
+		return "Fisher Test";SwitchRet.get()) 
 	}*/
 	
 	@Override

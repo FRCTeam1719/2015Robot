@@ -13,6 +13,7 @@ package org.usfirst.frc1719.subsystems;
 
 import org.usfirst.frc1719.RobotMap;
 import org.usfirst.frc1719.commands.DriveServos;
+import org.usfirst.frc1719.interfaces.ITestable;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,7 +22,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
  */
-public class CameraMount extends Subsystem /*implements ITestable*/ {
+public class CameraMount extends Subsystem implements ITestable {
 	
 	//Gives this command access to the camera servos
 	Servo yServo = RobotMap.cameraMountYServo;
@@ -103,6 +104,18 @@ public class CameraMount extends Subsystem /*implements ITestable*/ {
     public double getYPos() {
     	return panPositionY;
     }
+
+	@Override
+	public void test() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 
 /*	@Override
 	public void test() {

@@ -3,14 +3,16 @@ package org.usfirst.frc1719.subsystems;
 //import org.usfirst.frc1719.Robot;
 
 
+import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.commands.UseElevator;
+import org.usfirst.frc1719.interfaces.ITestable;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem /*implements ITestable */{
+public class Elevator extends Subsystem implements ITestable {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
@@ -23,6 +25,9 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	//Potentiometer constants, MIN is the elevator's bottom, MAX means the elevator is at the top
 	public static double POTENTIOMETER_MIN = 0.0D;
 	public static double POTENTIOMETER_MAX = 100.0D;
+	
+	public static double limitBottomPotPos;
+	public static double limitTopPotPos;
 	
 	//Array of all of the positions for the potentiometer
 	public static double POTENTIOMETER_POS[] = new double[] {
@@ -89,7 +94,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	}
 	
 	//Moves elevator up in steps
-	public void moveUp() {
+	public void moveDown() {
 						
 		//Extend moves it up
 		elevatorMotor.backward();
@@ -97,7 +102,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	}
 	
 	//Move elevator down in steps
-	public void moveDown() {
+	public void moveUp() {
 						
 		//Retract moves it down
 		elevatorMotor.forward();
@@ -172,7 +177,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 		return elevatorIsMoving;
 	}
 
-	/*@Override
+	@Override
 	public void test() {
 		
 		if (testFinished) {
@@ -183,18 +188,29 @@ public class Elevator extends Subsystem /*implements ITestable */{
 		if (testStage == 0) {
 			
 			//If the elevator is at the bottom, move to the next stage
-			if (elevatorMotor.getLimitSwitchForwardVal()) {
+			if (elevatorMotor.getLimitSwitchBackwardVal()) {
 				
-				System.out.println("No value From Limit Switch");
+				System.out.println("Top Limit Switch Confirmed");
 				
 				setStill(); //We probably don't need this, but redundancy is good
 				testStage++; //Move to the next stage
-
+				
+				limitBottomPotPos = getPotPos();
+				
+				POTENTIOMETER_POS[0] = limitBottomPotPos - 2;
+				POTENTIOMETER_POS[1] = POTENTIOMETER_POS[0] - 3.5;
+				POTENTIOMETER_POS[2] = POTENTIOMETER_POS[1] - 17.7;
+				POTENTIOMETER_POS[3] = POTENTIOMETER_POS[2] - 12;
+				POTENTIOMETER_POS[4] = POTENTIOMETER_POS[3] - 12;
+				POTENTIOMETER_POS[5] = POTENTIOMETER_POS[4] - 12;
+				
+				System.out.println("Stage 1 Completed");
+				return;
 			}
 			
 			//If it isn't at the top, move up
 			else {
-				moveUp();
+				moveDown();
 			}
 			
 			//Exit so that no other stages get run
@@ -207,7 +223,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 			
 			//If we have hit the position
 			if (atPotPos(2)) {
-				System.out.println("At potentiometer position");
+				System.out.println("At Potentiometer Pos");
 				
 				//Get how much time has passed since the last time the motor was moving
 				//in this stage
@@ -221,13 +237,14 @@ public class Elevator extends Subsystem /*implements ITestable */{
 				else {
 					//Move to the next stage, and exit
 					testStage++; 
+					System.out.println("Stage 2 Completed");
 					return;
 				}
 			}
 			
 			//If we are still moving down
 			else {
-				moveDown();
+				moveUp();
 				
 				//Get the starting potentiometer position, if this condition isn't
 				//true on the next loop, then the elevator is at pos 2, and we don't
@@ -244,9 +261,11 @@ public class Elevator extends Subsystem /*implements ITestable */{
 				setStill();
 				
 				//Report and move to the next stage
-				System.out.println("No value from limit switch");
+				System.out.println("BottomLimit Switch Activated");
 				
 				testStage++;
+				
+				System.out.println("Stage 3 Completed");
 			}
 			
 			//If the elevator isn't at the bottom, move down
@@ -255,6 +274,18 @@ public class Elevator extends Subsystem /*implements ITestable */{
 			}
 		}
 		
+		else if (testStage == 3) {
+			
+			//If the elevator is activating the limit switch
+			if (elevatorMotor.getLimitSwitchBackwardVal()) {
+				moveUp();
+			}
+			else {
+				setStill();
+				testStage++;
+				System.out.println("Stage 4 Completed");
+			}
+		}
 		else {
 			setStill();
 			testFinished = true;
@@ -272,7 +303,7 @@ public class Elevator extends Subsystem /*implements ITestable */{
 	@Override
 	public String getName(){
 		return "Elevator Test";
-	}*/
+	}
 	
 	public int getElevatorPos() {
 		return elevatorPos;
