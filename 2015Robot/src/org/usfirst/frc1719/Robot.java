@@ -78,6 +78,9 @@ public class Robot extends IterativeRobot {
     public static ArrayList<IDisableable> commands = new ArrayList<IDisableable>();
 	public static SendableChooser driverController;
 	static boolean MoveElvRunnnig = false;
+	public static ITestable[] m = new ITestable[] {};
+	public static ITestable[] toTest;
+	public static String previousTest;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -128,6 +131,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Driver controller type", driverController);
         setUpTests();
         SmartDashboard.putBoolean("Avoid Accidents", true);
+        
     }
 
     /**
@@ -183,21 +187,29 @@ public class Robot extends IterativeRobot {
     	loopIterationNumber++;
     	//We don't know what this does, but it breaks things
         //LiveWindow.run();
-    	
+    	String currentTest = String.valueOf(testSubsystemChooser.getSelected());
+    	if(currentTest!=previousTest){
+    		testCleanUp();
+    	}
     	((ITestable) testSubsystemChooser.getSelected()).test();
+    	previousTest= currentTest;
+    }
+    public static void testCleanUp(){
+    	for(int i = 0; i < toTest.length; i++) {
+    		toTest[i].reset();
+    	}
     }
     
     @Override
     public void testInit() {
-    	ITestable[] m = new ITestable[] {};
-    	ITestable[] toTest = devices.toArray(m);
+    	toTest = devices.toArray(m);
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].reset();
     	}
     	//Adds radio button to choose which subsystem to test
         testSubsystemChooser = new SendableChooser();
         //Adds a default test option that does nothing
-        testSubsystemChooser.addDefault("Do Nothing", new ITestable(){public void test(){} public void reset(){} public String getName(){return "Do Nothing";}});
+        testSubsystemChooser.addDefault("Do Nothing", new ITestable(){public void test(){Robot.testCleanUp();} public void reset(){} public String getName(){return "Do Nothing";}});
         for(int i = 0; i < toTest.length; i++) {
     		testSubsystemChooser.addObject(toTest[i].getName(), toTest[i]);
     	}
