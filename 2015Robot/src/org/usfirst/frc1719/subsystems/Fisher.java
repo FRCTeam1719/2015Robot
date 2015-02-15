@@ -95,7 +95,7 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	
 	@Override
 	public String getName(){
-		return "Fisher Test";SwitchRet.get()) 
+		return "Fisher Test"; 
 	}*/
 	
 	@Override

@@ -3,6 +3,7 @@ package org.usfirst.frc1719.subsystems;
 //import org.usfirst.frc1719.Robot;
 
 
+import org.usfirst.frc1719.OI;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.commands.UseElevator;
 import org.usfirst.frc1719.interfaces.ITestable;
@@ -68,7 +69,8 @@ public class Elevator extends Subsystem implements ITestable {
 	 */
 	int testStage = 0;
 	//Used for timing
-	double startingIterationNumber; //The robot's loopIteration number when the test starts
+	int startingIterationNumber; //The robot's loopIteration number when the test starts
+	int currentIterationNumber;
 	double timePassed = 0;
 	boolean testFinished = false;
 	
@@ -94,7 +96,9 @@ public class Elevator extends Subsystem implements ITestable {
 	
 	//Moves elevator up in steps
 	public void moveDown() {
-						
+		
+		System.out.println("MOVING DOWN");
+		
 		//Extend moves it up
 		elevatorMotor.backward();
 		elevatorIsMoving = true;		
@@ -102,6 +106,8 @@ public class Elevator extends Subsystem implements ITestable {
 	
 	//Move elevator down in steps
 	public void moveUp() {
+		
+		System.out.println("MOVING UP");
  						
 		//Retract moves it down
 		elevatorMotor.forward();
@@ -166,112 +172,81 @@ public class Elevator extends Subsystem implements ITestable {
 	@Override
 	public void test() {
 		
+		elevatorMotor.setSpeed(.5);
+		
 		if (testFinished) {
+			setStill();
 			return;
 		}
 		
-		//This stage moves the elevator to the tippity top
 		if (testStage == 0) {
 			
-			//If the elevator is at the bottom, move to the next stage
 			if (elevatorMotor.getLimitSwitchBackwardVal()) {
-				
-				System.out.println("Top Limit Switch Confirmed");
-				
-				setStill(); //We probably don't need this, but redundancy is good
-				testStage++; //Move to the next stage
-				
-				limitBottomPotPos = getPotPos();
-				
-				POTENTIOMETER_POS[0] = limitBottomPotPos - 2;
-				POTENTIOMETER_POS[1] = POTENTIOMETER_POS[0] - 3.5;
-				POTENTIOMETER_POS[2] = POTENTIOMETER_POS[1] - 17.7;
-				POTENTIOMETER_POS[3] = POTENTIOMETER_POS[2] - 12;
-				POTENTIOMETER_POS[4] = POTENTIOMETER_POS[3] - 12;
-				POTENTIOMETER_POS[5] = POTENTIOMETER_POS[4] - 12;
-				
-				System.out.println("Stage 1 Completed");
-				return;
+				setStill();
+				testStage++;
 			}
-			
-			//If it isn't at the top, move up
 			else {
 				moveDown();
 			}
 			
-			//Exit so that no other stages get run
 			return;
 		}
 		
-		
-		//This stage steps the elevator halfway
 		else if (testStage == 1) {
 			
-			//If we have hit the position
-			if (atPotPos(2)) {
-				System.out.println("At Potentiometer Pos");
-				
-				//Get how much time has passed since the last time the motor was moving
-				//in this stage
-				timePassed = (Robot.getLoopIterationNumber() - startingIterationNumber) / 100;
-				
-				//If less than half a second has passed
-				if (timePassed < .25) {
-					setStill();
-				}
-				//If more than half a second has passed
-				else {
-					//Move to the next stage, and exit
-					testStage++; 
-					System.out.println("Stage 2 Completed");
-					return;
-				}
+			if (elevatorMotor.getLimitSwitchForwardVal()) {
+				setStill();
+				testStage++;
 			}
-			
-			//If we are still moving down
 			else {
 				moveUp();
-				
-				//Get the starting potentiometer position, if this condition isn't
-				//true on the next loop, then the elevator is at pos 2, and we don't
-				//want this to be updated
-				startingIterationNumber = Robot.getLoopIterationNumber();
-				timePassed = 0;
 			}
 		}
 		
 		else if (testStage == 2) {
 			
-			//If the elevator is at the bottom
-			if (elevatorMotor.getLimitSwitchBackwardVal()) {
+			if (atPotPos(50)) {
+				startingIterationNumber = Robot.getLoopIterationNumber() + 1;
 				setStill();
-				
-				//Report and move to the next stage
-				System.out.println("BottomLimit Switch Activated");
-				
 				testStage++;
-				
-				System.out.println("Stage 3 Completed");
 			}
-			
-			//If the elevator isn't at the bottom, move down
 			else {
 				moveDown();
 			}
+			
+			return;
 		}
 		
+		//Wait half a second
 		else if (testStage == 3) {
+			currentIterationNumber = Robot.getLoopIterationNumber();
 			
-			//If the elevator is activating the limit switch
-			if (elevatorMotor.getLimitSwitchBackwardVal()) {
-				moveUp();
+			//If 50 loops have passed
+			if (currentIterationNumber - startingIterationNumber >= 50) {
+				testStage++;
 			}
 			else {
+				System.out.println("PAUSE");
 				setStill();
-				testStage++;
-				System.out.println("Stage 4 Completed");
 			}
+			
+			return;
 		}
+		
+		//Move to bottom limit switch again
+		else if (testStage == 4) {
+			
+			if (elevatorMotor.getLimitSwitchBackwardVal()) {
+				testStage++;
+				setStill();
+			}
+			else {
+				moveDown();
+			}
+			
+			return;
+		}
+		
 		else {
 			setStill();
 			testFinished = true;
@@ -288,7 +263,15 @@ public class Elevator extends Subsystem implements ITestable {
 	
 	@Override
 	public String getName(){
-		return "Elevator Test";
+		if (elevatorNum == OI.MODE_FRONT) {
+			return "Front Elevator Test";
+		}
+		else if (elevatorNum == OI.MODE_BACK) {
+			return "Back Elevator Test";
+		}
+		else {
+			return "Elevator SOMETHING IS WRONG HERE";
+		}
 	}
 	
 	public int getElevatorPos() {

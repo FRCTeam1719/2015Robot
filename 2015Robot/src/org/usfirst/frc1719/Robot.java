@@ -93,7 +93,6 @@ public class Robot extends IterativeRobot {
         cameraMount = new CameraMount();
         claws = new Claws();
         
-       // backElevator = new Elevator(Elevator.ELEVATOR_BACK);
         frontElevator = new Elevator(OI.MODE_FRONT, RobotMap.frontElevatorPot,
 				 RobotMap.frontElevatorMotor,
 				 RobotMap.frontElevatorSwitchTop,
