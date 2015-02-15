@@ -28,8 +28,9 @@ public class RetractFisher extends Command implements IDisableable {
 	protected void execute() {
 		//Retracts, stops once retracted
 		if(Robot.fisher.retract()){
-			Robot.fisher.raise();
-			done = true;
+			if (Robot.fisher.raise()) {
+				done = true;
+			}
 		}
 	}
 	// Make this return true when this Command no longer needs to run execute()

@@ -40,7 +40,12 @@ public class GetCtrByDistance implements ICommandOption {
 					break;
 				}
 			case 3:
-				if(Robot.fisher.extend()) stage++;
+				if(Robot.fisher.lower()) {
+					if (Robot.fisher.extend()) {
+						stage++;
+					}
+					else break;
+				}
 				else break;
 			case 4:
 				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
