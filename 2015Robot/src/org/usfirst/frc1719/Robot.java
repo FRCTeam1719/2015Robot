@@ -94,11 +94,11 @@ public class Robot extends IterativeRobot {
         claws = new Claws();
         
        // backElevator = new Elevator(Elevator.ELEVATOR_BACK);
-        frontElevator = new Elevator(Elevator.ELEVATOR_FRONT, RobotMap.frontElevatorPot,
+        frontElevator = new Elevator(OI.MODE_FRONT, RobotMap.frontElevatorPot,
 				 RobotMap.frontElevatorMotor,
 				 RobotMap.frontElevatorSwitchTop,
 				 RobotMap.frontElevatorSwitchBottom);
-        backElevator = new Elevator(Elevator.ELEVATOR_BACK, RobotMap.backElevatorPot,
+        backElevator = new Elevator(OI.MODE_BACK, RobotMap.backElevatorPot,
 				RobotMap.backElevatorMotor,
 				RobotMap.backElevatorSwitchTop,
 				RobotMap.backElevatorSwitchBottom);
@@ -239,8 +239,22 @@ public class Robot extends IterativeRobot {
     public static void setRunningProcess(boolean x){
     	MoveElvRunnnig = x;
     }
+    
     public static boolean  isMoveElvRunning(){
     	return MoveElvRunnnig;
+    }
+    
+    public static void switchElevator(int whichElevator) {
+    	
+    	if (whichElevator == OI.MODE_FRONT) {
+    		currentElevator = frontElevator;
+    	}
+    	else if (whichElevator == OI.MODE_BACK) {
+    		currentElevator = backElevator;
+    	}
+    	else {
+    		System.out.println("WRONG ELEVATOR");
+    	}
     }
 
 }

@@ -23,19 +23,20 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 		fisherAimSolenoid = RobotMap.fisherAimSolenoid;
 	}
 	
-	//extends only if the arm is lowered, otherwise lowers the arm
 	public boolean extend() {
 		
-		if(lower()){
+		if (!fisherReedSwitch.get()) {
 			fisherSolenoid.set(true);
 			return true;
 		}
+
 		return false;
 	}
 	
 	//Retract the fisher until the limit switch tells it is fully retracted
 	public boolean retract() {
 		fisherSolenoid.set(false);
+		
 		if(limitSwitchRet.get()) {
     		spike.set(Relay.Value.kOff);
     		return true;
@@ -47,13 +48,20 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	
 	//Lowers the arm, returns true only once fully lowered
 	public boolean lower(){
+		
 		fisherAimSolenoid.set(true);
 		return !fisherReedSwitch.get();
 	}
 	
 	//raises, but only if arm is fully retracted, otherwise retracts the arm
-	public void raise(){
-		fisherAimSolenoid.set(false);
+	public boolean raise() {
+		
+		if (limitSwitchRet.get()) {
+			fisherAimSolenoid.set(false);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/*@Override
