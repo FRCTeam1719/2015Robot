@@ -26,25 +26,20 @@ public class ToggleElevator extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.currentElevator.setStill();
-    	OI.setMode(whichElevator);    	
-    	System.out.println(OI.getMode());
-    	//TODO PRINTLN
+    	OI.setMode(whichElevator);
+    	
+    	Robot.switchElevator(whichElevator);
     	done = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (done) {
-        	done = false;
-        	return true;
-        }
-        else {
-        	return false;
-        }
+        return done;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	done = false;
     }
 
     // Called when another command which requires one or more of the same

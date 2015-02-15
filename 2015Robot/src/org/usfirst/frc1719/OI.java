@@ -35,8 +35,8 @@ public class OI {
 	//Modes
 	final int XBOX = 0;
 	final int JOYSTICK = 1;
-	final int MODE_BACK  = 0;
-	final int MODE_FRONT = 1;
+	public static final int MODE_BACK  = 0;
+	public static final int MODE_FRONT = 1;
 	static int currentMode = 0;
 	int driverRotationAxis;
 	//Button Declaration
@@ -134,7 +134,6 @@ public class OI {
     private Button elevatorPos4;
     private Button elevatorPos5;
     	
-    	
     
  
     public OI() {
@@ -150,6 +149,7 @@ public class OI {
         elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
         elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
         elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+        
         //Suppressed because currently unused but will be in the future
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
         Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
@@ -165,12 +165,6 @@ public class OI {
         
         
         //Operator Controller
-//        elevatorPos0.whenPressed(new MoveElevatorToPos(0));
-//        elevatorPos1.whenPressed(new MoveElevatorToPos(1));
-//        elevatorPos2.whenPressed(new MoveElevatorToPos(2));
-//        elevatorPos3.whenPressed(new MoveElevatorToPos(3));
-//        elevatorPos4.whenPressed(new MoveElevatorToPos(4));
-//        elevatorPos5.whenPressed(new MoveElevatorToPos(5));
         modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
         modeBack.whenPressed(new ToggleElevator(MODE_BACK));
         toggleClaws.whenPressed(new ToggleClaw());  
@@ -184,11 +178,6 @@ public class OI {
         SmartDashboard.putData("UseDrive", new UseDrive());
         SmartDashboard.putData("DriveServos", new DriveServos());
         SmartDashboard.putData("CentreCamera", new CentreCamera());
-
-        
-        
-        
-        
          
     }
     
@@ -246,6 +235,7 @@ public class OI {
     public static int getMode(){
     	return currentMode;
     }
+    
     public static void setMode(int newMode){
     	currentMode = newMode;
     }

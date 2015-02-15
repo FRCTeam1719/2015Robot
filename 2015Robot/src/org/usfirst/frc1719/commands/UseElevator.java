@@ -36,12 +36,15 @@ public class UseElevator extends Command implements IDisableable {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
 		joystickY = Robot.oi.getOperatorY();
 		
 		//This is in case the elevator gets toggled
 		elevator = Robot.currentElevator;
 		
 		currentPotPos = elevator.getPotPos();
+		
+		
 		
 		// If the axis is within the tolerance, don't move
 		if (Math.abs(joystickY) < Y_AXIS_TOLERANCE) {
@@ -135,6 +138,6 @@ public class UseElevator extends Command implements IDisableable {
 	public void disable() {
 		elevator.setSpeed(0);
 		elevator.setStill();
-		
+		desiredPotPos = currentPotPos;
 	}
 }

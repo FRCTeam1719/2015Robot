@@ -16,12 +16,8 @@ public class Elevator extends Subsystem implements ITestable {
 	
 	//the Pot gives a value from 0 to 1, multiplied by this
 	public static int POTENTIOMETER_SCALE_FACTOR = 100;
-	public static int PERCENT_PER_LEVEL = 10;
 	public static double POTENTIOMETER_TOLERANCE = .5;
 	
-	//Constants for elevator
-	public static int ELEVATOR_FRONT = 0;
-	public static int ELEVATOR_BACK = 1;
 	//Potentiometer constants, MIN is the elevator's bottom, MAX means the elevator is at the top
 	public static double POTENTIOMETER_MIN = 0.0D;
 	public static double POTENTIOMETER_MAX = 100.0D;
@@ -65,6 +61,8 @@ public class Elevator extends Subsystem implements ITestable {
 	//Motor
 	DualLimitedVictor elevatorMotor;
 	
+	int elevatorNum;
+	
 	/*
 	 * Variables used for testing
 	 */
@@ -83,6 +81,7 @@ public class Elevator extends Subsystem implements ITestable {
 		
 		elevatorMotor = new DualLimitedVictor(elevatorVictor, limitSwitchTop, limitSwitchBottom);
 		this.elevatorPot = elevatorPot;
+		this.elevatorNum = elevatorNum;
 		
 		determineElevatorPos();
 		
@@ -103,7 +102,7 @@ public class Elevator extends Subsystem implements ITestable {
 	
 	//Move elevator down in steps
 	public void moveUp() {
-						
+ 						
 		//Retract moves it down
 		elevatorMotor.forward();
 		elevatorIsMoving = true;
@@ -134,19 +133,6 @@ public class Elevator extends Subsystem implements ITestable {
 		return potPos;
 	}
 	
-	public double getPotPerc() {
-		potPos = elevatorPot.get();
-		
-		double percent = (potPos / POTENTIOMETER_MAX) * 100;
-		
-		return percent;
-	}
-	
-	public double getPotLevel(){
-		double level = getPotPerc() / PERCENT_PER_LEVEL;
-		
-		return level;
-	}
 
 	//Whether the elevator is at the pot pos or not
 	public boolean atPotPos(double goalPos) {
