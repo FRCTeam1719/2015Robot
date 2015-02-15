@@ -14,7 +14,6 @@ package org.usfirst.frc1719;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
@@ -28,12 +27,10 @@ import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-//import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
