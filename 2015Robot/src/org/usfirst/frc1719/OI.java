@@ -15,6 +15,7 @@ import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
+import org.usfirst.frc1719.commands.MoveCameraCommand;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.ToggleClaw;
 import org.usfirst.frc1719.commands.ToggleElevator;
@@ -91,6 +92,7 @@ public class OI {
 	final int DRIVER_X = 0;
 	final int DRIVER_Y = 1;
 	
+
 	
 	//POV is the big plus thingy
 	
@@ -133,6 +135,10 @@ public class OI {
     private Button elevatorPos3;
     private Button elevatorPos4;
     private Button elevatorPos5;
+    private Button cameraPos1;
+    private Button cameraPos2;
+    private Button cameraPos3;
+    private Button cameraPos4;
     	
     
  
@@ -150,7 +156,11 @@ public class OI {
         elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
         elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
         
-        //Suppressed because currently unused but will be in the future
+        cameraPos1 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_6);
+        cameraPos2 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_7);
+        cameraPos3 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_10);
+        cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
+        
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
         Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
         Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
@@ -170,7 +180,11 @@ public class OI {
         toggleClaws.whenPressed(new ToggleClaw());  
        
        
-        
+        //camera buttons
+        cameraPos1.whenPressed(new MoveCameraCommand(1, .5));
+        cameraPos2.whenPressed(new MoveCameraCommand(.75, .5);
+        cameraPos3.whenPressed(new MoveCameraCommand(.5, .5));
+        cameraPos4.whenPressed(new MoveCameraCommand(.25, .5));
 
         
         // SmartDashboard Buttons
