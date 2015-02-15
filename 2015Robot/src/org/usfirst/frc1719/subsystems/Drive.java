@@ -108,7 +108,6 @@ public class Drive extends Subsystem implements ITestable {
 
 	@Override
 	public void test() {
-		System.out.println("Testing, damnit");
 		
 		try {
 			// move foraward
