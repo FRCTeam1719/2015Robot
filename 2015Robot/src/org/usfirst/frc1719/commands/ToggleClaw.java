@@ -1,8 +1,9 @@
 package org.usfirst.frc1719.commands;
 
-import org.usfirst.frc1719.OI;
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.RobotMap;
 import org.usfirst.frc1719.interfaces.IDisableable;
+import org.usfirst.frc1719.subsystems.Claw;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -13,7 +14,7 @@ public class ToggleClaw extends Command implements IDisableable {
 	final int RIGHT_TRIGGER = 2;
 	final int LEFT_TRIGGER = 3;
 	
-	
+	Claw currentClaw;
 	@Override
 	protected void end() {
 		Robot.commands.remove(this);
@@ -21,7 +22,15 @@ public class ToggleClaw extends Command implements IDisableable {
 
 	@Override
 	protected void execute() {
-		Robot.claws.toggleClaw(OI.getMode());
+		currentClaw = Robot.currentClaw;
+		
+		if (currentClaw.getState() == Claw.CLAW_OPEN) {
+			currentClaw.close();
+		}
+		else if (currentClaw.getState() == Claw.CLAW_CLOSED) {
+			currentClaw.open();
+		}
+		
 		done = true;
 	}
 
@@ -32,6 +41,7 @@ public class ToggleClaw extends Command implements IDisableable {
 
 	@Override
 	protected void interrupted() {
+		Robot.commands.remove(this);
 		
 	}
 
@@ -42,8 +52,8 @@ public class ToggleClaw extends Command implements IDisableable {
 
 	@Override
 	public void disable() {
-		
-		
+		RobotMap.frontClawSolenoid.set(false);
+		RobotMap.backClawSolenoid.set(false);
 	}
 
 }

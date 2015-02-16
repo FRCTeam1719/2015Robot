@@ -97,7 +97,6 @@ public class Elevator extends Subsystem implements ITestable {
 	//Moves elevator up in steps
 	public void moveDown() {
 		
-		System.out.println("MOVING DOWN");
 		
 		//Extend moves it up
 		elevatorMotor.backward();
@@ -107,7 +106,6 @@ public class Elevator extends Subsystem implements ITestable {
 	//Move elevator down in steps
 	public void moveUp() {
 		
-		System.out.println("MOVING UP");
  						
 		//Retract moves it down
 		elevatorMotor.forward();

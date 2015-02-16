@@ -112,11 +112,15 @@ public class UseElevator extends Command implements IDisableable {
 			elevator.setStill();
 		}
 		else if (currentPotPos < desiredPotPos) {
+			System.out.println("moving down, BITCH");
 			elevator.moveUp();
 		}
 		else if (currentPotPos > desiredPotPos) {
+			System.out.println("moving up");
 			elevator.moveDown();
 		}
+		
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

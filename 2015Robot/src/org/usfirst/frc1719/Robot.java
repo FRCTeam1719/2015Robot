@@ -14,6 +14,7 @@ package org.usfirst.frc1719;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
@@ -21,12 +22,14 @@ import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
+import org.usfirst.frc1719.subsystems.Claw;
 import org.usfirst.frc1719.subsystems.Claws;
 import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -73,6 +76,9 @@ public class Robot extends IterativeRobot {
     public static Elevator frontElevator;
     public static Elevator backElevator;
     public static Claws claws;
+    public static Claw frontClaw;
+    public static Claw backClaw;
+    public static Claw currentClaw;
     public static Elevator currentElevator;
     public static ArrayList<ITestable> devices = new ArrayList<ITestable>();
     public static ArrayList<IDisableable> commands = new ArrayList<IDisableable>();
@@ -93,6 +99,10 @@ public class Robot extends IterativeRobot {
         cameraMount = new CameraMount();
         claws = new Claws();
         
+        frontClaw = new Claw(RobotMap.frontClawSolenoid);
+        backClaw = new Claw(RobotMap.backClawSolenoid);
+        currentClaw = frontClaw;
+        
         frontElevator = new Elevator(OI.MODE_FRONT, RobotMap.frontElevatorPot,
 				 RobotMap.frontElevatorMotor,
 				 RobotMap.frontElevatorSwitchTop,
@@ -101,6 +111,7 @@ public class Robot extends IterativeRobot {
 				RobotMap.backElevatorMotor,
 				RobotMap.backElevatorSwitchTop,
 				RobotMap.backElevatorSwitchBottom);
+        
         fisher = new Fisher();
         currentElevator = frontElevator;
 
@@ -247,9 +258,11 @@ public class Robot extends IterativeRobot {
     	
     	if (whichElevator == OI.MODE_FRONT) {
     		currentElevator = frontElevator;
+    		currentClaw = frontClaw;
     	}
     	else if (whichElevator == OI.MODE_BACK) {
     		currentElevator = backElevator;
+    		currentClaw = backClaw;
     	}
     	else {
     		System.out.println("WRONG ELEVATOR");

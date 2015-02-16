@@ -98,8 +98,8 @@ public class RobotMap {
         
         pneumaticsCompressor = new Compressor(0);
         
-        frontClawSolenoid = new Solenoid(1);
-        backClawSolenoid = new Solenoid(2);
+        frontClawSolenoid = new Solenoid(6);
+        backClawSolenoid = new Solenoid(5);
        
         frontElevatorSwitchBottom = new DigitalInput(11);
         frontElevatorSwitchTop = new DigitalInput(10);
