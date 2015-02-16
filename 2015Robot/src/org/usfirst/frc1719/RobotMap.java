@@ -98,8 +98,8 @@ public class RobotMap {
         
         pneumaticsCompressor = new Compressor(0);
         
-        frontClawSolenoid = new Solenoid(1);
-        backClawSolenoid = new Solenoid(2);
+        frontClawSolenoid = new Solenoid(6);
+        backClawSolenoid = new Solenoid(5);
        
         frontElevatorSwitchBottom = new DigitalInput(11);
         frontElevatorSwitchTop = new DigitalInput(10);
@@ -142,7 +142,7 @@ public class RobotMap {
         //Reed switch is on the piston that lowers the arm
         fisherReedSwitch = new DigitalInput(8);
         fisherRetraction = new DigitalInput(9);
-        fisherSolenoid = new Solenoid(0);
-        fisherAimSolenoid = new Solenoid(3);
+        fisherSolenoid = new Solenoid(7);
+        fisherAimSolenoid = new Solenoid(4);
     }
 }
