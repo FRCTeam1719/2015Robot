@@ -142,7 +142,7 @@ public class RobotMap {
         //Reed switch is on the piston that lowers the arm
         fisherReedSwitch = new DigitalInput(8);
         fisherRetraction = new DigitalInput(9);
-        fisherSolenoid = new Solenoid(0);
-        fisherAimSolenoid = new Solenoid(3);
+        fisherSolenoid = new Solenoid(7);
+        fisherAimSolenoid = new Solenoid(4);
     }
 }
