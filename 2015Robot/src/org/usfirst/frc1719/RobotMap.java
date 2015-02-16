@@ -137,8 +137,9 @@ public class RobotMap {
         
         sensorsUltrasonic = new MB1220UltrasonicAnalog(3);
         
-        fisherSpike = new Relay(2);
-
+        fisherSpike = new Relay(0);
+        
+        //Reed switch is on the piston that lowers the arm
         fisherReedSwitch = new DigitalInput(8);
         fisherRetraction = new DigitalInput(9);
         fisherSolenoid = new Solenoid(0);

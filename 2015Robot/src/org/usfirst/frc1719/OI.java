@@ -182,7 +182,7 @@ public class OI {
        
         //camera buttons
         cameraPos1.whenPressed(new MoveCameraCommand(1, .5));
-        cameraPos2.whenPressed(new MoveCameraCommand(.75, .5);
+        cameraPos2.whenPressed(new MoveCameraCommand(.75, .5));
         cameraPos3.whenPressed(new MoveCameraCommand(.5, .5));
         cameraPos4.whenPressed(new MoveCameraCommand(.25, .5));
 
