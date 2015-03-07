@@ -55,7 +55,7 @@ public class CameraMount extends Subsystem implements ITestable {
 	
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new DriveServos());
+    	//setDefaultCommand(new DriveServos());
     }
     
   //sets the x servo to given position, between 0 and 1
