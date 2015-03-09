@@ -23,7 +23,6 @@ public class ToggleClaw extends Command implements IDisableable {
 	@Override
 	protected void execute() {
 		currentClaw = Robot.currentClaw;
-		
 		if (currentClaw.getState() == Claw.CLAW_OPEN) {
 			currentClaw.close();
 		}

@@ -43,7 +43,7 @@ public class UseElevator extends Command implements IDisableable {
 		elevator = Robot.currentElevator;
 		
 		currentPotPos = elevator.getPotPos();
-		
+		System.out.println(currentPotPos);
 		
 		
 		// If the axis is within the tolerance, don't move

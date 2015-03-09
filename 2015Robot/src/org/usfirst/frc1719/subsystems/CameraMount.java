@@ -12,7 +12,6 @@
 package org.usfirst.frc1719.subsystems;
 
 import org.usfirst.frc1719.RobotMap;
-import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.interfaces.ITestable;
 
 import edu.wpi.first.wpilibj.Servo;

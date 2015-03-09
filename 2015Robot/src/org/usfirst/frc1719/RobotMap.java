@@ -101,13 +101,13 @@ public class RobotMap {
         frontClawSolenoid = new Solenoid(6);
         backClawSolenoid = new Solenoid(5);
        
-        frontElevatorSwitchBottom = new DigitalInput(11);
-        frontElevatorSwitchTop = new DigitalInput(10);
+        frontElevatorSwitchBottom = new DigitalInput(10);
+        frontElevatorSwitchTop = new DigitalInput(11);
         frontElevatorPot = new AnalogPotentiometer(1, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);
         frontElevatorMotor = new Victor(6);
         
-        backElevatorSwitchBottom = new DigitalInput(13);
-        backElevatorSwitchTop = new DigitalInput(12);
+        backElevatorSwitchBottom = new DigitalInput(12);
+        backElevatorSwitchTop = new DigitalInput(13);
         backElevatorPot = new AnalogPotentiometer(2, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);
         backElevatorMotor = new Victor(7);
         
