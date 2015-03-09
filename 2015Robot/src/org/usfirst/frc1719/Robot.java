@@ -179,7 +179,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        oi.oiPeriodic();
+        System.out.println("CONFIGURE CONTROLLERS");
+        oi.configureController();
     }
 
     /**

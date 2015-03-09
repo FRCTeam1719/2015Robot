@@ -45,10 +45,10 @@ public class OI {
 	//XBOX BINDINGS
 	final int LEFT_X = 0;
 	final int LEFT_Y = 1;
-	final int LEFT_TRIGGER = 3;
-	final int RIGHT_TRIGGER = 4;
-	final int RIGHT_X = 5;
-	final int RIGHT_Y = 6;
+	final int LEFT_TRIGGER = 2;
+	final int RIGHT_TRIGGER = 3;
+	final int RIGHT_X = 4;
+	final int RIGHT_Y = 5;
 	final int A_BUTTON = 1;
 	final int B_BUTTON = 2;
 	final int X_BUTTON = 3;
@@ -196,11 +196,13 @@ public class OI {
     }
     
     //Periodic method for updating control configurations
-    public void oiPeriodic(){
+    public void configureController(){
     	if((int) Robot.driverController.getSelected() == XBOX){
+    		System.out.println("XBOX CONTROLLER");
     		driverRotationAxis = RIGHT_X;
     	}
     	if((int) Robot.driverController.getSelected() == JOYSTICK){
+    		System.out.println("JOYSTICK");
     		driverRotationAxis = WINGMAN_Z_AXIS;
     	}
     			
