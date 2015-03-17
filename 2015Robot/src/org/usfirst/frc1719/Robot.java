@@ -136,8 +136,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("KD", 5.0D);
         
         driverController = new SendableChooser();
-        driverController.addObject("XBox controller", 0);
-        driverController.addDefault("3-axis joystick", 1);
+        driverController.addDefault("XBox controller", 0);
+        driverController.addObject("3-axis joystick", 1);
         SmartDashboard.putData("Driver controller type", driverController);
         setUpTests();
         SmartDashboard.putBoolean("Avoid Accidents", true);
