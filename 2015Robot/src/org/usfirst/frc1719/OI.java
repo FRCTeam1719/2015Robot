@@ -286,7 +286,7 @@ public class OI {
 	}
 
 	public boolean getPIDOverride() {
-		return driverController.getRawButton(WINGMAN_BUTTON_7);
+		return !driverController.getRawButton(LEFT_BUMPER);
 	}
 
 }

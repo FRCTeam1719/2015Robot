@@ -5,7 +5,7 @@ import org.usfirst.frc1719.Robot;
 public class BringObjectsInZone implements ICommandOption {
     
     private boolean init = true;
-    private static double DISTANCE = 1000.0;
+    private static double DISTANCE = 3500.0;
     
     @Override
     public void doCMD() {
@@ -15,13 +15,22 @@ public class BringObjectsInZone implements ICommandOption {
             Robot.sensors.resetEncoder10();
             init = false;
         }
-        Robot.drive.moveCartesian(1.0D, 0.0D, 0.0D, true);
+        if(Robot.loopIterationNumber < 200){
+        	Robot.currentElevator.moveUp();
+        }else{
+        	Robot.currentElevator.setStill();
+        }
+        Robot.drive.moveCartesian(1.0D, 0.0D, 0.05D, false);
         
     }
     
     @Override
     public boolean done() {
-        return (Math.abs(Robot.sensors.getEncoder10Distance()) > DISTANCE) && (init = true);
+        if((Math.abs(Robot.sensors.getEncoder10Distance()) > DISTANCE) && (init != true)){
+        	Robot.drive.moveCartesian(0, 0, 0, false);
+        	return true;
+        }
+        return false;
     }
     
 }

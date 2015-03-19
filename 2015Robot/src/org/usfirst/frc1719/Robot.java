@@ -46,7 +46,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	private static int loopIterationNumber = 0;
+	public static int loopIterationNumber = 0;
 	public static Robot instance;
 
 	public static enum EnumAutoCMD {
