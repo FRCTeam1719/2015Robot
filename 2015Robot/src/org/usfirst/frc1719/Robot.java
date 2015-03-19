@@ -16,6 +16,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
+import org.usfirst.frc1719.autonomous.BringObjectsInZone;
 import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
@@ -50,6 +51,7 @@ public class Robot extends IterativeRobot {
 
 	public static enum EnumAutoCMD {
 		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
+		BOIZ("Bring objects into zone", new BringObjectsInZone()),
 		ZONE("Go to the Auto Zone and stop", new GetInZone()),
 		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
 		
