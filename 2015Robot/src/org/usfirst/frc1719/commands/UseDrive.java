@@ -78,10 +78,16 @@ public class  UseDrive extends Command {
     	double rx = Robot.oi.getDriveR();
     	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
-    	if (Math.abs(ly) < TOLERANCE) ly = 0.0D;
-    	if (Math.abs(lx) < TOLERANCE) lx = 0.0D;
-    	if (Math.abs(rx) < TOLERANCE) rx = 0.0D;
+    	if (Math.abs(ly) < TOLERANCE) ly = NIL;
+    	if (Math.abs(lx) < TOLERANCE) lx = NIL;
+    	if (Math.abs(rx) < TOLERANCE) rx = NIL;
 
+    	//nonlinear control
+    	if(SmartDashboard.getBoolean("Nonlinear control")) {
+    	    ly = Math.pow(ly, 3.0D);
+    	    lx = Math.pow(lx, 3.0D);
+    	    rx = Math.pow(rx, 3.0D) / 2.0D;
+    	}
     	//If attempting to move in the banned direction, prevent that axis of movement in the banned direction
     	if(preventMovement){
     		if(directionPrevent == FRONT){

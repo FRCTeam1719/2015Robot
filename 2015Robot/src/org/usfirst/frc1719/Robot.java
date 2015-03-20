@@ -140,8 +140,8 @@ public class Robot extends IterativeRobot {
         driverController.addDefault("3-axis joystick", 1);
         SmartDashboard.putData("Driver controller type", driverController);
         setUpTests();
-        SmartDashboard.putBoolean("Avoid Accidents", true);
-        
+        SmartDashboard.putBoolean("Avoid Accidents", false);
+        SmartDashboard.putBoolean("Nonlinear control", true);
     }
 
     /**
