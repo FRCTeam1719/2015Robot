@@ -16,9 +16,9 @@ public class BringObjectsInZone implements ICommandOption {
             init = false;
         }
         if(Robot.loopIterationNumber < 200){
-        	Robot.currentElevator.moveUp();
+        	Robot.frontElevator.moveUp();
         }else{
-        	Robot.currentElevator.setStill();
+        	Robot.frontElevator.setStill();
         }
         Robot.drive.moveCartesian(1.0D, 0.0D, 0.05D, false);
         

@@ -6,7 +6,7 @@ public class GetInZone implements ICommandOption {
 
 	private static final double NIL = 0.0D;
 	private static final double SPD = 0.5D;
-	private static final double DISTANCE = 1500.0D;
+	private static final double DISTANCE = 1400.0D;
 	private boolean init = true;
 
 	@Override
