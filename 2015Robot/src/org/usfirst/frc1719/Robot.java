@@ -16,6 +16,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import org.usfirst.frc1719.autonomous.GetCtrByDistance;
+import org.usfirst.frc1719.autonomous.BringObjectsInZone;
 import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
@@ -45,11 +46,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	private static int loopIterationNumber = 0;
+	public static int loopIterationNumber = 0;
 	public static Robot instance;
 
 	public static enum EnumAutoCMD {
 		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
+		BOIZ("Bring objects into zone", new BringObjectsInZone()),
 		ZONE("Go to the Auto Zone and stop", new GetInZone()),
 		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
 		
@@ -136,8 +138,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("KD", 5.0D);
         
         driverController = new SendableChooser();
-        driverController.addObject("XBox controller", 0);
-        driverController.addDefault("3-axis joystick", 1);
+        driverController.addDefault("XBox controller", 0);
+        driverController.addObject("3-axis joystick", 1);
         SmartDashboard.putData("Driver controller type", driverController);
         setUpTests();
         SmartDashboard.putBoolean("Avoid Accidents", false);
@@ -179,7 +181,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        oi.oiPeriodic();
+        System.out.println("CONFIGURE CONTROLLERS");
+        oi.configureController();
     }
 
     /**

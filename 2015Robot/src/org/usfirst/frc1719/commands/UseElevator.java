@@ -43,7 +43,7 @@ public class UseElevator extends Command implements IDisableable {
 		elevator = Robot.currentElevator;
 		
 		currentPotPos = elevator.getPotPos();
-		
+		System.out.println(currentPotPos);
 		
 		
 		// If the axis is within the tolerance, don't move
@@ -83,19 +83,17 @@ public class UseElevator extends Command implements IDisableable {
 		else {
 			movingToPos = false;
 			
-			elevator.setSpeed(Math.abs(joystickY));
+			elevator.setSpeed(Math.abs(joystickY) - Y_AXIS_TOLERANCE);
 			
-			// User is pulling down
-			if (joystickY < 0) {
-				elevator.setSpeed(joystickY);
+			// User is pulling up
+			if (joystickY > 0) {
 				
 				//The elevator will always move up
 				desiredPotPos = -200;
 			}
 
-			// User is pulling up
-			else if (joystickY > 0) {
-				elevator.setSpeed(-joystickY);
+			// User is pulling down
+			else if (joystickY < 0) {
 				
 				//The elevator will always move down
 				desiredPotPos = 200;

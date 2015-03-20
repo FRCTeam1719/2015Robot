@@ -17,6 +17,7 @@ import org.usfirst.frc1719.RobotMap;
 import org.usfirst.frc1719.commands.UseDrive;
 import org.usfirst.frc1719.interfaces.ITestable;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -36,7 +37,6 @@ public class Drive extends Subsystem implements ITestable {
 	RobotDrive robotDrive = RobotMap.driveRobotDrive;
 	private static final int TEST_DUR = 100;
 	private static final double TEST_SPEED = .5D;
-
 	private boolean isPIDEnabled = true;
 	private double[] pastErr = new double[0];
 	private int interationNumber;
@@ -71,6 +71,9 @@ public class Drive extends Subsystem implements ITestable {
 
 		// Try to go straight if desired using PID
     	if(isPIDEnabled) {
+    		
+    		
+    		
     		if(!usePID || (rot != 0.0D) || ((y == 0.0D) && (x == 0.0D))) isPIDEnabled = false;
     		else {
     			double err = Robot.sensors.getGyro().getAngle();

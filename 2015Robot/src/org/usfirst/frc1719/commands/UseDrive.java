@@ -26,6 +26,7 @@ public class  UseDrive extends Command {
 	//magic numbers: directions to prevent
 	private static final boolean FRONT = true;
 	private static final boolean BACK = false;
+	private static final double ROTATION_REDUCTION = 0.5D;
 	
 	//Currently unused
 	//private static final int RIGHT_Y = 5;
@@ -35,6 +36,7 @@ public class  UseDrive extends Command {
 	//Currently Unused
 	//private int i = 0;
     private static final double NIL = 0.0D;
+    private static final double PTSPEED = 0.2;
 
 	//Should a direction be prevented for robot movement?
 	private boolean preventMovement = false;
@@ -77,6 +79,7 @@ public class  UseDrive extends Command {
     	double lx = Robot.oi.getDriveX();
     	double rx = Robot.oi.getDriveR();
     	
+    	
     	//creates a dead zone within tolerance in order to make it possible to stop the robot
     	if (Math.abs(ly) < TOLERANCE) ly = NIL;
     	if (Math.abs(lx) < TOLERANCE) lx = NIL;
@@ -92,18 +95,18 @@ public class  UseDrive extends Command {
     	if(preventMovement){
     		if(directionPrevent == FRONT){
     			if(ly > 0){
-    				ly = NIL;
+    				ly = PTSPEED;
     			}
     		}
     		else if(directionPrevent == BACK){
     			if(ly < 0){
-    				ly = NIL;
+    				ly = PTSPEED;
     			}
     		}
     	}
 
     	//Drives (mechanum) given the values from the joystick
-    	Robot.drive.moveCartesian(lx, ly, rx, !Robot.oi.getPIDOverride());
+    	Robot.drive.moveCartesian(lx, ly, rx * ROTATION_REDUCTION, Robot.oi.getPIDOverride());
     	
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {
     		//System.out.println("LIDAR Distance: " + Robot.sensors.getDistance());

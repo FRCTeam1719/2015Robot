@@ -28,7 +28,7 @@ public class GetCtrByDistance implements ICommandOption {
 					time = new Date();
 				}
 				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, true);
+					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
 					break;
 				}
 			case 2:
@@ -36,7 +36,7 @@ public class GetCtrByDistance implements ICommandOption {
 					stage++;
 				}
 				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, true);
+					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
 					break;
 				}
 			case 3:
@@ -72,7 +72,7 @@ public class GetCtrByDistance implements ICommandOption {
 				}
 				else {
 					Robot.fisher.extend();
-					Robot.drive.moveCartesian(NIL, -SPD, NIL, true);
+					Robot.drive.moveCartesian(NIL, -SPD, NIL, false);
 					break;
 				}
 			case 7:
@@ -80,7 +80,7 @@ public class GetCtrByDistance implements ICommandOption {
 					stage++;
 				}
 				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, true);
+					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
 					break;
 				}
 			case 8:
@@ -89,7 +89,7 @@ public class GetCtrByDistance implements ICommandOption {
 					time = new Date();
 				}
 				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, true);
+					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
 					break;
 				}
 		}
