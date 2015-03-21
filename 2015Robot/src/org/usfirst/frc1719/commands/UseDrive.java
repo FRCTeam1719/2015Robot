@@ -90,12 +90,12 @@ public class  UseDrive extends Command {
     	if(preventMovement){
     		if(directionPrevent == FRONT){
     			if(ly > 0){
-    				ly = PTSPEED;
+    				ly = NIL;
     			}
     		}
     		else if(directionPrevent == BACK){
     			if(ly < 0){
-    				ly = PTSPEED;
+    				ly = NIL;
     			}
     		}
     	}

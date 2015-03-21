@@ -6,22 +6,29 @@ public class BringObjectsInZone implements ICommandOption {
     
     private boolean init = true;
     private static double DISTANCE = 3500.0;
-    
+    int iterationNumber;
     @Override
     public void doCMD() {
+    	System.out.println("ENTERED COMMAND");
         if(init) {
+        	System.out.println("INIT");
             Robot.frontClaw.close();
             Robot.backClaw.close();
-            Robot.sensors.resetEncoder10();
+//            Robot.sensors.resetEncoder10();
             init = false;
+            iterationNumber = 0;
         }
-        if(Robot.loopIterationNumber < 200){
+        if(iterationNumber < 30){
+        	System.out.println("MOVING UP :" + iterationNumber);
         	Robot.frontElevator.moveUp();
+        	Robot.backElevator.moveUp();
         }else{
+        	System.out.println("SETTING STILL");
         	Robot.frontElevator.setStill();
+        	Robot.backElevator.setStill();
         }
-        Robot.drive.moveCartesian(1.0D, 0.0D, 0.05D, false);
-        
+        System.out.println("ITERATING :" + iterationNumber);
+        iterationNumber++;
     }
     
     @Override
