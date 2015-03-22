@@ -2,22 +2,25 @@ package org.usfirst.frc1719.autonomous;
 
 import org.usfirst.frc1719.Robot;
 
-public class BringObjectsInZone implements ICommandOption {
+import edu.wpi.first.wpilibj.command.Command;
+
+public class BringObjectsInZone extends Command {
     
-    private boolean init = true;
+    private boolean done = false;
     private static double DISTANCE = 3500.0;
     int iterationNumber;
-    @Override
-    public void doCMD() {
-    	System.out.println("ENTERED COMMAND");
-        if(init) {
-        	System.out.println("INIT");
-            Robot.frontClaw.close();
-            Robot.backClaw.close();
-//            Robot.sensors.resetEncoder10();
-            init = false;
-            iterationNumber = 0;
-        }
+    
+
+	@Override
+	protected void end() {
+		Robot.drive.moveCartesian(0, 0, 0, false);
+		done = false;
+	}
+
+	@Override
+	protected void execute() {
+		System.out.println("ENTERED COMMAND");
+		
         if(iterationNumber < 30){
         	System.out.println("MOVING UP :" + iterationNumber);
         	Robot.frontElevator.moveUp();
@@ -26,18 +29,31 @@ public class BringObjectsInZone implements ICommandOption {
         	System.out.println("SETTING STILL");
         	Robot.frontElevator.setStill();
         	Robot.backElevator.setStill();
+        	done = true;
         }
         System.out.println("ITERATING :" + iterationNumber);
         iterationNumber++;
-    }
-    
-    @Override
-    public boolean done() {
-        if((Math.abs(Robot.sensors.getEncoder10Distance()) > DISTANCE) && (init != true)){
-        	Robot.drive.moveCartesian(0, 0, 0, false);
-        	return true;
-        }
-        return false;
-    }
+		
+	}
+
+	@Override
+	protected void initialize() {
+		System.out.println("INIT");
+        Robot.frontClaw.close();
+        Robot.backClaw.close();
+//        Robot.sensors.resetEncoder10();
+        iterationNumber = 0;
+	}
+
+	@Override
+	protected void interrupted() {
+		
+		
+	}
+
+	@Override
+	protected boolean isFinished() {
+		return done;
+	}
     
 }

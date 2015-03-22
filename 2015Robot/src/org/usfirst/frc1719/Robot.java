@@ -15,12 +15,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.BringObjectsInZone;
-import org.usfirst.frc1719.autonomous.GetInZone;
-import org.usfirst.frc1719.autonomous.ICommandOption;
+import org.usfirst.frc1719.autonomous.DoNothing;
+import org.usfirst.frc1719.autonomous.GetCtrByDistance;
 import org.usfirst.frc1719.autonomous.PickupTwoBins;
-import org.usfirst.frc1719.commands.AutonomousCommand;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
@@ -49,25 +47,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	public static int loopIterationNumber = 0;
 	public static Robot instance;
+	
 
-	public static enum EnumAutoCMD {
-		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
-		BOIZ("Pickup one object", new BringObjectsInZone()),
-		BILB("Pickup two objects", new PickupTwoBins()),
-		ZONE("Go to the Auto Zone and stop", new GetInZone()),
-		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
-		
-		final String name;
-		public final ICommandOption cmd;
-		
-		EnumAutoCMD(String par1, ICommandOption par2) {
-			name = par1;
-			cmd = par2;
-		}
-	}	
-    
+
+	public static Command autoCommand;
 	//Declares a new sendable chooser for autonomous command
-    Command autonomousCommand;
     public static SendableChooser autoCMDChooser;
     public static SendableChooser testSubsystemChooser;
 
@@ -97,6 +81,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     RobotMap.init();
+    	
         drive = new Drive();
         pneumatics = new Pneumatics();
         sensors = new Sensors();
@@ -125,14 +110,14 @@ public class Robot extends IterativeRobot {
         // pointers. Bad news. Don't move it.
         oi = new OI();
 
-        // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCommand();
         
         //Adds radio button to choose autonomous command
         autoCMDChooser = new SendableChooser();
-        for(EnumAutoCMD cmd : EnumAutoCMD.values()) {
-        	autoCMDChooser.addObject(cmd.name, cmd);
-        }
+        autoCMDChooser.addDefault("Do Nothing", new DoNothing() );
+        autoCMDChooser.addObject("Pick up one Bin", new BringObjectsInZone());
+        autoCMDChooser.addObject("Get Container By Distance", new GetCtrByDistance());
+        autoCMDChooser.addObject("Pick up Two Bins", new PickupTwoBins());
+        
         SmartDashboard.putData("Autonomous Style", autoCMDChooser);
     	
         SmartDashboard.putNumber("KP", 45.0D);
@@ -156,6 +141,7 @@ public class Robot extends IterativeRobot {
     	for (IDisableable itr : commands) {
     		itr.disable();
     	}
+ 
     }
 
     public void disabledPeriodic() {
@@ -165,7 +151,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	System.out.println("AUTON INIT");
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        setAutoCommandFromDashboard();
+        autoCommand.start();
     }
 
     /**
@@ -184,7 +171,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autoCommand != null) autoCommand.cancel();
         System.out.println("CONFIGURE CONTROLLERS");
         oi.configureController();
     }
@@ -219,6 +206,7 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void testInit() {
+    	if (autoCommand != null) autoCommand.cancel();
     	toTest = devices.toArray(m);
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].reset();
@@ -275,5 +263,11 @@ public class Robot extends IterativeRobot {
     		System.out.println("WRONG ELEVATOR");
     	}
     }
+    
+    public static void setAutoCommandFromDashboard() {
+    	autoCommand = (Command) autoCMDChooser.getSelected();
+    }
 
 }
+
+

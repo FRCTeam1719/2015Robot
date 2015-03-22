@@ -2,19 +2,24 @@ package org.usfirst.frc1719.autonomous;
 
 import org.usfirst.frc1719.Robot;
 
-public class PickupTwoBins implements ICommandOption{
+import edu.wpi.first.wpilibj.command.Command;
 
-	boolean init = true;
+public class PickupTwoBins extends Command {
+
+	boolean done = false;
 	int iterationNumber = 0;
-	
+
 	@Override
-	public void doCMD() {
-		if(init){
-			Robot.backClaw.close();
-			iterationNumber = 0;
-			init = false;
-			System.out.println("CMDINIT");
-		}
+	protected void end() {
+		done = false;
+		Robot.frontElevator.setStill();
+		Robot.backElevator.setStill();
+		Robot.drive.moveCartesian(0, 0, 0, false);
+		System.out.println("DONE");
+	}
+
+	@Override
+	protected void execute() {
 		if(iterationNumber < 200){
 			Robot.backElevator.moveUp();
 			System.out.println("MOVINGBACKUP");
@@ -32,13 +37,28 @@ public class PickupTwoBins implements ICommandOption{
 			Robot.backElevator.setStill();
 			Robot.drive.moveCartesian(0, 0, 0, false);
 			System.out.println("DONE");
+			done = true;
 		}
 		iterationNumber++;
 		
 	}
 
 	@Override
-	public boolean done() {
+	protected void initialize() {
+		Robot.backClaw.close();
+		iterationNumber = 0;
+		System.out.println("CMDINIT");
+	}
+
+	@Override
+	protected void interrupted() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -4,7 +4,9 @@ import java.util.Date;
 
 import org.usfirst.frc1719.Robot;
 
-public class GetCtrByDistance implements ICommandOption {
+import edu.wpi.first.wpilibj.command.Command;
+
+public class GetCtrByDistance extends Command {
 
 	private int stage = 0;
 	private double ctr_rng;
@@ -15,88 +17,106 @@ public class GetCtrByDistance implements ICommandOption {
 	private static final long RETREAT_TIME = 1000L;
 	private static final long CLEARANCE_TIME = 1000L;
 	private Date time;
-	
+
 	@Override
-	public void doCMD() {
+	protected void end() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void execute() {
 		switch(stage) {
-			case 0:
-				ctr_rng = Robot.sensors.getLIDARDistanceM();
+		case 0:
+			ctr_rng = Robot.sensors.getLIDARDistanceM();
+			stage++;
+		case 1:
+			if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) > TOLERANCE_1) {
 				stage++;
-			case 1:
-				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) > TOLERANCE_1) {
+				time = new Date();
+			}
+			else {
+				Robot.drive.moveCartesian(SPD, NIL, NIL, false);
+				break;
+			}
+		case 2:
+			if(((new Date()).getTime() - time.getTime()) > CLEARANCE_TIME) {
+				stage++;
+			}
+			else {
+				Robot.drive.moveCartesian(SPD, NIL, NIL, false);
+				break;
+			}
+		case 3:
+			if(Robot.fisher.lower()) {
+				if (Robot.fisher.extend()) {
 					stage++;
-					time = new Date();
-				}
-				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
-					break;
-				}
-			case 2:
-				if(((new Date()).getTime() - time.getTime()) > CLEARANCE_TIME) {
-					stage++;
-				}
-				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
-					break;
-				}
-			case 3:
-				if(Robot.fisher.lower()) {
-					if (Robot.fisher.extend()) {
-						stage++;
-					}
-					else break;
 				}
 				else break;
-			case 4:
-				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
-					time = new Date();
-					stage++;
-				}
-				else {
-					Robot.drive.moveCartesian(-SPD, NIL, NIL, true);
-					break;
-				}
-			case 5:
-				if(((new Date()).getTime() - time.getTime()) > RETREAT_TIME) {
-					stage++;
-					time = new Date();
-				}
-				else {
-					Robot.fisher.retract();
-					Robot.drive.moveCartesian(NIL, SPD, NIL, true);
-					break;
-				}
-			case 6:
-				if(((new Date()).getTime() - time.getTime()) > RETREAT_TIME) {
-					stage++;
-				}
-				else {
-					Robot.fisher.extend();
-					Robot.drive.moveCartesian(NIL, -SPD, NIL, false);
-					break;
-				}
-			case 7:
-				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) > TOLERANCE_1) {
-					stage++;
-				}
-				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
-					break;
-				}
-			case 8:
-				if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
-					stage = 5;
-					time = new Date();
-				}
-				else {
-					Robot.drive.moveCartesian(SPD, NIL, NIL, false);
-					break;
-				}
+			}
+			else break;
+		case 4:
+			if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
+				time = new Date();
+				stage++;
+			}
+			else {
+				Robot.drive.moveCartesian(-SPD, NIL, NIL, true);
+				break;
+			}
+		case 5:
+			if(((new Date()).getTime() - time.getTime()) > RETREAT_TIME) {
+				stage++;
+				time = new Date();
+			}
+			else {
+				Robot.fisher.retract();
+				Robot.drive.moveCartesian(NIL, SPD, NIL, true);
+				break;
+			}
+		case 6:
+			if(((new Date()).getTime() - time.getTime()) > RETREAT_TIME) {
+				stage++;
+			}
+			else {
+				Robot.fisher.extend();
+				Robot.drive.moveCartesian(NIL, -SPD, NIL, false);
+				break;
+			}
+		case 7:
+			if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) > TOLERANCE_1) {
+				stage++;
+			}
+			else {
+				Robot.drive.moveCartesian(SPD, NIL, NIL, false);
+				break;
+			}
+		case 8:
+			if(Math.abs(ctr_rng - Robot.sensors.getLIDARDistanceM()) < TOLERANCE_2) {
+				stage = 5;
+				time = new Date();
+			}
+			else {
+				Robot.drive.moveCartesian(SPD, NIL, NIL, false);
+				break;
+			}
 		}
 	}
 
 	@Override
-	public boolean done() {
+	protected void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void interrupted() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected boolean isFinished() {
 		return false;
 	}
 }
