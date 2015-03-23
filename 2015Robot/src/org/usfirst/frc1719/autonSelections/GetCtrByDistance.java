@@ -1,12 +1,13 @@
-package org.usfirst.frc1719.autonomous;
+package org.usfirst.frc1719.autonSelections;
 
 import java.util.Date;
 
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.interfaces.IAutoSelection;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class GetCtrByDistance extends Command {
+public class GetCtrByDistance extends Command implements IAutoSelection {
 
 	private int stage = 0;
 	private double ctr_rng;
@@ -18,6 +19,10 @@ public class GetCtrByDistance extends Command {
 	private static final long CLEARANCE_TIME = 1000L;
 	private Date time;
 
+	public GetCtrByDistance() {
+		requires(Robot.drive);
+		requires(Robot.fisher);
+	}
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub

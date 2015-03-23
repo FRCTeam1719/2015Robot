@@ -1,13 +1,22 @@
-package org.usfirst.frc1719.autonomous;
+package org.usfirst.frc1719.autonSelections;
 
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.interfaces.IAutoSelection;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class PickupTwoBins extends Command {
+public class PickupTwoBins extends Command implements IAutoSelection {
 
 	boolean done = false;
 	int iterationNumber = 0;
+	
+	public PickupTwoBins() {
+		requires(Robot.frontElevator);
+		requires(Robot.backElevator);
+		requires(Robot.frontClaw);
+		requires(Robot.backClaw);
+		requires(Robot.drive);
+	}
 
 	@Override
 	protected void end() {

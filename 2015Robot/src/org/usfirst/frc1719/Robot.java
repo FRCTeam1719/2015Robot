@@ -15,10 +15,18 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-import org.usfirst.frc1719.autonomous.BringObjectsInZone;
-import org.usfirst.frc1719.autonomous.DoNothing;
-import org.usfirst.frc1719.autonomous.GetCtrByDistance;
-import org.usfirst.frc1719.autonomous.PickupTwoBins;
+import org.usfirst.frc1719.autonSelections.BringObjectsInZone;
+import org.usfirst.frc1719.autonSelections.DoNothing;
+import org.usfirst.frc1719.autonSelections.GetCtrByDistance;
+import org.usfirst.frc1719.autonSelections.GetInZone;
+import org.usfirst.frc1719.autonSelections.ModularAutonomous;
+import org.usfirst.frc1719.autonSelections.PickupTwoBins;
+import org.usfirst.frc1719.autonomousCommands.CloseBackClaw;
+import org.usfirst.frc1719.autonomousCommands.CloseFrontClaw;
+import org.usfirst.frc1719.autonomousCommands.OpenBackClaw;
+import org.usfirst.frc1719.autonomousCommands.OpenFrontClaw;
+import org.usfirst.frc1719.autonomousCommands.Wait;
+import org.usfirst.frc1719.interfaces.IAutoSelection;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
@@ -31,7 +39,6 @@ import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -45,14 +52,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	public static int NUM_AUTO_ACTIONS = 10;
 	public static int loopIterationNumber = 0;
 	public static Robot instance;
 	
 
 
-	public static Command autoCommand;
-	//Declares a new sendable chooser for autonomous command
-    public static SendableChooser autoCMDChooser;
+	public static IAutoSelection autoSelection;
+	
+	public static SendableChooser autonomousSelectionChooser;
+    public static SendableChooser[] modularAutoActionChoosers;
     public static SendableChooser testSubsystemChooser;
 
     public static OI oi;
@@ -109,17 +118,32 @@ public class Robot extends IterativeRobot {
         // constructed yet. Thus, their requires() statements may grab null 
         // pointers. Bad news. Don't move it.
         oi = new OI();
+       
+        //All of the autonomous selections
+        autonomousSelectionChooser = new SendableChooser();
+        autonomousSelectionChooser.addDefault("Do Nothing", new DoNothing());
+        autonomousSelectionChooser.addObject("Pick up one Bin", new BringObjectsInZone());
+        autonomousSelectionChooser.addObject("Pick up two Bins", new PickupTwoBins());
+        autonomousSelectionChooser.addObject("Get Container by distance", new GetCtrByDistance());
+        autonomousSelectionChooser.addObject("Move to Auto Zone", new GetInZone());
+        autonomousSelectionChooser.addObject("Modular Autonomous", new ModularAutonomous());
+        SmartDashboard.putData("Autonomous Mode", autonomousSelectionChooser);
+        
+        
+        modularAutoActionChoosers = new SendableChooser[NUM_AUTO_ACTIONS];
+        
+        //Put a set of actions for each modular autonomous step
+        for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
+        	SmartDashboard.putNumber("Wait Time", 0);
+        	modularAutoActionChoosers[i].addDefault("Do Nothing", new DoNothing());
+        	modularAutoActionChoosers[i].addObject("Close Back Claw", new CloseBackClaw());
+        	modularAutoActionChoosers[i].addObject("Open Back Claw", new OpenBackClaw());
+        	modularAutoActionChoosers[i].addObject("Close Front Claw", new CloseFrontClaw());
+        	modularAutoActionChoosers[i].addObject("Open Front Claw", new OpenFrontClaw());
+        	modularAutoActionChoosers[i].addObject("Wait", new Wait(SmartDashboard.getNumber("Wait Time") ));
+        	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
+        }
 
-        
-        //Adds radio button to choose autonomous command
-        autoCMDChooser = new SendableChooser();
-        autoCMDChooser.addDefault("Do Nothing", new DoNothing() );
-        autoCMDChooser.addObject("Pick up one Bin", new BringObjectsInZone());
-        autoCMDChooser.addObject("Get Container By Distance", new GetCtrByDistance());
-        autoCMDChooser.addObject("Pick up Two Bins", new PickupTwoBins());
-        
-        SmartDashboard.putData("Autonomous Style", autoCMDChooser);
-    	
         SmartDashboard.putNumber("KP", 45.0D);
         SmartDashboard.putNumber("KI", 0.001D);
         SmartDashboard.putNumber("KD", 5.0D);
@@ -152,7 +176,7 @@ public class Robot extends IterativeRobot {
     	System.out.println("AUTON INIT");
         // schedule the autonomous command (example)
         setAutoCommandFromDashboard();
-        autoCommand.start();
+        autoSelection.start();
     }
 
     /**
@@ -171,7 +195,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autoCommand != null) autoCommand.cancel();
+        if (autoSelection != null) autoSelection.cancel();
         System.out.println("CONFIGURE CONTROLLERS");
         oi.configureController();
     }
@@ -206,7 +230,7 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void testInit() {
-    	if (autoCommand != null) autoCommand.cancel();
+    	if (autoSelection != null) autoSelection.cancel();
     	toTest = devices.toArray(m);
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].reset();
@@ -265,7 +289,12 @@ public class Robot extends IterativeRobot {
     }
     
     public static void setAutoCommandFromDashboard() {
-    	autoCommand = (Command) autoCMDChooser.getSelected();
+    	autoSelection = (IAutoSelection) autonomousSelectionChooser.getSelected();
+    }
+    
+    //Commands called 50 times per second
+    public static double getSeconds() {
+    	return loopIterationNumber / 50;
     }
 
 }
