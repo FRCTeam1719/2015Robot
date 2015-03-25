@@ -134,13 +134,13 @@ public class Robot extends IterativeRobot {
         
         //Put a set of actions for each modular autonomous step
         for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
-        	SmartDashboard.putNumber("Wait Time", 0);
+        	SmartDashboard.putNumber("Wait Time " + i, 0);
         	modularAutoActionChoosers[i].addDefault("Do Nothing", new DoNothing());
         	modularAutoActionChoosers[i].addObject("Close Back Claw", new CloseBackClaw());
         	modularAutoActionChoosers[i].addObject("Open Back Claw", new OpenBackClaw());
         	modularAutoActionChoosers[i].addObject("Close Front Claw", new CloseFrontClaw());
         	modularAutoActionChoosers[i].addObject("Open Front Claw", new OpenFrontClaw());
-        	modularAutoActionChoosers[i].addObject("Wait", new Wait(SmartDashboard.getNumber("Wait Time") ));
+        	modularAutoActionChoosers[i].addObject("Wait", new Wait(i));
         	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
         }
 
