@@ -220,7 +220,7 @@ public class Robot extends IterativeRobot {
     		testCleanUp();
     	}
     	((ITestable) testSubsystemChooser.getSelected()).test();
-    	previousTest= currentTest;
+    	previousTest = currentTest;
     }
     public static void testCleanUp(){
     	for(int i = 0; i < toTest.length; i++) {
