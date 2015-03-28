@@ -15,12 +15,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-import org.usfirst.frc1719.autonSelections.BringObjectsInZone;
 import org.usfirst.frc1719.autonSelections.DoNothing;
 import org.usfirst.frc1719.autonSelections.GetCtrByDistance;
 import org.usfirst.frc1719.autonSelections.GetInZone;
 import org.usfirst.frc1719.autonSelections.ModularAutonomous;
-import org.usfirst.frc1719.autonSelections.PickupTwoBins;
+import org.usfirst.frc1719.autonSelections.PickUpTwoBinsGroup;
+import org.usfirst.frc1719.autonSelections.PickupOneBin;
 import org.usfirst.frc1719.autonomousCommands.CloseBackClaw;
 import org.usfirst.frc1719.autonomousCommands.CloseFrontClaw;
 import org.usfirst.frc1719.autonomousCommands.OpenBackClaw;
@@ -122,8 +122,8 @@ public class Robot extends IterativeRobot {
         //All of the autonomous selections
         autonomousSelectionChooser = new SendableChooser();
         autonomousSelectionChooser.addDefault("Do Nothing", new DoNothing());
-        autonomousSelectionChooser.addObject("Pick up one Bin", new BringObjectsInZone());
-        autonomousSelectionChooser.addObject("Pick up two Bins", new PickupTwoBins());
+        autonomousSelectionChooser.addObject("Pick up one Bin", new PickupOneBin());
+        autonomousSelectionChooser.addObject("Pick up two Bins", new PickUpTwoBinsGroup());
         autonomousSelectionChooser.addObject("Get Container by distance", new GetCtrByDistance());
         autonomousSelectionChooser.addObject("Move to Auto Zone", new GetInZone());
         autonomousSelectionChooser.addObject("Modular Autonomous", new ModularAutonomous());
@@ -184,8 +184,6 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	System.out.println("AUTON PERIODIC");
-    	double x = Robot.sensors.getGyro().getAngle() / 360.0D;
-    	if(Math.abs(x) <= 0.5D) Robot.cameraMount.setXServoRaw(0.5D - x);
     	loopIterationNumber++;
         Scheduler.getInstance().run();
     }
@@ -220,7 +218,7 @@ public class Robot extends IterativeRobot {
     		testCleanUp();
     	}
     	((ITestable) testSubsystemChooser.getSelected()).test();
-    	previousTest= currentTest;
+    	previousTest = currentTest;
     }
     public static void testCleanUp(){
     	for(int i = 0; i < toTest.length; i++) {
