@@ -34,4 +34,5 @@ public class CloseFrontClaw extends Command implements IAutoCommand {
 		return true;
 	}
 
+
 }

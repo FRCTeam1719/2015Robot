@@ -12,8 +12,10 @@ public class Wait extends Command implements IAutoCommand {
 	public static final double WAIT_TOLERANCE = .5;
 	
 	public Wait(int actionNum) {
-		this.desiredTime = SmartDashboard.getNumber("Wait Time" + actionNum);
+		this.actionNum = actionNum;
 	}
+	
+	int actionNum;
 	
 	double desiredTime;
 	double startTime = 0;
@@ -34,6 +36,8 @@ public class Wait extends Command implements IAutoCommand {
 	@Override
 	protected void initialize() {
 		startTime = Robot.getSeconds();
+		this.desiredTime = SmartDashboard.getNumber("Wait Time " + actionNum);
+
 	}
 
 	@Override
@@ -44,5 +48,6 @@ public class Wait extends Command implements IAutoCommand {
 	protected boolean isFinished() {
 		return Math.abs(timePassed - desiredTime) < WAIT_TOLERANCE;
 	}
+
 
 }

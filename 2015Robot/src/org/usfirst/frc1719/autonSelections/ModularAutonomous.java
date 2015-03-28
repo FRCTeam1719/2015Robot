@@ -20,7 +20,9 @@ public class ModularAutonomous extends CommandGroup implements IAutoSelection {
 		}
 		
 		for (Command itr : autoCommands) {
-			addSequential(itr);
+			addSequential( itr);
 		}
+		
+	
 	}
 }

@@ -32,5 +32,6 @@ public class OpenFrontClaw extends Command implements IAutoCommand {
 	protected boolean isFinished() {
 		return true;
 	}
+
 	
 }
