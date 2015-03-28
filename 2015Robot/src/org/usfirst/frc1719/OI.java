@@ -162,8 +162,9 @@ public class OI {
         cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
         
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
-        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
-        Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
+//        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
+//        Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
+        Button modeToggle = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
         Button extendFisher = new JoystickButton(driverController, Y_BUTTON);
         Button retractFisher = new JoystickButton(driverController, B_BUTTON);
         
@@ -175,8 +176,9 @@ public class OI {
         
         
         //Operator Controller
-        modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
-        modeBack.whenPressed(new ToggleElevator(MODE_BACK));
+//        modeFront.whenPressed(new PickElevator(MODE_FRONT));
+//        modeBack.whenPressed(new PickElevator(MODE_BACK));
+        modeToggle.whenPressed(new ToggleElevator());
         toggleClaws.whenPressed(new ToggleClaw());  
        
        
