@@ -26,6 +26,7 @@ public class Move extends Command implements IAutoCommand{
 	
 	@Override
 	protected void initialize() {
+		requires(Robot.drive);
 		//Reset things
 		iterationNumber = 0;
 		done = false;
