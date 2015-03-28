@@ -32,7 +32,7 @@ public class Sensors extends Subsystem implements ITestable {
 	public static final int NUM_ENCODERS = 4;
 	
 	//TODO: get the correct value for this
-	public static final double WHEEL_CIRCUMFRENCE_FEET = 1;
+	public static final double WHEEL_CIRCUMFRENCE_FEET = 1.57;
 	
 	//TODO: set these to the correct values, for some encoders it will be 256
 	public static final double ENC_FRONT_LEFT_TOTAL_PULSES = 360;
