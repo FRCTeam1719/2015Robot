@@ -13,7 +13,12 @@ public class ModularAutonomous extends CommandGroup implements IAutoSelection {
 	
 	ArrayList<Command> autoCommands;
 
-	public ModularAutonomous() {
+	public ModularAutonomous() {		
+	
+	}
+	
+	public void start() {
+		
 		autoCommands = new ArrayList<Command>();
 		for (SendableChooser itr : Robot.modularAutoActionChoosers) {
 			autoCommands.add( (Command) itr.getSelected());
@@ -22,7 +27,6 @@ public class ModularAutonomous extends CommandGroup implements IAutoSelection {
 		for (Command itr : autoCommands) {
 			addSequential( itr);
 		}
-		
-	
+		super.start();
 	}
 }
