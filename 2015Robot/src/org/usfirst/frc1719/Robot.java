@@ -23,6 +23,7 @@ import org.usfirst.frc1719.autonSelections.PickUpTwoBinsGroup;
 import org.usfirst.frc1719.autonSelections.PickupOneBin;
 import org.usfirst.frc1719.autonomousCommands.CloseBackClaw;
 import org.usfirst.frc1719.autonomousCommands.CloseFrontClaw;
+import org.usfirst.frc1719.autonomousCommands.MoveDistance;
 import org.usfirst.frc1719.autonomousCommands.OpenBackClaw;
 import org.usfirst.frc1719.autonomousCommands.OpenFrontClaw;
 import org.usfirst.frc1719.autonomousCommands.Wait;
@@ -135,12 +136,18 @@ public class Robot extends IterativeRobot {
         //Put a set of actions for each modular autonomous step
         for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
         	SmartDashboard.putNumber("Wait Time " + i, 0);
+        	SmartDashboard.putNumber("Move Distance " + i + " (Feet)", 0);
+        	
         	modularAutoActionChoosers[i].addDefault("Do Nothing", new DoNothing());
         	modularAutoActionChoosers[i].addObject("Close Back Claw", new CloseBackClaw());
         	modularAutoActionChoosers[i].addObject("Open Back Claw", new OpenBackClaw());
         	modularAutoActionChoosers[i].addObject("Close Front Claw", new CloseFrontClaw());
         	modularAutoActionChoosers[i].addObject("Open Front Claw", new OpenFrontClaw());
         	modularAutoActionChoosers[i].addObject("Wait", new Wait(i));
+        	modularAutoActionChoosers[i].addObject("Move Forwards", new MoveDistance(i, MoveDistance.DIRECTION_FORWARDS));
+        	modularAutoActionChoosers[i].addObject("Move Backwards", new MoveDistance(i, MoveDistance.DIRECTION_BACKWARDS));
+        	
+        	
         	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
         }
 
