@@ -9,11 +9,15 @@ public class GetInZone extends Command implements IAutoSelection {
 
 	private static final double NIL = 0.0D;
 	private static final double SPD = 0.5D;
-	private static final double DISTANCE = 1400.0D;
+	private static final int DURATION = 150;
 
 	public GetInZone() {
 		requires(Robot.drive);
 	}
+	
+	int startingLoopNumber;
+	int currentLoopNumber;
+	
 	@Override
 	protected void end() {
 		Robot.drive.moveCartesian(0, 0, 0, false);		
@@ -21,14 +25,17 @@ public class GetInZone extends Command implements IAutoSelection {
 
 	@Override
 	protected void execute() {
+		currentLoopNumber = Robot.getLoopIterationNumber();
 		
-		System.out.println("ENC VALUE" + Robot.sensors.getEncoder10Distance());
-		Robot.drive.moveCartesian(NIL, SPD, NIL, false);
+		
+		System.out.println("Loop #: " + Robot.getLoopIterationNumber());
+		Robot.drive.moveCartesian(SPD, NIL, NIL, false);
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.sensors.resetEncoder10();		
+		Robot.sensors.resetEncoder10();	
+		startingLoopNumber = Robot.getLoopIterationNumber();
 	}
 
 	@Override
@@ -39,7 +46,7 @@ public class GetInZone extends Command implements IAutoSelection {
 
 	@Override
 	protected boolean isFinished() {
-		return (Math.abs(Robot.sensors.getEncoder10Distance()) > DISTANCE);
+		return (currentLoopNumber - startingLoopNumber) > DURATION;
 	}
 
 }

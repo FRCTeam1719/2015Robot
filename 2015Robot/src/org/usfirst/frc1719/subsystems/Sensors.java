@@ -66,6 +66,7 @@ public class Sensors extends Subsystem implements ITestable {
     // here. Call these from Commands.
     
     public Sensors() {
+    	/*
     	//Set the Correct DPP for each encoder
     	frontLeftEncoder.setDistancePerPulse(WHEEL_CIRCUMFRENCE_FEET / ENC_FRONT_LEFT_TOTAL_PULSES);
     	frontRightEncoder.setDistancePerPulse(WHEEL_CIRCUMFRENCE_FEET / ENC_FRONT_RIGHT_TOTAL_PULSES);
@@ -75,7 +76,7 @@ public class Sensors extends Subsystem implements ITestable {
     	functioningEncoders.add(frontLeftEncoder);
     	functioningEncoders.add(frontRightEncoder);
     	functioningEncoders.add(backLeftEncoder);
-    	functioningEncoders.add(backRightEncoder);
+    	functioningEncoders.add(backRightEncoder); */
     }
     /**
      * 

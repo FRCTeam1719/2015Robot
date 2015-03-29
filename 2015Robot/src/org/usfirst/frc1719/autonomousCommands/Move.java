@@ -17,6 +17,7 @@ public class Move extends Command implements IAutoCommand{
 	double NIL = 0;
 	
 	public Move(double x, double y, double rot, boolean PID, int desiredIterations){
+		requires(Robot.drive);
 		this.x = x;
 		this.y = y;
 		this.rot = rot;
@@ -26,7 +27,6 @@ public class Move extends Command implements IAutoCommand{
 	
 	@Override
 	protected void initialize() {
-		requires(Robot.drive);
 		//Reset things
 		iterationNumber = 0;
 		done = false;

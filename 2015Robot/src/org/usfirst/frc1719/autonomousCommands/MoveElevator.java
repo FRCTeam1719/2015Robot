@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevator extends Command implements IAutoCommand {
 
 	public final int SET_STILL = 0;
-	public final int MOVE_UP = 1;
-	public final int MOVE_DOWN = 2;
+	//TODO Switch move up and move down for production robot
+	public final int MOVE_UP = 2;
+	public final int MOVE_DOWN = 1;
 	int direction;
 	int elevator;
 	boolean done;

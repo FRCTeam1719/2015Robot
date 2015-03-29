@@ -132,9 +132,10 @@ public class Robot extends IterativeRobot {
         
         
         modularAutoActionChoosers = new SendableChooser[NUM_AUTO_ACTIONS];
-        
+        /*
         //Put a set of actions for each modular autonomous step
         for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
+        	modularAutoActionChoosers[i] = new SendableChooser();
         	SmartDashboard.putNumber("Wait Time " + i, 0);
         	SmartDashboard.putNumber("Move Distance " + i + " (Feet)", 0);
         	
@@ -149,7 +150,7 @@ public class Robot extends IterativeRobot {
         	
         	
         	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
-        }
+        } */
 
         SmartDashboard.putNumber("KP", 45.0D);
         SmartDashboard.putNumber("KI", 0.001D);

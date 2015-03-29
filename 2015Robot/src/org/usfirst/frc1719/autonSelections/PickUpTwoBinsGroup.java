@@ -11,16 +11,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class PickUpTwoBinsGroup extends CommandGroup implements IAutoSelection {
 
-	final double BACKWARD = 1;
+	final double BACKWARD = 0.5D;
 	final int UP = 1;
-	final double FORWARD = -1;
+	final double FORWARD = -0.5D;
 	final double NIL = 0;
 
 	public PickUpTwoBinsGroup() {
-		addSequential(new CloseFrontClaw());
-		addSequential(new MoveElevator(UP, OI.MODE_FRONT, 300));
-		addSequential(new Move(BACKWARD, NIL, NIL, false, 300));
 		addSequential(new CloseBackClaw());
-		addSequential(new MoveElevator(UP, OI.MODE_BACK, 300));
+		addSequential(new MoveElevator(UP, OI.MODE_BACK, 35));
+		addSequential(new Move(NIL, FORWARD, NIL, false, 35));
+		addSequential(new Move(NIL, NIL, NIL, false, 10));
+		addSequential(new CloseFrontClaw());
+		addSequential(new MoveElevator(UP, OI.MODE_FRONT, 35));
 	}
 }

@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class PickupOneBin extends CommandGroup implements IAutoSelection{
 
-	final int DESIRED_TIME = 300;
+	final int DESIRED_TIME = 50;
+	
 	public PickupOneBin(){
 		addSequential(new CloseFrontClaw());
-		addSequential(new MoveElevator(1, OI.MODE_BACK, DESIRED_TIME));
+		addSequential(new MoveElevator(1, OI.MODE_FRONT, DESIRED_TIME));
 	}
 	
 	
