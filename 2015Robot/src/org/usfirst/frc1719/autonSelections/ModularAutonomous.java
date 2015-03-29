@@ -17,6 +17,7 @@ public class ModularAutonomous extends CommandGroup implements IAutoSelection {
 	
 	}
 	
+	@Override
 	public void start() {
 		
 		autoCommands = new ArrayList<Command>();
