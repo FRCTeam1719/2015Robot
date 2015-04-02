@@ -64,7 +64,8 @@ public class Robot extends IterativeRobot {
 	public static SendableChooser autonomousSelectionChooser;
     public static SendableChooser[] modularAutoActionChoosers;
     public static SendableChooser testSubsystemChooser;
-
+    
+    
     public static OI oi;
     public static Drive drive;
     public static Pneumatics pneumatics;
@@ -132,6 +133,8 @@ public class Robot extends IterativeRobot {
         
         
         modularAutoActionChoosers = new SendableChooser[NUM_AUTO_ACTIONS];
+        
+        SmartDashboard.putBoolean("shouldStrafe", false);
         /*
         //Put a set of actions for each modular autonomous step
         for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {

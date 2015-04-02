@@ -206,6 +206,9 @@ public class OI {
     			
     }
     
+    public static boolean getShouldStrafe(){
+    	return SmartDashboard.getBoolean("shouldStrafe");
+    }
     
     public Joystick getDriverJoystick() {
         return driverController;
