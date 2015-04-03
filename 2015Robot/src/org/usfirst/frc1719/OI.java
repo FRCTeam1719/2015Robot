@@ -148,12 +148,12 @@ public class OI {
         
 
         //Button Creations
-        elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
-        elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
-        elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
-        elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
-        elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
-        elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+//        elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
+//        elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
+//        elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
+//        elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
+//        elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
+//        elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
         
         cameraPos1 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_6);
         cameraPos2 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_7);

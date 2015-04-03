@@ -50,31 +50,31 @@ public class UseElevator extends Command implements IDisableable {
 		if (Math.abs(joystickY) < Y_AXIS_TOLERANCE) {
 			elevator.setSpeed(.5);
 				
-			if (Robot.oi.getElevatorPos0().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[0];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos1().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[1];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos2().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[2];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos3().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[3];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos4().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[4];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos5().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[5];
-				movingToPos = true;
-			}
-			else if (!movingToPos){
+//			if (Robot.oi.getElevatorPos0().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[0];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos1().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[1];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos2().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[2];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos3().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[3];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos4().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[4];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos5().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[5];
+//				movingToPos = true;
+//			}
+			if (!movingToPos){
 				elevator.setStill();
 				desiredPotPos = currentPotPos;
 			}

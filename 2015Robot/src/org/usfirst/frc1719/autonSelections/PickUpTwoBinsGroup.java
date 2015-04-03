@@ -26,7 +26,7 @@ public class PickUpTwoBinsGroup extends CommandGroup implements IAutoSelection {
 		addSequential(new CloseBackClaw());
 		addSequential(new MoveElevator(UP, OI.MODE_BACK, 35));
 		if(true){
-			addSequential(new Move(-1, NIL, NIL, false, 172));
+			addSequential(new Move(-1, NIL, NIL, false, 210));
 		}
 	}
 	
