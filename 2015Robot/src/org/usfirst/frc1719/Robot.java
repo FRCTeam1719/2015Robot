@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 	public static SendableChooser autonomousSelectionChooser;
     public static SendableChooser[] modularAutoActionChoosers;
     public static SendableChooser testSubsystemChooser;
-    
+    public static SendableChooser rightOrLeft;
     
     public static OI oi;
     public static Drive drive;
@@ -133,7 +133,10 @@ public class Robot extends IterativeRobot {
         
         
         modularAutoActionChoosers = new SendableChooser[NUM_AUTO_ACTIONS];
-        
+        rightOrLeft = new SendableChooser();
+        rightOrLeft.addDefault("Left", -1);
+        rightOrLeft.addObject("Right", 1);
+        SmartDashboard.putData("rightOrLeft", rightOrLeft);
         SmartDashboard.putBoolean("shouldStrafe", false);
         /*
         //Put a set of actions for each modular autonomous step

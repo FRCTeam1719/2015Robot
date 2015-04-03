@@ -290,5 +290,10 @@ public class OI {
 		return !driverController.getRawButton(LEFT_BUMPER);
 	}
 
+	public static int getDirectionFromDashboard() {
+		return 1;
+		//return (int) Robot.rightOrLeft.getSelected();
+	}
+
 }
 
