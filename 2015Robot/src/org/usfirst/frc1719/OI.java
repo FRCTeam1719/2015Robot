@@ -128,6 +128,7 @@ public class OI {
     private Joystick operatorJoystick;
     private Joystick cameraJoystick;
     
+    private Button printPotPos;
     private Button elevatorPos0;
     private Button elevatorPos1;
     private Button elevatorPos2;
@@ -148,7 +149,7 @@ public class OI {
         
 
         //Button Creations
-//        elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
+        elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
 //        elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
 //        elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
 //        elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
@@ -160,12 +161,12 @@ public class OI {
         cameraPos3 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_10);
         cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
         
+        
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
         Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
         Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
         Button extendFisher = new JoystickButton(driverController, Y_BUTTON);
         Button retractFisher = new JoystickButton(driverController, B_BUTTON);
-        
         
         
         //Driver Buttons
@@ -177,7 +178,7 @@ public class OI {
         modeFront.whenPressed(new ToggleElevator(MODE_FRONT));
         modeBack.whenPressed(new ToggleElevator(MODE_BACK));
         toggleClaws.whenPressed(new ToggleClaw());  
-       
+        
        
         //camera buttons
         cameraPos1.whenPressed(new MoveCameraCommand(1, .5));
@@ -294,6 +295,8 @@ public class OI {
 		return 1;
 		//return (int) Robot.rightOrLeft.getSelected();
 	}
+	
+	
 
 }
 
