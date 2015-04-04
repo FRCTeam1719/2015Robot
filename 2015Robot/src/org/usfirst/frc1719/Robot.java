@@ -17,16 +17,10 @@ import java.util.ArrayList;
 
 import org.usfirst.frc1719.autonSelections.DoNothing;
 import org.usfirst.frc1719.autonSelections.GetCtrByDistance;
-import org.usfirst.frc1719.autonSelections.GetInZone;
 import org.usfirst.frc1719.autonSelections.ModularAutonomous;
+import org.usfirst.frc1719.autonSelections.MoveToZone;
 import org.usfirst.frc1719.autonSelections.PickUpTwoBinsGroup;
 import org.usfirst.frc1719.autonSelections.PickupOneBin;
-import org.usfirst.frc1719.autonomousCommands.CloseBackClaw;
-import org.usfirst.frc1719.autonomousCommands.CloseFrontClaw;
-import org.usfirst.frc1719.autonomousCommands.MoveDistance;
-import org.usfirst.frc1719.autonomousCommands.OpenBackClaw;
-import org.usfirst.frc1719.autonomousCommands.OpenFrontClaw;
-import org.usfirst.frc1719.autonomousCommands.Wait;
 import org.usfirst.frc1719.interfaces.IAutoSelection;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
@@ -127,7 +121,7 @@ public class Robot extends IterativeRobot {
         autonomousSelectionChooser.addObject("Pick up one Bin", new PickupOneBin());
         autonomousSelectionChooser.addObject("Pick up two Bins", new PickUpTwoBinsGroup());
         autonomousSelectionChooser.addObject("Get Container by distance", new GetCtrByDistance());
-        autonomousSelectionChooser.addObject("Move to Auto Zone", new GetInZone());
+        autonomousSelectionChooser.addObject("Move to Auto Zone", new MoveToZone());
         autonomousSelectionChooser.addObject("Modular Autonomous", new ModularAutonomous());
         SmartDashboard.putData("Autonomous Mode", autonomousSelectionChooser);
         
