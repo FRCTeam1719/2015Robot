@@ -52,7 +52,7 @@ public class UseElevator extends Command implements IDisableable {
 			elevator.setSpeed(.5);
 				
 			if (Robot.oi.getElevatorPos0().get() && elevator == Robot.frontElevator) {
-				desiredPotPos = 60;
+				desiredPotPos = 63;
 				movingToPos = true;
 			}
 //			else if (Robot.oi.getElevatorPos1().get()) {

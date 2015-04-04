@@ -139,7 +139,7 @@ public class OI {
     private Button cameraPos2;
     private Button cameraPos3;
     private Button cameraPos4;
-    	
+    private Button slowSpeed;
     
  
     public OI() {
@@ -160,7 +160,7 @@ public class OI {
         cameraPos2 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_7);
         cameraPos3 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_10);
         cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
-        
+        slowSpeed = new JoystickButton(driverController, LEFT_BUTTON);
         
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
         Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
@@ -294,6 +294,9 @@ public class OI {
 	public static int getDirectionFromDashboard() {
 		return 1;
 		//return (int) Robot.rightOrLeft.getSelected();
+	}
+	public Button getSlowSpeed(){
+		return slowSpeed;
 	}
 	
 	

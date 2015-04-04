@@ -12,7 +12,7 @@ public class MoveToZone extends CommandGroup implements IAutoSelection{
 	final int NIL = 0;
 	
 	public MoveToZone(){
-		addSequential(new Move(LEFT,NIL,NIL, false, 70));
+		addSequential(new Move(LEFT,NIL,NIL, false, 90));
 	}
 	
 }
