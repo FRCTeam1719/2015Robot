@@ -8,10 +8,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class MoveToZone extends CommandGroup implements IAutoSelection{
 
 	final int RIGHT = 1;
+	final int LEFT = -1;
 	final int NIL = 0;
 	
 	public MoveToZone(){
-		addSequential(new Move(RIGHT,.001,.005, false, 50));
+		addSequential(new Move(LEFT,NIL,NIL, false, 70));
 	}
 	
 }
