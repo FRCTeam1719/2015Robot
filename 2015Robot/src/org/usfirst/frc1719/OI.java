@@ -160,7 +160,7 @@ public class OI {
         cameraPos2 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_7);
         cameraPos3 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_10);
         cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
-        slowSpeed = new JoystickButton(driverController, LEFT_BUTTON);
+        slowSpeed = new JoystickButton(driverController, RIGHT_BUTTON);
         
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
         Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
