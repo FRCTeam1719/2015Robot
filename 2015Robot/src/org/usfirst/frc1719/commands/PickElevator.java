@@ -8,15 +8,15 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ToggleElevator extends Command {
+public class PickElevator extends Command {
 
 	//Which elevator we are going to use
 	int whichElevator;
 	
 	boolean done = false;
 	
-    public ToggleElevator() {
-        
+    public PickElevator(int whichElevator) {
+        this.whichElevator = whichElevator;
     }
 
     // Called just before this Command runs the first time
@@ -25,17 +25,10 @@ public class ToggleElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("COMMAND");
     	Robot.currentElevator.setStill();
-    	if(OI.getMode()==OI.MODE_BACK){
-    		System.out.println("TOGGLING TO FRONT");
-    		Robot.switchElevator(OI.MODE_FRONT);
-    	}else{
-    		System.out.println("TOGGLING TO BACK");
-    		Robot.switchElevator(OI.MODE_BACK);
-    	}
+    	OI.setMode(whichElevator);
     	
-    	
+    	Robot.switchElevator(whichElevator);
     	done = true;
     }
 

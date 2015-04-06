@@ -284,10 +284,12 @@ public class Robot extends IterativeRobot {
     	if (whichElevator == OI.MODE_FRONT) {
     		currentElevator = frontElevator;
     		currentClaw = frontClaw;
+    		OI.setMode(OI.MODE_FRONT);
     	}
     	else if (whichElevator == OI.MODE_BACK) {
     		currentElevator = backElevator;
     		currentClaw = backClaw;
+    		OI.setMode(OI.MODE_BACK);
     	}
     	else {
     		System.out.println("WRONG ELEVATOR");

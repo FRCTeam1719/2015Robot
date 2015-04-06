@@ -38,7 +38,7 @@ public class  UseDrive extends Command {
 	//Currently Unused
 	//private int i = 0;
     private static final double NIL = 0.0D;
-    private static final double PTSPEED = 0.2;
+//    private static final double PTSPEED = 0.2;
 
 	//Should a direction be prevented for robot movement?
 	private boolean preventMovement = false;
