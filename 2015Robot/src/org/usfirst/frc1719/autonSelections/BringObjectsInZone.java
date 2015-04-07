@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class BringObjectsInZone extends Command implements IAutoSelection {
     
     private boolean done = false;
-    private static double DISTANCE = 3500.0;
+    //private static double DISTANCE = 3500.0;
     int iterationNumber;
     
     public BringObjectsInZone() {
