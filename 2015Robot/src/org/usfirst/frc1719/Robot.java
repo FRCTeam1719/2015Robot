@@ -20,16 +20,17 @@ import org.usfirst.frc1719.autonomous.BringObjectsInZone;
 import org.usfirst.frc1719.autonomous.GetInZone;
 import org.usfirst.frc1719.autonomous.ICommandOption;
 import org.usfirst.frc1719.commands.AutonomousCommand;
+import org.usfirst.frc1719.commands.UseDrive;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Claw;
 import org.usfirst.frc1719.subsystems.Claws;
-import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
+import org.usfirst.frc1719.ulib.subsystems.Drive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -95,7 +96,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     RobotMap.init();
-        drive = new Drive();
+        drive = new Drive(RobotMap.driveLeftFront, RobotMap.driveLeftRear, RobotMap.driveRightFront, RobotMap.driveRightRear, sensors.getGyro(), new UseDrive());
         pneumatics = new Pneumatics();
         sensors = new Sensors();
         cameraMount = new CameraMount();
