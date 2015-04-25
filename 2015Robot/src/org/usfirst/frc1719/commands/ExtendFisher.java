@@ -26,9 +26,13 @@ public class ExtendFisher extends Command implements IDisableable {
 	protected void execute() {
 		
 		//extends, ends once extended
+		System.out.println("IN COMMAND");
 		if(Robot.fisher.lower()){
+			System.out.println("LOWERED");
 			if (Robot.fisher.extend()) {
+				System.out.println("EXTENDED");
 				done = true;
+				
 			}
 		}
 	}

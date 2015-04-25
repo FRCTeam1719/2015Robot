@@ -15,12 +15,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
-import org.usfirst.frc1719.autonomous.GetCtrByDistance;
-import org.usfirst.frc1719.autonomous.BringObjectsInZone;
-import org.usfirst.frc1719.autonomous.GetInZone;
-import org.usfirst.frc1719.autonomous.ICommandOption;
-import org.usfirst.frc1719.autonomous.PickupTwoBins;
-import org.usfirst.frc1719.commands.AutonomousCommand;
+import org.usfirst.frc1719.autonSelections.DoNothing;
+import org.usfirst.frc1719.autonSelections.GetCtrByDistance;
+import org.usfirst.frc1719.autonSelections.ModularAutonomous;
+import org.usfirst.frc1719.autonSelections.MoveToZone;
+import org.usfirst.frc1719.autonSelections.PickUpTwoBinsGroup;
+import org.usfirst.frc1719.autonSelections.PickupOneBin;
+import org.usfirst.frc1719.interfaces.IAutoSelection;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
@@ -33,7 +34,6 @@ import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,30 +47,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	public static int NUM_AUTO_ACTIONS = 10;
 	public static int loopIterationNumber = 0;
 	public static Robot instance;
+	
 
-	public static enum EnumAutoCMD {
-		GCBD("Get containers using distance sensor", new GetCtrByDistance()),
-		BOIZ("Pickup one object", new BringObjectsInZone()),
-		BILB("Pickup two objects", new PickupTwoBins()),
-		ZONE("Go to the Auto Zone and stop", new GetInZone()),
-		NULL("Do nothing", new ICommandOption() {public boolean done() {return true;} public void doCMD() {}});
-		
-		final String name;
-		public final ICommandOption cmd;
-		
-		EnumAutoCMD(String par1, ICommandOption par2) {
-			name = par1;
-			cmd = par2;
-		}
-	}	
-    
-	//Declares a new sendable chooser for autonomous command
-    Command autonomousCommand;
-    public static SendableChooser autoCMDChooser;
+
+	public static IAutoSelection autoSelection;
+	
+	public static SendableChooser autonomousSelectionChooser;
+    public static SendableChooser[] modularAutoActionChoosers;
     public static SendableChooser testSubsystemChooser;
-
+    public static SendableChooser rightOrLeft;
+    
     public static OI oi;
     public static Drive drive;
     public static Pneumatics pneumatics;
@@ -97,6 +86,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     RobotMap.init();
+    	
         drive = new Drive();
         pneumatics = new Pneumatics();
         sensors = new Sensors();
@@ -124,17 +114,44 @@ public class Robot extends IterativeRobot {
         // constructed yet. Thus, their requires() statements may grab null 
         // pointers. Bad news. Don't move it.
         oi = new OI();
-
-        // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCommand();
+       
+        //All of the autonomous selections
+        autonomousSelectionChooser = new SendableChooser();
+        autonomousSelectionChooser.addDefault("Do Nothing", new DoNothing());
+        autonomousSelectionChooser.addObject("Pick up one Bin", new PickupOneBin());
+        autonomousSelectionChooser.addObject("Pick up two Bins", new PickUpTwoBinsGroup());
+        autonomousSelectionChooser.addObject("Get Container by distance", new GetCtrByDistance());
+        autonomousSelectionChooser.addObject("Move to Auto Zone", new MoveToZone());
+        autonomousSelectionChooser.addObject("Modular Autonomous", new ModularAutonomous());
+        SmartDashboard.putData("Autonomous Mode", autonomousSelectionChooser);
         
-        //Adds radio button to choose autonomous command
-        autoCMDChooser = new SendableChooser();
-        for(EnumAutoCMD cmd : EnumAutoCMD.values()) {
-        	autoCMDChooser.addObject(cmd.name, cmd);
-        }
-        SmartDashboard.putData("Autonomous Style", autoCMDChooser);
-    	
+        
+        modularAutoActionChoosers = new SendableChooser[NUM_AUTO_ACTIONS];
+        rightOrLeft = new SendableChooser();
+        rightOrLeft.addDefault("Left", -1);
+        rightOrLeft.addObject("Right", 1);
+        SmartDashboard.putData("rightOrLeft", rightOrLeft);
+        SmartDashboard.putBoolean("shouldStrafe", false);
+        /*
+        //Put a set of actions for each modular autonomous step
+        for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
+        	modularAutoActionChoosers[i] = new SendableChooser();
+        	SmartDashboard.putNumber("Wait Time " + i, 0);
+        	SmartDashboard.putNumber("Move Distance " + i + " (Feet)", 0);
+        	
+        	modularAutoActionChoosers[i].addDefault("Do Nothing", new DoNothing());
+        	modularAutoActionChoosers[i].addObject("Close Back Claw", new CloseBackClaw());
+        	modularAutoActionChoosers[i].addObject("Open Back Claw", new OpenBackClaw());
+        	modularAutoActionChoosers[i].addObject("Close Front Claw", new CloseFrontClaw());
+        	modularAutoActionChoosers[i].addObject("Open Front Claw", new OpenFrontClaw());
+        	modularAutoActionChoosers[i].addObject("Wait", new Wait(i));
+        	modularAutoActionChoosers[i].addObject("Move Forwards", new MoveDistance(i, MoveDistance.DIRECTION_FORWARDS));
+        	modularAutoActionChoosers[i].addObject("Move Backwards", new MoveDistance(i, MoveDistance.DIRECTION_BACKWARDS));
+        	
+        	
+        	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
+        } */
+
         SmartDashboard.putNumber("KP", 45.0D);
         SmartDashboard.putNumber("KI", 0.001D);
         SmartDashboard.putNumber("KD", 5.0D);
@@ -156,6 +173,7 @@ public class Robot extends IterativeRobot {
     	for (IDisableable itr : commands) {
     		itr.disable();
     	}
+ 
     }
 
     public void disabledPeriodic() {
@@ -165,7 +183,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	System.out.println("AUTON INIT");
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        setAutoCommandFromDashboard();
+        autoSelection.start();
     }
 
     /**
@@ -173,8 +192,6 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	System.out.println("AUTON PERIODIC");
-    	double x = Robot.sensors.getGyro().getAngle() / 360.0D;
-    	if(Math.abs(x) <= 0.5D) Robot.cameraMount.setXServoRaw(0.5D - x);
     	loopIterationNumber++;
         Scheduler.getInstance().run();
     }
@@ -184,7 +201,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autoSelection != null) autoSelection.cancel();
         System.out.println("CONFIGURE CONTROLLERS");
         oi.configureController();
     }
@@ -209,7 +226,7 @@ public class Robot extends IterativeRobot {
     		testCleanUp();
     	}
     	((ITestable) testSubsystemChooser.getSelected()).test();
-    	previousTest= currentTest;
+    	previousTest = currentTest;
     }
     public static void testCleanUp(){
     	for(int i = 0; i < toTest.length; i++) {
@@ -219,6 +236,7 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void testInit() {
+    	if (autoSelection != null) autoSelection.cancel();
     	toTest = devices.toArray(m);
     	for(int i = 0; i < toTest.length; i++) {
     		toTest[i].reset();
@@ -277,5 +295,16 @@ public class Robot extends IterativeRobot {
     		System.out.println("WRONG ELEVATOR");
     	}
     }
+    
+    public static void setAutoCommandFromDashboard() {
+    	autoSelection = (IAutoSelection) autonomousSelectionChooser.getSelected();
+    }
+    
+    //Commands called 50 times per second
+    public static double getSeconds() {
+    	return loopIterationNumber / 50;
+    }
 
 }
+
+
