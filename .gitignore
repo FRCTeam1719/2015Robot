@@ -94,3 +94,6 @@ local.properties
 
 2015Robot/sysProps.xml
 **/*~
+
+# Library copy hack
+2015Robot/src/org/usfirst/frc1719/ulib

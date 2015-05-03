@@ -95,10 +95,11 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    RobotMap.init();
-        drive = new Drive(RobotMap.driveLeftFront, RobotMap.driveLeftRear, RobotMap.driveRightFront, RobotMap.driveRightRear, sensors.getGyro(), new UseDrive());
-        pneumatics = new Pneumatics();
+        RobotMap.init();
         sensors = new Sensors();
+        drive = new Drive(RobotMap.driveLeftFront, RobotMap.driveLeftRear, RobotMap.driveRightFront, RobotMap.driveRightRear, sensors.getGyro(), UseDrive.class);
+        pneumatics = new Pneumatics();
+        
         cameraMount = new CameraMount();
         claws = new Claws();
         
