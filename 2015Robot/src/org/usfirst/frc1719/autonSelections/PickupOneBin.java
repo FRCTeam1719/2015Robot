@@ -1,8 +1,8 @@
 package org.usfirst.frc1719.autonSelections;
 
 import org.usfirst.frc1719.OI;
-import org.usfirst.frc1719.autonomousCommands.CloseFrontClaw;
-import org.usfirst.frc1719.autonomousCommands.MoveElevator;
+import org.usfirst.frc1719.commands.CloseFrontClaw;
+import org.usfirst.frc1719.commands.MoveElevator;
 import org.usfirst.frc1719.interfaces.IAutoSelection;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

@@ -21,6 +21,11 @@ import org.usfirst.frc1719.autonSelections.ModularAutonomous;
 import org.usfirst.frc1719.autonSelections.MoveToZone;
 import org.usfirst.frc1719.autonSelections.PickUpTwoBinsGroup;
 import org.usfirst.frc1719.autonSelections.PickupOneBin;
+import org.usfirst.frc1719.autonomousCommands.AutonWait;
+import org.usfirst.frc1719.commands.CloseBackClaw;
+import org.usfirst.frc1719.commands.CloseFrontClaw;
+import org.usfirst.frc1719.commands.OpenBackClaw;
+import org.usfirst.frc1719.commands.OpenFrontClaw;
 import org.usfirst.frc1719.interfaces.IAutoSelection;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
@@ -132,25 +137,23 @@ public class Robot extends IterativeRobot {
         rightOrLeft.addObject("Right", 1);
         SmartDashboard.putData("rightOrLeft", rightOrLeft);
         SmartDashboard.putBoolean("shouldStrafe", false);
-        /*
+        
+        
         //Put a set of actions for each modular autonomous step
         for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
         	modularAutoActionChoosers[i] = new SendableChooser();
         	SmartDashboard.putNumber("Wait Time " + i, 0);
         	SmartDashboard.putNumber("Move Distance " + i + " (Feet)", 0);
         	
-        	modularAutoActionChoosers[i].addDefault("Do Nothing", new DoNothing());
+        	modularAutoActionChoosers[i].addDefault("Do Nothing" + i, new DoNothing());
         	modularAutoActionChoosers[i].addObject("Close Back Claw", new CloseBackClaw());
         	modularAutoActionChoosers[i].addObject("Open Back Claw", new OpenBackClaw());
         	modularAutoActionChoosers[i].addObject("Close Front Claw", new CloseFrontClaw());
         	modularAutoActionChoosers[i].addObject("Open Front Claw", new OpenFrontClaw());
-        	modularAutoActionChoosers[i].addObject("Wait", new Wait(i));
-        	modularAutoActionChoosers[i].addObject("Move Forwards", new MoveDistance(i, MoveDistance.DIRECTION_FORWARDS));
-        	modularAutoActionChoosers[i].addObject("Move Backwards", new MoveDistance(i, MoveDistance.DIRECTION_BACKWARDS));
-        	
+        	modularAutoActionChoosers[i].addObject("Wait", new AutonWait(i));        	
         	
         	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
-        } */
+        }
 
         SmartDashboard.putNumber("KP", 45.0D);
         SmartDashboard.putNumber("KI", 0.001D);
@@ -173,7 +176,11 @@ public class Robot extends IterativeRobot {
     	for (IDisableable itr : commands) {
     		itr.disable();
     	}
- 
+    	if (autoSelection != null) {
+    		autoSelection.cancel();
+    	}
+    	
+    	refreshDashboardObjects();
     }
 
     public void disabledPeriodic() {
@@ -181,12 +188,17 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+    	
+
     	System.out.println("AUTON INIT");
         // schedule the autonomous command (example)
         setAutoCommandFromDashboard();
+        
+        if (autoSelection.getClass().equals(ModularAutonomous.class)) {
+        	((ModularAutonomous) autoSelection).setUp();
+        }
         autoSelection.start();
     }
-
     /**
      * This function is called periodically during autonomous
      */
@@ -295,6 +307,7 @@ public class Robot extends IterativeRobot {
     }
     
     public static void setAutoCommandFromDashboard() {
+    	autoSelection = null;
     	autoSelection = (IAutoSelection) autonomousSelectionChooser.getSelected();
     }
     
@@ -302,7 +315,35 @@ public class Robot extends IterativeRobot {
     public static double getSeconds() {
     	return loopIterationNumber / 50;
     }
-
+    
+    
+    public static void refreshDashboardObjects() {
+    	
+    	//Put new command objects on the dashboard
+    	autonomousSelectionChooser = null;
+    	autonomousSelectionChooser = new SendableChooser();
+        autonomousSelectionChooser.addDefault("Do Nothing", new DoNothing());
+        autonomousSelectionChooser.addObject("Pick up one Bin", new PickupOneBin());
+        autonomousSelectionChooser.addObject("Pick up two Bins", new PickUpTwoBinsGroup());
+        autonomousSelectionChooser.addObject("Get Container by distance", new GetCtrByDistance());
+        autonomousSelectionChooser.addObject("Move to Auto Zone", new MoveToZone());
+        autonomousSelectionChooser.addObject("Modular Autonomous", new ModularAutonomous());
+        SmartDashboard.putData("Autonomous Mode", autonomousSelectionChooser);
+        
+        //Put a set of actions for each modular autonomous step
+        for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
+        	modularAutoActionChoosers[i] = new SendableChooser();
+        	
+        	modularAutoActionChoosers[i].addDefault("Do Nothing" + i, new DoNothing());
+        	modularAutoActionChoosers[i].addObject("Close Back Claw", new CloseBackClaw());
+        	modularAutoActionChoosers[i].addObject("Open Back Claw", new OpenBackClaw());
+        	modularAutoActionChoosers[i].addObject("Close Front Claw", new CloseFrontClaw());
+        	modularAutoActionChoosers[i].addObject("Open Front Claw", new OpenFrontClaw());
+        	modularAutoActionChoosers[i].addObject("Wait", new AutonWait(i));        	
+        	
+        	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
+        }
+    }
 }
 
 

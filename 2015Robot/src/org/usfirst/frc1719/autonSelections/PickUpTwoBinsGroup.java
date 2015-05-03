@@ -1,11 +1,11 @@
 package org.usfirst.frc1719.autonSelections;
 
 import org.usfirst.frc1719.OI;
-import org.usfirst.frc1719.autonomousCommands.CloseBackClaw;
-import org.usfirst.frc1719.autonomousCommands.CloseFrontClaw;
-import org.usfirst.frc1719.autonomousCommands.Move;
-import org.usfirst.frc1719.autonomousCommands.MoveElevator;
-import org.usfirst.frc1719.autonomousCommands.Wait;
+import org.usfirst.frc1719.commands.CloseBackClaw;
+import org.usfirst.frc1719.commands.CloseFrontClaw;
+import org.usfirst.frc1719.commands.Move;
+import org.usfirst.frc1719.commands.MoveElevator;
+import org.usfirst.frc1719.commands.Wait;
 import org.usfirst.frc1719.interfaces.IAutoSelection;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -19,7 +19,7 @@ public class PickUpTwoBinsGroup extends CommandGroup implements IAutoSelection {
 
 	public PickUpTwoBinsGroup() {
 		addSequential(new CloseFrontClaw());
-		addSequential(new Wait(5, 1));
+		addSequential(new Wait(1));
 		addSequential(new MoveElevator(UP, OI.MODE_FRONT, 35));
 		addSequential(new Move(NIL, BACKWARD, NIL, false, 35));
 		addSequential(new Move(NIL, NIL, NIL, false, 10));

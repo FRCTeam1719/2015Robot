@@ -1,27 +1,27 @@
-package org.usfirst.frc1719.autonomousCommands;
+package org.usfirst.frc1719.commands;
 
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.interfaces.IAutoCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OpenFrontClaw extends Command implements IAutoCommand {
+public class OpenBackClaw extends Command implements IAutoCommand {
 
-	public OpenFrontClaw() {
-		requires(Robot.frontClaw);
+	public OpenBackClaw() {
+		requires(Robot.backClaw);
 	}
 	
 	@Override
-	protected void end() {
+	protected void end() {		
 	}
 
 	@Override
 	protected void execute() {
-		Robot.frontClaw.open();
+		Robot.backClaw.open();
 	}
 
 	@Override
-	protected void initialize() {
+	protected void initialize() {		
 	}
 
 	@Override
@@ -33,5 +33,4 @@ public class OpenFrontClaw extends Command implements IAutoCommand {
 		return true;
 	}
 
-	
 }
