@@ -11,6 +11,7 @@
 
 package org.usfirst.frc1719.commands;
 
+import org.usfirst.frc1719.OI;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
 
@@ -27,6 +28,7 @@ public class  UseDrive extends Command {
 	private static final boolean FRONT = true;
 	private static final boolean BACK = false;
 	private static final double ROTATION_REDUCTION = 0.5D;
+
 	
 	//Currently unused
 	//private static final int RIGHT_Y = 5;
@@ -63,6 +65,7 @@ public class  UseDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("DRIVING");
 		if(SmartDashboard.getBoolean("Avoid Accidents") && !Robot.oi.getAAAOverride()) {
 			if(sensor.getLIDARDistanceCM() == 0) preventMovement = false;
 			else if(sensor.getLIDARDistanceCM() < 70){
@@ -101,6 +104,10 @@ public class  UseDrive extends Command {
     	}
 
     	//Drives (mechanum) given the values from the joystick
+    	if(Robot.oi.getSlowSpeed().get()){
+    		lx = lx/2;
+    		ly = ly/2;
+    	}
     	Robot.drive.moveCartesian(lx, ly, rx * ROTATION_REDUCTION, Robot.oi.getPIDOverride());
     	
     	if(Robot.getLoopIterationNumber() % 0x40 == 0) {

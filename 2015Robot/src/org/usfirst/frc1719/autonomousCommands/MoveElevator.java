@@ -9,8 +9,8 @@ public class MoveElevator extends Command implements IAutoCommand {
 
 	public final int SET_STILL = 0;
 	//TODO Switch move up and move down for production robot
-	public final int MOVE_UP = 2;
-	public final int MOVE_DOWN = 1;
+	public final int MOVE_UP = 1;
+	public final int MOVE_DOWN = 2;
 	int direction;
 	int elevator;
 	boolean done;

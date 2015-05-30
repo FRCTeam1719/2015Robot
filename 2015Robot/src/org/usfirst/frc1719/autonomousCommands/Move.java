@@ -34,6 +34,7 @@ public class Move extends Command implements IAutoCommand{
 
 	@Override
 	protected void execute() {
+		
 		if(iterationNumber <= desiredIterations){
 		Robot.drive.moveCartesian(x, y, rot, PID);
 		}else{

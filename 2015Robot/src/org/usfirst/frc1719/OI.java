@@ -128,6 +128,7 @@ public class OI {
     private Joystick operatorJoystick;
     private Joystick cameraJoystick;
     
+    private Button printPotPos;
     private Button elevatorPos0;
     private Button elevatorPos1;
     private Button elevatorPos2;
@@ -138,7 +139,7 @@ public class OI {
     private Button cameraPos2;
     private Button cameraPos3;
     private Button cameraPos4;
-    	
+    private Button slowSpeed;
     
  
     public OI() {
@@ -149,16 +150,17 @@ public class OI {
 
         //Button Creations
         elevatorPos0 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_6);
-        elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
-        elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
-        elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
-        elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
-        elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
+//        elevatorPos1 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_7);
+//        elevatorPos2 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_8);
+//        elevatorPos3 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_9);
+//        elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
+//        elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
         
         cameraPos1 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_6);
         cameraPos2 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_7);
         cameraPos3 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_10);
         cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
+        slowSpeed = new JoystickButton(driverController, RIGHT_BUTTON);
         
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
 //        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
@@ -166,7 +168,6 @@ public class OI {
         Button modeToggle = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
         Button extendFisher = new JoystickButton(driverController, Y_BUTTON);
         Button retractFisher = new JoystickButton(driverController, B_BUTTON);
-        
         
         
         //Driver Buttons
@@ -179,7 +180,7 @@ public class OI {
 //        modeBack.whenPressed(new PickElevator(MODE_BACK));
         modeToggle.whenPressed(new ToggleElevator());
         toggleClaws.whenPressed(new ToggleClaw());  
-       
+        
        
         //camera buttons
         cameraPos1.whenPressed(new MoveCameraCommand(1, .5));
@@ -208,6 +209,9 @@ public class OI {
     			
     }
     
+    public static boolean getShouldStrafe(){
+    	return SmartDashboard.getBoolean("shouldStrafe");
+    }
     
     public Joystick getDriverJoystick() {
         return driverController;
@@ -288,6 +292,16 @@ public class OI {
 	public boolean getPIDOverride() {
 		return !driverController.getRawButton(LEFT_BUMPER);
 	}
+
+	public static int getDirectionFromDashboard() {
+		return 1;
+		//return (int) Robot.rightOrLeft.getSelected();
+	}
+	public Button getSlowSpeed(){
+		return slowSpeed;
+	}
+	
+	
 
 }
 

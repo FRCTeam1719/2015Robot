@@ -10,18 +10,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Wait extends Command implements IAutoCommand {
 	
 	public static final double WAIT_TOLERANCE = .5;
+	double desiredTime;
+	double startTime = 0;
+	double timePassed = 0;
+	boolean done = false;
 	
-	public Wait(int actionNum) {
+	public Wait(int actionNum, int desiredTime) {
+		this.desiredTime = desiredTime;
 		this.actionNum = actionNum;
 	}
 	
 	int actionNum;
 	
-	double desiredTime;
-	double startTime = 0;
-	double timePassed = 0;
-	boolean done = false;
+	
 
+	
 	@Override
 	protected void end() {
 		done = false;
@@ -36,7 +39,7 @@ public class Wait extends Command implements IAutoCommand {
 	@Override
 	protected void initialize() {
 		startTime = Robot.getSeconds();
-		this.desiredTime = SmartDashboard.getNumber("Wait Time " + actionNum);
+		
 
 	}
 

@@ -5,6 +5,7 @@ import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -45,35 +46,35 @@ public class UseElevator extends Command implements IDisableable {
 		currentPotPos = elevator.getPotPos();
 		//System.out.println(currentPotPos);
 		
-		
+		SmartDashboard.putNumber("PotPos", currentPotPos);
 		// If the axis is within the tolerance, don't move
 		if (Math.abs(joystickY) < Y_AXIS_TOLERANCE) {
 			elevator.setSpeed(.5);
 				
-			if (Robot.oi.getElevatorPos0().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[0];
+			if (Robot.oi.getElevatorPos0().get() && elevator == Robot.frontElevator) {
+				desiredPotPos = 63;
 				movingToPos = true;
 			}
-			else if (Robot.oi.getElevatorPos1().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[1];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos2().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[2];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos3().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[3];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos4().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[4];
-				movingToPos = true;
-			}
-			else if (Robot.oi.getElevatorPos5().get()) {
-				desiredPotPos = Elevator.POTENTIOMETER_POS[5];
-				movingToPos = true;
-			}
+//			else if (Robot.oi.getElevatorPos1().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[1];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos2().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[2];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos3().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[3];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos4().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[4];
+//				movingToPos = true;
+//			}
+//			else if (Robot.oi.getElevatorPos5().get()) {
+//				desiredPotPos = Elevator.POTENTIOMETER_POS[5];
+//				movingToPos = true;
+//			}
 			else if (!movingToPos){
 				elevator.setStill();
 				desiredPotPos = currentPotPos;
@@ -89,14 +90,14 @@ public class UseElevator extends Command implements IDisableable {
 			if (joystickY < 0) {
 				
 				//The elevator will always move up
-				desiredPotPos = -200;
+				desiredPotPos = 200;
 			}
 
 			// User is pulling down
 			else if (joystickY > 0) {
 				
 				//The elevator will always move down
-				desiredPotPos = 200;
+				desiredPotPos = -200;
 			}
 
 			// User isn't moving the joystick
@@ -110,12 +111,12 @@ public class UseElevator extends Command implements IDisableable {
 			elevator.setStill();
 		}
 		else if (currentPotPos < desiredPotPos) {
-			System.out.println("moving down, BITCH");
-			elevator.moveUp();
+			System.out.println("moving down");
+			elevator.moveDown();
 		}
 		else if (currentPotPos > desiredPotPos) {
 			System.out.println("moving up");
-			elevator.moveDown();
+			elevator.moveUp();
 		}
 		
 		
