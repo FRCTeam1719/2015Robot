@@ -16,6 +16,7 @@ import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveCameraCommand;
 import org.usfirst.frc1719.commands.RetractFisher;
+import org.usfirst.frc1719.commands.SwitchElevator;
 import org.usfirst.frc1719.commands.ToggleClaw;
 import org.usfirst.frc1719.commands.ToggleElevator;
 import org.usfirst.frc1719.commands.UseDrive;
@@ -139,6 +140,7 @@ public class OI {
     private Button cameraPos2;
     private Button cameraPos3;
     private Button cameraPos4;
+    private Button switchElevator;
     private Button slowSpeed;
     
  
@@ -160,6 +162,8 @@ public class OI {
         cameraPos2 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_7);
         cameraPos3 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_10);
         cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
+        
+        switchElevator = new JoystickButton(operatorJoystick, ATTACK_BUTTON_5);
         slowSpeed = new JoystickButton(driverController, RIGHT_BUTTON);
         
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
@@ -187,6 +191,8 @@ public class OI {
         cameraPos2.whenPressed(new MoveCameraCommand(.75, .5));
         cameraPos3.whenPressed(new MoveCameraCommand(.5, .5));
         cameraPos4.whenPressed(new MoveCameraCommand(.25, .5));
+        
+        switchElevator.whenPressed(new SwitchElevator());
 
         
         // SmartDashboard Buttons
