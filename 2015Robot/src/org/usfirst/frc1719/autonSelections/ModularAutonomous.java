@@ -17,8 +17,9 @@ public class ModularAutonomous extends CommandGroup implements IAutoSelection {
 	
 	}
 	
-	@Override
-	public void start() {
+	public void setUp() {
+		
+		
 		
 		autoCommands = new ArrayList<Command>();
 		for (SendableChooser itr : Robot.modularAutoActionChoosers) {
@@ -26,8 +27,8 @@ public class ModularAutonomous extends CommandGroup implements IAutoSelection {
 		}
 		
 		for (Command itr : autoCommands) {
-			addSequential( itr);
+			addSequential(itr);
 		}
-		super.start();
+		
 	}
 }

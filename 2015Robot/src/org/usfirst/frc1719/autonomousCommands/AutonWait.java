@@ -1,45 +1,38 @@
 package org.usfirst.frc1719.autonomousCommands;
 
-import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.commands.Wait;
 import org.usfirst.frc1719.interfaces.IAutoCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**Wait for a certain amount of seconds **/
-public class Wait extends Command implements IAutoCommand {
+public class AutonWait extends Command implements IAutoCommand {
 	
-	public static final double WAIT_TOLERANCE = .5;
-	double desiredTime;
-	double startTime = 0;
-	double timePassed = 0;
-	boolean done = false;
-	
-	public Wait(int actionNum, int desiredTime) {
-		this.desiredTime = desiredTime;
+	public AutonWait(int actionNum) {
 		this.actionNum = actionNum;
 	}
 	
 	int actionNum;
+	
+	Wait waitCommand;
 	
 	
 
 	
 	@Override
 	protected void end() {
-		done = false;
 	}
 
 	//Do nothing
 	@Override
 	protected void execute() {
-		timePassed = Robot.getSeconds() - startTime;
 	}
 
 	@Override
 	protected void initialize() {
-		startTime = Robot.getSeconds();
-		
-
+		waitCommand = new Wait(SmartDashboard.getNumber("Wait Time " + actionNum));
+		waitCommand.start();
 	}
 
 	@Override
@@ -48,7 +41,7 @@ public class Wait extends Command implements IAutoCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(timePassed - desiredTime) < WAIT_TOLERANCE;
+		return waitCommand.finished();
 	}
 
 

@@ -1,6 +1,6 @@
 package org.usfirst.frc1719.autonSelections;
 
-import org.usfirst.frc1719.autonomousCommands.Move;
+import org.usfirst.frc1719.commands.Move;
 import org.usfirst.frc1719.interfaces.IAutoSelection;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

@@ -1,4 +1,4 @@
-package org.usfirst.frc1719.autonomousCommands;
+package org.usfirst.frc1719.commands;
 
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.interfaces.IAutoCommand;
