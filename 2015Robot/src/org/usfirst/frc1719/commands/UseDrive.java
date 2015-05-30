@@ -11,7 +11,6 @@
 
 package org.usfirst.frc1719.commands;
 
-import org.usfirst.frc1719.OI;
 import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.subsystems.Sensors;
 

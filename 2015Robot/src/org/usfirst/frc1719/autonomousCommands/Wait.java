@@ -4,7 +4,6 @@ import org.usfirst.frc1719.Robot;
 import org.usfirst.frc1719.interfaces.IAutoCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**Wait for a certain amount of seconds **/
 public class Wait extends Command implements IAutoCommand {

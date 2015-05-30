@@ -129,7 +129,6 @@ public class OI {
     private Joystick operatorJoystick;
     private Joystick cameraJoystick;
     
-    private Button printPotPos;
     private Button elevatorPos0;
     private Button elevatorPos1;
     private Button elevatorPos2;
