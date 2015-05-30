@@ -27,4 +27,13 @@
   
   <import file="${wpilib.ant.dir}/build.xml"/>
 
+  <exec executable="rm">
+  <arg value="-rf" />
+  <arg value="${basedir}/src/org/usfirst/frc1719j/ulib" />
+  </exec>
+  <exec executable="cp">
+  <arg value="-R" />
+  <arg value="~/git/UmbrellaLibrary/UmbrellaLibrary/src/org" />
+  <arg value="src/" />
+  </exec>
 </project> 
