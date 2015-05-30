@@ -73,7 +73,8 @@ tmp/
 local.properties
 .settings/
 .loadpath
-
+# Because of our library
+build.xml
 # External tool builders
 .externalToolBuilders/
 
