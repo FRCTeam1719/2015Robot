@@ -12,8 +12,8 @@
 package org.usfirst.frc1719;
     
 
-import org.usfirst.frc1719.customSensors.LIDAR;
-import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
+import org.usfirst.frc1719.ulib.customSensors.LIDAR;
+import org.usfirst.frc1719.ulib.customSensors.MB1220UltrasonicAnalog;
 import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
