@@ -12,8 +12,8 @@
 package org.usfirst.frc1719;
     
 
-import org.usfirst.frc1719.customSensors.LIDAR;
-import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
+import org.usfirst.frc1719.ulib.customSensors.LIDAR;
+import org.usfirst.frc1719.ulib.customSensors.MB1220UltrasonicAnalog;
 import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -93,15 +93,6 @@ public class RobotMap {
         
         driveRightFront = new Talon(3);
         LiveWindow.addActuator("Drive", "Right Front", (Talon) driveRightFront);
-        
-        driveRobotDrive = new RobotDrive(driveLeftFront, driveLeftRear, driveRightFront, driveRightRear);
-        
-        driveRobotDrive.setSafetyEnabled(true);
-        driveRobotDrive.setExpiration(0.1);
-        driveRobotDrive.setSensitivity(0.5);
-        driveRobotDrive.setMaxOutput(1.0);
-        driveRobotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-        driveRobotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         
         pneumaticsCompressor = new Compressor(0);
         

@@ -14,8 +14,8 @@ package org.usfirst.frc1719.subsystems;
 import java.util.ArrayList;
 
 import org.usfirst.frc1719.RobotMap;
-import org.usfirst.frc1719.customSensors.LIDAR;
-import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
+import org.usfirst.frc1719.ulib.customSensors.LIDAR;
+import org.usfirst.frc1719.ulib.customSensors.MB1220UltrasonicAnalog;
 import org.usfirst.frc1719.interfaces.ITestable;
 
 import edu.wpi.first.wpilibj.DigitalInput;

@@ -21,6 +21,16 @@
 
   <!-- Any other property in build.properties can also be overridden. -->
   
+	<exec executable="rm">
+	    <arg value="-rf" />
+	    <arg value="${basedir}/src/org/usfirst/frc1719/ulib" />
+	</exec>
+	<exec executable="cp">
+	    <arg value="-R" />
+	    <arg value="${user.home}/Robotics/UmbrellaLibrary/UmbrellaLibrary/src/org" />
+	    <arg value="src/" />
+	</exec>
+	
   <property file="${user.home}/wpilib/wpilib.properties"/>
   <property file="build.properties"/>
   <property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
