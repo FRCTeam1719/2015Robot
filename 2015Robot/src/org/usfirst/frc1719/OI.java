@@ -15,6 +15,7 @@ import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
 import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveCameraCommand;
+import org.usfirst.frc1719.commands.PickElevator;
 import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.SwitchElevator;
 import org.usfirst.frc1719.commands.ToggleClaw;
@@ -166,8 +167,8 @@ public class OI {
         slowSpeed = new JoystickButton(driverController, RIGHT_BUTTON);
         
         Button toggleClaws = new JoystickButton(operatorJoystick, ATTACK_TRIGGER);
-//        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
-//        Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
+        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
+        Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
         Button modeToggle = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
         Button extendFisher = new JoystickButton(driverController, Y_BUTTON);
         Button retractFisher = new JoystickButton(driverController, B_BUTTON);
@@ -179,8 +180,8 @@ public class OI {
         
         
         //Operator Controller
-//        modeFront.whenPressed(new PickElevator(MODE_FRONT));
-//        modeBack.whenPressed(new PickElevator(MODE_BACK));
+        modeFront.whenPressed(new PickElevator(MODE_FRONT));
+        modeBack.whenPressed(new PickElevator(MODE_BACK));
         modeToggle.whenPressed(new ToggleElevator());
         toggleClaws.whenPressed(new ToggleClaw());  
         

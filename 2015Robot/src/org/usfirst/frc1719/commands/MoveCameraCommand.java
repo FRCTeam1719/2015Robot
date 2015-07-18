@@ -11,6 +11,8 @@ public class MoveCameraCommand extends Command {
 	public MoveCameraCommand(double x, double y) {
 		this.x = x;
 		this.y = y;
+		
+		requires(Robot.cameraMount);
 	}
 
 	@Override
@@ -20,7 +22,6 @@ public class MoveCameraCommand extends Command {
 
 	@Override
 	protected void execute() {
-		System.out.println("moving camera to " + x + "," + y);
 		Robot.cameraMount.setXServoRaw(x);
 		Robot.cameraMount.setYServoRaw(y);
 		done = true;

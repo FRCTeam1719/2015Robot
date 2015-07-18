@@ -15,6 +15,11 @@ public class ToggleClaw extends Command implements IDisableable {
 	final int LEFT_TRIGGER = 3;
 	
 	Claw currentClaw;
+	
+	public  ToggleClaw() {
+		requires(Robot.currentClaw);
+	}
+	
 	@Override
 	protected void end() {
 		Robot.commands.remove(this);

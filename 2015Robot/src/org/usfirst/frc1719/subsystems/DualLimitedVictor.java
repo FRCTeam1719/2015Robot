@@ -29,7 +29,6 @@ public class DualLimitedVictor extends Subsystem {
 		
 		//If the limit switch is off or pressed
 		if (limitForward.get()) {
-			System.out.println("TOP LIMIT SWITCH HIT");
 			//Turn the motor off and exit
 			still();
 			return;
@@ -50,7 +49,6 @@ public class DualLimitedVictor extends Subsystem {
 			return;
 		}
 		
-		System.out.println("limit bottom not hit");
 		
 		victor.set(-absoluteSpeed);
 	}
@@ -64,8 +62,6 @@ public class DualLimitedVictor extends Subsystem {
 		absoluteSpeed = speed;
 	}
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
     
     //Turn the motor off

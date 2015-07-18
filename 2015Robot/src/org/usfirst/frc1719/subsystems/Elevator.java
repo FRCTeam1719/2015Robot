@@ -39,10 +39,6 @@ public class Elevator extends Subsystem implements ITestable {
 	//Which position the elevator is at 
 	private int elevatorPos = 0;
 	
-	//Whether the elevator is moving in free mode or step
-	public static int MOVE_TYPE_FREE = 1;
-	public static int MOVE_TYPE_STEP = -1;
-	
 	//The direction that the elevator is moving
 	public static int MOVE_DIRECTION_UP = 1;
 	public static int MOVE_DIRECTION_DOWN = -1;
@@ -52,10 +48,7 @@ public class Elevator extends Subsystem implements ITestable {
 	
 	//Potentiometer's position
 	private double potPos = 0;
-	
-	//Whether the elevator is moving or not
-	private boolean elevatorIsMoving = false;
-		
+			
 	//Potentiometer
 	AnalogPotentiometer elevatorPot;
 	
@@ -85,8 +78,7 @@ public class Elevator extends Subsystem implements ITestable {
 		this.elevatorPot = elevatorPot;
 		this.elevatorNum = elevatorNum;
 		
-		determineElevatorPos();
-		
+		potPos = getPotPos();
 		elevatorMotor.setSpeed(0.5);
 	}
 
@@ -97,26 +89,19 @@ public class Elevator extends Subsystem implements ITestable {
 	//Moves elevator up in steps
 	public void moveDown() {
 		
-		
-		//Extend moves it up
 		elevatorMotor.backward();
-		elevatorIsMoving = true;		
 	}
 	
 	//Move elevator down in steps
 	public void moveUp() {
 		
- 						
-		//Retract moves it down
-		elevatorMotor.forward();
-		elevatorIsMoving = true;
+ 		elevatorMotor.forward();
 	}
 	
 	//Stops elevator movement
 	public void setStill() {
-		//We don't have to worry about tripping a limit switch because we won't be moving
+		
 		elevatorMotor.still();
-		elevatorIsMoving = false;
 	}
 	
 	public void setSpeed(double speed) {
@@ -151,21 +136,7 @@ public class Elevator extends Subsystem implements ITestable {
 		return false;
 	}
 	
-	void determineElevatorPos() {
-		potPos = getPotPos();
-		
-		for (int i = 0; i < POTENTIOMETER_POS.length; i++) {
-			if (atPotPos(i)) {
-				elevatorPos = i;
-				return;
-			}
-		}
-	}
 	
-	//Whether the elevator is moving or not
-	public boolean isMoving() {
-		return elevatorIsMoving;
-	}
 
 	@Override
 	public void test() {

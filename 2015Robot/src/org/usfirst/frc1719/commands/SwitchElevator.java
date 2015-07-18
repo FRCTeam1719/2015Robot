@@ -23,12 +23,10 @@ public class SwitchElevator extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (Robot.currentElevator.equals(Robot.frontElevator)) {
-    		System.out.println("Switching to back");
     		Robot.switchElevator(OI.MODE_BACK);
     		OI.setMode(OI.MODE_BACK);
     	}
     	else if (Robot.currentElevator.equals(Robot.backElevator)) {
-    		System.out.println("Switching to front");
     		Robot.switchElevator(OI.MODE_FRONT);
     		OI.setMode(OI.MODE_FRONT);
     	}

@@ -18,12 +18,10 @@ import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
@@ -118,14 +116,6 @@ public class RobotMap {
         backElevatorPot = new AnalogPotentiometer(2, Elevator.POTENTIOMETER_SCALE_FACTOR, 0);
         backElevatorMotor = new Victor(7);
         
-        sensorsQuadratureEncoder1 = new Encoder(0,1, false, EncodingType.k4X);
-        LiveWindow.addSensor("Sensors", "Quadrature Encoder 1", sensorsQuadratureEncoder1);
-        sensorsQuadratureEncoder1.setDistancePerPulse(1.0);
-        sensorsQuadratureEncoder1.setPIDSourceParameter(PIDSourceParameter.kRate);
-        /*sensorsQuadratureEncoder2 = new Encoder(3, 4, false, EncodingType.k4X);
-        LiveWindow.addSensor("Sensors", "Quadrature Encoder 2", sensorsQuadratureEncoder2);
-        sensorsQuadratureEncoder2.setDistancePerPulse(1.0);
-        sensorsQuadratureEncoder2.setPIDSourceParameter(PIDSourceParameter.kRate);*/
         
         cameraMountYServo = new Servo(4);
         LiveWindow.addActuator("CameraMount", "YServo", cameraMountYServo);

@@ -50,7 +50,6 @@ public class Fisher extends Subsystem /*implements ITestable*/ {
 	public boolean lower(){
 		
 		fisherAimSolenoid.set(true);
-		System.out.println("SET SOLENOID TO TRUE");
 		return !fisherReedSwitch.get();
 	}
 	

@@ -16,7 +16,7 @@ public class ToggleElevator extends Command {
 	boolean done = false;
 	
     public ToggleElevator() {
-        
+    	requires(Robot.currentElevator);
     }
 
     // Called just before this Command runs the first time
@@ -25,13 +25,10 @@ public class ToggleElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("COMMAND");
     	Robot.currentElevator.setStill();
     	if(OI.getMode()==OI.MODE_BACK){
-    		System.out.println("TOGGLING TO FRONT");
     		Robot.switchElevator(OI.MODE_FRONT);
     	}else{
-    		System.out.println("TOGGLING TO BACK");
     		Robot.switchElevator(OI.MODE_BACK);
     	}
     	

@@ -25,6 +25,7 @@ public class TurnToCamera extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drive);
+    	requires(Robot.cameraMount);
     }
 
     // Called just before this Command runs the first time
@@ -45,7 +46,6 @@ public class TurnToCamera extends Command {
     	double curr = Robot.sensors.getGyro().getAngle();
     	//Checks if rotation is complete to within tolerance
     	if (Math.abs(target - curr) < TOLERANCE) {
-    		System.out.println("Rotation Completed");
     		//Centers camera
     		Robot.cameraMount.center();
     		//ends command

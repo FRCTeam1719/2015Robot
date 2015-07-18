@@ -17,16 +17,14 @@ import java.util.ArrayList;
 
 import org.usfirst.frc1719.autonSelections.DoNothing;
 import org.usfirst.frc1719.autonSelections.GetCtrByDistance;
-import org.usfirst.frc1719.autonSelections.ModularAutonomous;
 import org.usfirst.frc1719.autonSelections.MoveToZone;
-import org.usfirst.frc1719.autonSelections.PickUpTwoBinsGroup;
+import org.usfirst.frc1719.autonSelections.PickUpTwoBins;
 import org.usfirst.frc1719.autonSelections.PickupOneBin;
 import org.usfirst.frc1719.interfaces.IAutoSelection;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Claw;
-import org.usfirst.frc1719.subsystems.Claws;
 import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
@@ -68,15 +66,13 @@ public class Robot extends IterativeRobot {
     public static Fisher fisher;
     public static Elevator frontElevator;
     public static Elevator backElevator;
-    public static Claws claws;
+    public static Elevator currentElevator;
     public static Claw frontClaw;
     public static Claw backClaw;
     public static Claw currentClaw;
-    public static Elevator currentElevator;
     public static ArrayList<ITestable> devices = new ArrayList<ITestable>();
     public static ArrayList<IDisableable> commands = new ArrayList<IDisableable>();
 	public static SendableChooser driverController;
-	static boolean MoveElvRunnnig = false;
 	public static ITestable[] m = new ITestable[] {};
 	public static ITestable[] toTest;
 	public static String previousTest;
@@ -90,9 +86,7 @@ public class Robot extends IterativeRobot {
         drive = new Drive();
         pneumatics = new Pneumatics();
         sensors = new Sensors();
-        cameraMount = new CameraMount();
-        claws = new Claws();
-        
+        cameraMount = new CameraMount();        
         frontClaw = new Claw(RobotMap.frontClawSolenoid);
         backClaw = new Claw(RobotMap.backClawSolenoid);
         currentClaw = frontClaw;
@@ -119,38 +113,18 @@ public class Robot extends IterativeRobot {
         autonomousSelectionChooser = new SendableChooser();
         autonomousSelectionChooser.addDefault("Do Nothing", new DoNothing());
         autonomousSelectionChooser.addObject("Pick up one Bin", new PickupOneBin());
-        autonomousSelectionChooser.addObject("Pick up two Bins", new PickUpTwoBinsGroup());
+        autonomousSelectionChooser.addObject("Pick up two Bins", new PickUpTwoBins());
         autonomousSelectionChooser.addObject("Get Container by distance", new GetCtrByDistance());
         autonomousSelectionChooser.addObject("Move to Auto Zone", new MoveToZone());
-        autonomousSelectionChooser.addObject("Modular Autonomous", new ModularAutonomous());
         SmartDashboard.putData("Autonomous Mode", autonomousSelectionChooser);
         
         
-        modularAutoActionChoosers = new SendableChooser[NUM_AUTO_ACTIONS];
         rightOrLeft = new SendableChooser();
         rightOrLeft.addDefault("Left", -1);
         rightOrLeft.addObject("Right", 1);
         SmartDashboard.putData("rightOrLeft", rightOrLeft);
         SmartDashboard.putBoolean("shouldStrafe", false);
-        /*
-        //Put a set of actions for each modular autonomous step
-        for (int i = 0; i < NUM_AUTO_ACTIONS; i++) {
-        	modularAutoActionChoosers[i] = new SendableChooser();
-        	SmartDashboard.putNumber("Wait Time " + i, 0);
-        	SmartDashboard.putNumber("Move Distance " + i + " (Feet)", 0);
-        	
-        	modularAutoActionChoosers[i].addDefault("Do Nothing", new DoNothing());
-        	modularAutoActionChoosers[i].addObject("Close Back Claw", new CloseBackClaw());
-        	modularAutoActionChoosers[i].addObject("Open Back Claw", new OpenBackClaw());
-        	modularAutoActionChoosers[i].addObject("Close Front Claw", new CloseFrontClaw());
-        	modularAutoActionChoosers[i].addObject("Open Front Claw", new OpenFrontClaw());
-        	modularAutoActionChoosers[i].addObject("Wait", new Wait(i));
-        	modularAutoActionChoosers[i].addObject("Move Forwards", new MoveDistance(i, MoveDistance.DIRECTION_FORWARDS));
-        	modularAutoActionChoosers[i].addObject("Move Backwards", new MoveDistance(i, MoveDistance.DIRECTION_BACKWARDS));
-        	
-        	
-        	SmartDashboard.putData("Modular Action " + i, modularAutoActionChoosers[i]);
-        } */
+       
 
         SmartDashboard.putNumber("KP", 45.0D);
         SmartDashboard.putNumber("KI", 0.001D);
@@ -181,7 +155,6 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-    	System.out.println("AUTON INIT");
         // schedule the autonomous command (example)
         setAutoCommandFromDashboard();
         autoSelection.start();
@@ -191,7 +164,6 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	System.out.println("AUTON PERIODIC");
     	loopIterationNumber++;
         Scheduler.getInstance().run();
     }
@@ -202,7 +174,6 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autoSelection != null) autoSelection.cancel();
-        System.out.println("CONFIGURE CONTROLLERS");
         oi.configureController();
     }
 
@@ -271,14 +242,6 @@ public class Robot extends IterativeRobot {
     	}
     }
     
-    public static void setRunningProcess(boolean x){
-    	MoveElvRunnnig = x;
-    }
-    
-    public static boolean  isMoveElvRunning(){
-    	return MoveElvRunnnig;
-    }
-    
     public static void switchElevator(int whichElevator) {
     	
     	if (whichElevator == OI.MODE_FRONT) {
@@ -292,7 +255,7 @@ public class Robot extends IterativeRobot {
     		OI.setMode(OI.MODE_BACK);
     	}
     	else {
-    		System.out.println("WRONG ELEVATOR");
+    		System.out.println("WRONG ELEVATOR (This error should never appear)");
     	}
     }
     

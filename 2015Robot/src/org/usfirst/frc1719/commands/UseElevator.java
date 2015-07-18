@@ -26,7 +26,7 @@ public class UseElevator extends Command implements IDisableable {
 
 		requires(Robot.frontElevator);
 		requires(Robot.backElevator);
-
+		requires(Robot.currentElevator);
 		elevator = Robot.currentElevator;
 	}
 
@@ -55,26 +55,7 @@ public class UseElevator extends Command implements IDisableable {
 				desiredPotPos = 63;
 				movingToPos = true;
 			}
-//			else if (Robot.oi.getElevatorPos1().get()) {
-//				desiredPotPos = Elevator.POTENTIOMETER_POS[1];
-//				movingToPos = true;
-//			}
-//			else if (Robot.oi.getElevatorPos2().get()) {
-//				desiredPotPos = Elevator.POTENTIOMETER_POS[2];
-//				movingToPos = true;
-//			}
-//			else if (Robot.oi.getElevatorPos3().get()) {
-//				desiredPotPos = Elevator.POTENTIOMETER_POS[3];
-//				movingToPos = true;
-//			}
-//			else if (Robot.oi.getElevatorPos4().get()) {
-//				desiredPotPos = Elevator.POTENTIOMETER_POS[4];
-//				movingToPos = true;
-//			}
-//			else if (Robot.oi.getElevatorPos5().get()) {
-//				desiredPotPos = Elevator.POTENTIOMETER_POS[5];
-//				movingToPos = true;
-//			}
+
 			else if (!movingToPos){
 				elevator.setStill();
 				desiredPotPos = currentPotPos;
@@ -111,11 +92,9 @@ public class UseElevator extends Command implements IDisableable {
 			elevator.setStill();
 		}
 		else if (currentPotPos < desiredPotPos) {
-			System.out.println("moving down");
 			elevator.moveDown();
 		}
 		else if (currentPotPos > desiredPotPos) {
-			System.out.println("moving up");
 			elevator.moveUp();
 		}
 		
@@ -142,5 +121,6 @@ public class UseElevator extends Command implements IDisableable {
 		elevator.setSpeed(0);
 		elevator.setStill();
 		desiredPotPos = currentPotPos;
+		cancel();
 	}
 }

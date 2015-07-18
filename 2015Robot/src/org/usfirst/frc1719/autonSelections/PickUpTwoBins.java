@@ -10,14 +10,14 @@ import org.usfirst.frc1719.interfaces.IAutoSelection;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class PickUpTwoBinsGroup extends CommandGroup implements IAutoSelection {
+public class PickUpTwoBins extends CommandGroup implements IAutoSelection {
 
 	final double BACKWARD = 0.5D;
 	final int UP = 1;
 	final double FORWARD = -0.5D;
 	final double NIL = 0;
 
-	public PickUpTwoBinsGroup() {
+	public PickUpTwoBins() {
 		addSequential(new CloseFrontClaw());
 		addSequential(new Wait(5, 1));
 		addSequential(new MoveElevator(UP, OI.MODE_FRONT, 35));

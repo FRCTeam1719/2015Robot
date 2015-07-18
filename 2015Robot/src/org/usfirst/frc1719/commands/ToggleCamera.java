@@ -19,8 +19,7 @@ public class ToggleCamera extends Command {
 	private int iterationNumber = 0;
 	
     public ToggleCamera() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(Robot.cameraMount);
     }
 
     // Called just before this Command runs the first timete int i = 0;
