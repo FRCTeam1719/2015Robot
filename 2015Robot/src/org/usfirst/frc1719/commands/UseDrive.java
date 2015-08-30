@@ -64,7 +64,6 @@ public class  UseDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("DRIVING");
 		if(SmartDashboard.getBoolean("Avoid Accidents") && !Robot.oi.getAAAOverride()) {
 			if(sensor.getLIDARDistanceCM() == 0) preventMovement = false;
 			else if(sensor.getLIDARDistanceCM() < 70){
