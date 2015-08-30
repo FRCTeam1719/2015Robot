@@ -13,9 +13,7 @@ package org.usfirst.frc1719;
 
 import org.usfirst.frc1719.commands.CentreCamera;
 import org.usfirst.frc1719.commands.DriveServos;
-import org.usfirst.frc1719.commands.ExtendFisher;
 import org.usfirst.frc1719.commands.MoveCameraCommand;
-import org.usfirst.frc1719.commands.RetractFisher;
 import org.usfirst.frc1719.commands.SwitchElevator;
 import org.usfirst.frc1719.commands.ToggleClaw;
 import org.usfirst.frc1719.commands.ToggleElevator;
