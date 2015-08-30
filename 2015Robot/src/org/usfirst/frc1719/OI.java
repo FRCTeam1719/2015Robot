@@ -169,6 +169,7 @@ public class OI {
 //        Button modeFront = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
 //        Button modeBack = new JoystickButton(operatorJoystick, ATTACK_BUTTON_2);
         Button modeToggle = new JoystickButton(operatorJoystick, ATTACK_BUTTON_3);
+        /*
         Button extendFisher = new JoystickButton(driverController, Y_BUTTON);
         Button retractFisher = new JoystickButton(driverController, B_BUTTON);
         
@@ -176,7 +177,7 @@ public class OI {
         //Driver Buttons
         retractFisher.whenPressed(new RetractFisher());
         extendFisher.whenPressed(new ExtendFisher());
-        
+        */
         
         //Operator Controller
 //        modeFront.whenPressed(new PickElevator(MODE_FRONT));

@@ -7,8 +7,9 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * @deprecated
  */
+@Deprecated
 public class ExtendFisher extends Command implements IDisableable {
 	//makes program terminable
 	boolean done = false;
