@@ -24,7 +24,6 @@ import org.usfirst.frc1719.autonSelections.PickupOneBin;
 import org.usfirst.frc1719.interfaces.IAutoSelection;
 import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
-import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Claw;
 import org.usfirst.frc1719.subsystems.Claws;
 import org.usfirst.frc1719.subsystems.Elevator;
@@ -66,7 +65,6 @@ public class Robot extends IterativeRobot {
     public static Drive drive;
     public static Pneumatics pneumatics;
     public static Sensors sensors;
-    public static CameraMount cameraMount;
     public static Fisher fisher;
     public static Elevator frontElevator;
     public static Elevator backElevator;
@@ -92,7 +90,6 @@ public class Robot extends IterativeRobot {
         drive = new Drive(RobotMap.driveLeftFront, RobotMap.driveLeftRear, RobotMap.driveRightFront, RobotMap.driveRightRear, sensors.getGyro(), UseDrive.class);
         pneumatics = new Pneumatics();
         
-        cameraMount = new CameraMount();
         claws = new Claws();
         
         frontClaw = new Claw(RobotMap.frontClawSolenoid);

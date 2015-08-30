@@ -11,9 +11,6 @@
 
 package org.usfirst.frc1719;
 
-import org.usfirst.frc1719.commands.CentreCamera;
-import org.usfirst.frc1719.commands.DriveServos;
-import org.usfirst.frc1719.commands.MoveCameraCommand;
 import org.usfirst.frc1719.commands.SwitchElevator;
 import org.usfirst.frc1719.commands.ToggleClaw;
 import org.usfirst.frc1719.commands.ToggleElevator;
@@ -125,7 +122,6 @@ public class OI {
     
     private Joystick driverController;
     private Joystick operatorJoystick;
-    private Joystick cameraJoystick;
     
     private Button elevatorPos0;
     private Button elevatorPos1;
@@ -133,10 +129,6 @@ public class OI {
     private Button elevatorPos3;
     private Button elevatorPos4;
     private Button elevatorPos5;
-    private Button cameraPos1;
-    private Button cameraPos2;
-    private Button cameraPos3;
-    private Button cameraPos4;
     private Button switchElevator;
     private Button slowSpeed;
     
@@ -144,7 +136,6 @@ public class OI {
     public OI() {
     	driverController = new Joystick(0);
         operatorJoystick = new Joystick(1);
-        cameraJoystick = new Joystick(2);
         
 
         //Button Creations
@@ -155,10 +146,7 @@ public class OI {
 //        elevatorPos4 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_10);
 //        elevatorPos5 = new JoystickButton(operatorJoystick, ATTACK_BUTTON_11);
         
-        cameraPos1 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_6);
-        cameraPos2 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_7);
-        cameraPos3 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_10);
-        cameraPos4 = new JoystickButton(cameraJoystick, ATTACK_BUTTON_11);
+        
         
         switchElevator = new JoystickButton(operatorJoystick, ATTACK_BUTTON_5);
         slowSpeed = new JoystickButton(driverController, RIGHT_BUTTON);
@@ -184,19 +172,13 @@ public class OI {
         toggleClaws.whenPressed(new ToggleClaw());  
         
        
-        //camera buttons
-        cameraPos1.whenPressed(new MoveCameraCommand(1, .5));
-        cameraPos2.whenPressed(new MoveCameraCommand(.75, .5));
-        cameraPos3.whenPressed(new MoveCameraCommand(.5, .5));
-        cameraPos4.whenPressed(new MoveCameraCommand(.25, .5));
+
         
         switchElevator.whenPressed(new SwitchElevator());
 
         
         // SmartDashboard Buttons
         SmartDashboard.putData("UseDrive", new UseDrive());
-        SmartDashboard.putData("DriveServos", new DriveServos());
-        SmartDashboard.putData("CentreCamera", new CentreCamera());
          
     }
     
@@ -225,17 +207,8 @@ public class OI {
     	return operatorJoystick;
     }
     
-    public double getCameraX(){
-    	double x;
-    	x = cameraJoystick.getRawAxis(ATTACK_X_AXIS);
-    	return x;
-    }
-    
-    public double getCameraY(){
-    	double y;
-    	y = cameraJoystick.getRawAxis(ATTACK_Y_AXIS);
-    	return y;
-    }
+
+
     
     public double getOperatorY() {
     	return operatorJoystick.getRawAxis(ATTACK_Y_AXIS);

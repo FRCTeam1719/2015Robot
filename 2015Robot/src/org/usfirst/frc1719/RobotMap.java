@@ -57,8 +57,7 @@ public class RobotMap {
     public static Encoder backLeftEncoder;
     public static Encoder backRightEncoder;
     
-    public static Servo cameraMountYServo;
-    public static Servo cameraMountXServo;
+    
     public static Solenoid frontClawSolenoid;
     public static Solenoid backClawSolenoid;
     
@@ -118,11 +117,7 @@ public class RobotMap {
         sensorsQuadratureEncoder2.setDistancePerPulse(1.0);
         sensorsQuadratureEncoder2.setPIDSourceParameter(PIDSourceParameter.kRate);*/
         
-        cameraMountYServo = new Servo(4);
-        LiveWindow.addActuator("CameraMount", "YServo", cameraMountYServo);
-        
-        cameraMountXServo = new Servo(5);
-        LiveWindow.addActuator("CameraMount", "XServo", cameraMountXServo);
+       
         
 
         //Creates and resets a new gyro
