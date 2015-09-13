@@ -25,17 +25,19 @@ import org.usfirst.frc1719.interfaces.IDisableable;
 import org.usfirst.frc1719.interfaces.ITestable;
 import org.usfirst.frc1719.subsystems.CameraMount;
 import org.usfirst.frc1719.subsystems.Claw;
-import org.usfirst.frc1719.subsystems.Drive;
 import org.usfirst.frc1719.subsystems.Elevator;
 import org.usfirst.frc1719.subsystems.Fisher;
 import org.usfirst.frc1719.subsystems.Pneumatics;
 import org.usfirst.frc1719.subsystems.Sensors;
+import org.usfirst.frc1719.ulib.subsystems.Drive;
+import org.usfirst.frc1719.commands.UseDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -81,12 +83,14 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    RobotMap.init();
-    	
-        drive = new Drive();
-        pneumatics = new Pneumatics();
+        RobotMap.init();
         sensors = new Sensors();
-        cameraMount = new CameraMount();        
+
+        drive = new Drive(RobotMap.driveLeftFront, RobotMap.driveLeftRear, RobotMap.driveRightFront, RobotMap.driveRightRear, sensors.getGyro(), UseDrive.class);
+        pneumatics = new Pneumatics();
+        
+        cameraMount = new CameraMount();
+
         frontClaw = new Claw(RobotMap.frontClawSolenoid);
         backClaw = new Claw(RobotMap.backClawSolenoid);
         currentClaw = frontClaw;
@@ -135,8 +139,8 @@ public class Robot extends IterativeRobot {
         driverController.addObject("3-axis joystick", 1);
         SmartDashboard.putData("Driver controller type", driverController);
         setUpTests();
-        SmartDashboard.putBoolean("Avoid Accidents", true);
-        
+        SmartDashboard.putBoolean("Avoid Accidents", false);
+        SmartDashboard.putBoolean("Nonlinear control", true);
     }
 
     /**

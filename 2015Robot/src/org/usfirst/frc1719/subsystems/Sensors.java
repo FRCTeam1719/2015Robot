@@ -14,8 +14,8 @@ package org.usfirst.frc1719.subsystems;
 import java.util.ArrayList;
 
 import org.usfirst.frc1719.RobotMap;
-import org.usfirst.frc1719.customSensors.LIDAR;
-import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
+import org.usfirst.frc1719.ulib.customSensors.LIDAR;
+import org.usfirst.frc1719.ulib.customSensors.MB1220UltrasonicAnalog;
 import org.usfirst.frc1719.interfaces.ITestable;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -38,7 +38,7 @@ public class Sensors extends Subsystem implements ITestable {
 	public static final double ENC_FRONT_LEFT_TOTAL_PULSES = 360;
 	public static final double ENC_FRONT_RIGHT_TOTAL_PULSES = 360;
 	public static final double ENC_BACK_LEFT_TOTAL_PULSES = 360;
-	public static final double ENC_BACK_RIGHT_TOTAL_PULSES = 360;
+	public static final double ENC_BACK_RIGHT_TOTAL_PULSES = 256;
 	
 	
 	DigitalInput limitSwitch = RobotMap.sensorsLimitSwitch;
@@ -66,7 +66,7 @@ public class Sensors extends Subsystem implements ITestable {
     // here. Call these from Commands.
     
     public Sensors() {
-
+    	backRightEncoder.setDistancePerPulse(WHEEL_CIRCUMFRENCE_FEET / ENC_BACK_RIGHT_TOTAL_PULSES);
     }
     /**
      * 
@@ -91,15 +91,8 @@ public class Sensors extends Subsystem implements ITestable {
 
     public double getDistance() {
     	
-    	double avgDistance = 0;
+    	return backRightEncoder.getDistance();
     	
-    	for (Encoder itr : functioningEncoders) {
-    		avgDistance += itr.getDistance();
-    	}
-    	
-    	avgDistance /= functioningEncoders.size();
-    	
-    	return avgDistance;
     }
     
     

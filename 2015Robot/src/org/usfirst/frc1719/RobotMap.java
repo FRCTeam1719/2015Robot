@@ -12,8 +12,8 @@
 package org.usfirst.frc1719;
     
 
-import org.usfirst.frc1719.customSensors.LIDAR;
-import org.usfirst.frc1719.customSensors.MB1220UltrasonicAnalog;
+import org.usfirst.frc1719.ulib.customSensors.LIDAR;
+import org.usfirst.frc1719.ulib.customSensors.MB1220UltrasonicAnalog;
 import org.usfirst.frc1719.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -132,5 +133,7 @@ public class RobotMap {
         fisherRetraction = new DigitalInput(9);
         fisherSolenoid = new Solenoid(7);
         fisherAimSolenoid = new Solenoid(4);
+        
+        backRightEncoder = new Encoder(0, 1, false, EncodingType.k4X);
     }
 }

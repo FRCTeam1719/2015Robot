@@ -1,12 +1,13 @@
 package org.usfirst.frc1719.autonomousCommands;
 
 import org.usfirst.frc1719.Robot;
+import org.usfirst.frc1719.commands.MoveDistance;
 import org.usfirst.frc1719.interfaces.IAutoCommand;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MoveDistance extends Command implements IAutoCommand {
+public class ModularMoveDistance extends Command implements IAutoCommand {
 	
 	public static final boolean DIRECTION_FORWARDS = true;
 	public static final boolean DIRECTION_BACKWARDS = false;
@@ -18,9 +19,9 @@ public class MoveDistance extends Command implements IAutoCommand {
 	
 	int actionNumber;
 	
-	public MoveDistance(int actionNum, boolean direction) {
-		requires(Robot.drive);
-		requires(Robot.sensors);
+	MoveDistance moveCommand;
+	
+	public ModularMoveDistance(int actionNum, boolean direction) {
 		
 		actionNumber = actionNum;
 		this.direction = direction;
@@ -42,25 +43,13 @@ public class MoveDistance extends Command implements IAutoCommand {
 
 	@Override
 	protected void execute() {
-		currentDistance = Robot.sensors.getDistance();
-		
-		//If we have moved the desired distance
-		if ( Math.abs(desiredDistance - currentDistance) < TOLERANCE ) {
-			done = true;
-			return;
-		}
-		
-		if (direction == DIRECTION_FORWARDS) {
-			Robot.drive.moveCartesian(0, SPEED, 0, true);
-		}
-		else if (direction == DIRECTION_BACKWARDS) {
-			Robot.drive.moveCartesian(0, -SPEED, 0, true);
-		}
+		moveCommand.exec();
 	}
 
 	@Override
 	protected void initialize() {
-		desiredDistance = SmartDashboard.getNumber("Move Distance " + actionNumber + " (Feet)");
+		moveCommand = new MoveDistance(SmartDashboard.getNumber("Move Distance " + actionNumber + " (Feet)"), direction);
+		moveCommand.init();
 		Robot.sensors.reset();
 	}
 
@@ -71,7 +60,7 @@ public class MoveDistance extends Command implements IAutoCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return done;
+		return moveCommand.isDone();
 	}
 
 }
