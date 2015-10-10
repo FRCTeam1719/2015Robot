@@ -26,7 +26,8 @@ public class  UseDrive extends Command {
 	//magic numbers: directions to prevent
 	private static final boolean FRONT = true;
 	private static final boolean BACK = false;
-	private static final double ROTATION_REDUCTION = 0.5D;
+	private static final double ROTATION_REDUCTION = 0.25D;
+	private static
 
 	
 	//Currently unused
